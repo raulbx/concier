@@ -2,8 +2,8 @@ import random
 from flask import Flask, request
  
 app = Flask(__name__)
-ACCESS_TOKEN = 'ACCESS_TOKEN'
-VERIFY_TOKEN = 'VERIFY_TOKEN'
+ACCESS_TOKEN = 'EAAFMMnZBn25cBAMtxjUKAy6ZBQNJDJ310WdqIeaInjE9SDadIJzXdUvimXAmMrTMb0l8gFHzlEOpSdSOsR2nBVzln8iQi8wfFhOBoEfuRKcZBsZAGSQWwWsmFYbDjTBmXAn0ZCxqoytHPhtpmLFOSlxaSzZA0YwMD02lewT77ZClwZDZD'
+VERIFY_TOKEN = 'EROS_TOKEN'
 #bot = Bot(ACCESS_TOKEN)
  
 #We will receive messages that Facebook sends our bot at this endpoint 
@@ -25,7 +25,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 recipient_id = message['sender']['id']
                 if message['message'].get('text'):
-                    response_sent_text = get_message()
+                    response_sent_text = some_message()
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
@@ -41,22 +41,36 @@ def verify_fb_token(token_sent):
         return request.args.get("hub.challenge")
     return 'Invalid verification token'
 
-@app.route("/yo", methods=['GET', 'POST'])
-def testit():
-    if request.method == 'GET':
-        return "TEST MESSAGE"
-'''
-#chooses a random message to send to the user
-def get_message():
-    sample_responses = ["You are stunning!", "We're proud of you.", "Keep on being you!", "We're greatful to know you :)"]
-    # return selected item to the user
-    return random.choice(sample_responses)
- 
-#uses PyMessenger to send response to user
+def some_message():
+    return "Yo Read THIS Message"
+
 def send_message(recipient_id, response):
     #sends user the text message provided via input response parameter
-    bot.send_text_message(recipient_id, response)
-    return "success"
- '''
+    #bot.send_text_message(recipient_id, response)
+    auth = {
+    'access_token':self.ACCESS_TOKEN
+    }
+     payload['recipient'] = {
+     'id': recipient_id
+     }
+    payload['notification_type'] = 'REGULAR'
+    payload['message'] = {
+    'text' : response
+    }
+    request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
+    response = requests.post(
+        request_endpoint,
+        params=auth,
+        json=payload
+        )
+    result = response.json()
+    return result
+    
+'''
+@app.route("/webhook", methods=['POST'])
+def fbWebhookEntry():
+    if request.method == 'POST':
+        return "TEST MESSAGE"
+'''
 if __name__ == "__main__":
     app.run()
