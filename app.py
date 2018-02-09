@@ -48,7 +48,7 @@ def send_message(recipient_id, response):
     #sends user the text message provided via input response parameter
     #bot.send_text_message(recipient_id, response)
     auth = {
-    'access_token':self.ACCESS_TOKEN
+    'access_token':ACCESS_TOKEN
     }
     payload['recipient'] = {
     'id': recipient_id
