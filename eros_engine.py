@@ -11,9 +11,10 @@ def fbrespond(recipient_id):
 		nextQuestion=user_state['question']+1
 		response_message=responses[nextQuestion]
 		user_state['question']=nextQuestion
+		return response_message
 	# they are already in conversation
 	else :
 		print ('First interaction')
 		user_state['recipient_id'] = recipient_id
 		response_message = responses['q1']
-    return response_message
+		return response_message
