@@ -16,5 +16,5 @@ def fbrespond(recipient_id):
 	else :
 		print ('First interaction')
 		user_state['recipient_id'] = recipient_id
-		response_message = responses['q1']
+		response_message = responses[1]
 		return response_message
