@@ -13,11 +13,13 @@ def fbrespond(recipient_id,sequence):
 			#This is new message. Advance to the next question
 			print (user_state)
 			user_state['fbseq'] = sequence
-			user_state['active_question'] = user_state['active_question'] + 1
+			if user_state['active_question'] < 3 :
+				user_state['active_question'] = user_state['active_question'] + 1
+			else :
+				user_state['active_question'] = 0
 			nextQID = user_state['active_question']
 			print (user_state)
 			response_message=responses[nextQID]
-			return response_message
 		else :
 			print ('Message came twice')
 	# they are already in conversation
@@ -25,4 +27,4 @@ def fbrespond(recipient_id,sequence):
 		print ('First interaction')
 		user_state['recipient_id'] = recipient_id
 		response_message = responses[1]
-		return response_message
+	return response_message
