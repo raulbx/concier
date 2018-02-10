@@ -11,7 +11,8 @@ def fbrespond(recipient_id,sequence):
 		print("User interaction is in progress")
 		if sequence > user_state['fbseq'] :
 			#This is new message. Advance to the next question
-			user_state['fbseq']=sequence
+			print (user_state)
+			user_state['fbseq'] = sequence
 			user_state['active_question'] = user_state['active_question'] + 1
 			nextQID = user_state['active_question']
 			print (user_state)
