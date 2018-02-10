@@ -31,7 +31,7 @@ def receive_message():
                 recipient_id = message['sender']['id']
                 #print(recipient_id)
                 if message['message'].get('text'):
-                    response_sent_text = eros_engine.fbrespond()
+                    response_sent_text = eros_engine.fbrespond(recipient_id)
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
