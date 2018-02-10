@@ -1,4 +1,3 @@
-
 user_state = {
 	'recipient_id':'',
 	'question':0,
