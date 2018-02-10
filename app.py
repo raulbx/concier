@@ -1,5 +1,6 @@
 import random
 import requests
+import bot_engine
 from flask import Flask, request
  
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def receive_message():
                 recipient_id = message['sender']['id']
                 print(recipient_id)
                 if message['message'].get('text'):
-                    response_sent_text = some_message()
+                    response_sent_text = bot_engine.respond()
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
@@ -44,9 +45,6 @@ def verify_fb_token(token_sent):
     if token_sent == VERIFY_TOKEN:
         return request.args.get("hub.challenge")
     return 'Invalid verification token'
-
-def some_message():
-    return "Yo Read THIS Message"
 
 def send_message(recipient_id, response):
     #sends user the text message provided via input response parameter
@@ -69,12 +67,5 @@ def send_message(recipient_id, response):
         )
     result = response.json()
     return result
-    
-'''
-@app.route("/webhook", methods=['POST'])
-def fbWebhookEntry():
-    if request.method == 'POST':
-        return "TEST MESSAGE"
-'''
 if __name__ == "__main__":
     app.run()
