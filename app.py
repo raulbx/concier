@@ -1,6 +1,6 @@
 import random
 import requests
-import bot_engine
+import eros_engine
 from flask import Flask, request
  
 app = Flask(__name__)
@@ -31,14 +31,13 @@ def receive_message():
                 recipient_id = message['sender']['id']
                 #print(recipient_id)
                 if message['message'].get('text'):
-                    response_sent_text = bot_engine.respond()
+                    response_sent_text = eros_engine.fbrespond()
                     send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
                     response_sent_nontext = get_message()
                     send_message(recipient_id, response_sent_nontext)
     return "Message Processed"
- 
  
 def verify_fb_token(token_sent):
     #take token sent by facebook and verify it matches the verify token you sent
