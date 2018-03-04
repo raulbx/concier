@@ -4,7 +4,7 @@ user_state = {
 	'active_question':1,
 	'responder_id':''
 }
-responses = ['This is Eros Match. How can I help you?','Let me find someone, who can help you with it.','Rob happy to help you with this purchase. Do you want to connect with him?','Great. I am going to connect you to ']
+responses = ['This is your Concier. How can I help you?','Let me find someone, who can help you with it.','Rob is happy to help you with this purchase. Do you want to connect with him?','Great. I am going to connect you to ']
 def fbrespond(recipient_id,sequence):
 	response_message = 'This is empty'
 	if user_state['recipient_id']== recipient_id :
