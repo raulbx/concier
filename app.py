@@ -28,10 +28,13 @@ def receive_message():
           for message in messaging:
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
-                recipient_id = message['sender']['id']
+                sender_id = message['sender']['id']
+                reciever_id = 1720043658018350
                 if message['message'].get('text'):
-                    response_sent_text = eros_engine.fbrespond(recipient_id, message['message'].get('seq'))
-                    send_message(recipient_id, response_sent_text)
+                    response_sent_text = eros_engine.fbrespond(sender_id, message['message'].get('seq'))
+                    # Tony ID: 1720043658018350
+                    # Rahul's ID: 1609342142475258
+                    send_message(reciever_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
                     response_sent_nontext = get_message()
