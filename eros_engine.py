@@ -5,6 +5,15 @@ user_state = {
 	'responder_id':''
 }
 responses = ['This is your Concier. How can I help you?','Let me find someone, who can help you with it.',' is happy to help you with this purchase. Do you want to connect with him?','Great. I am going to connect you to ']
+def matchhelper():
+	'''Get active helpers
+	find the one that can help this users and is currently available
+	send the reciepient id
+	If the conversation is already in progress. Just send the existing helper id.
+	something new
+	'''
+
+
 def fbrespond(recipient_id,sequence):
 	response_message = 'This is empty'
 	if user_state['recipient_id']== recipient_id :
