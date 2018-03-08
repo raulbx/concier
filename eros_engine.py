@@ -19,33 +19,25 @@ def matchhelper():
 	'''
 	DATABASE_URL = os.environ['DATABASE_URL']
 	con = None
-	conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
-	try:
-		#con = psycopg2.connect("host='localhost' dbname='testdb' user='pythonspot' password='password'") 
-		con = psycopg2.connect(DATABASE_URL, sslmode='require')
-		cur = con.cursor()
-		cur.execute("CREATE TABLE Products(Id INTEGER PRIMARY KEY, Name VARCHAR(20), Price INT)")
-		cur.execute("INSERT INTO Products VALUES(1,'Milk',5)")
-		cur.execute("INSERT INTO Products VALUES(2,'Sugar',7)")
-		cur.execute("INSERT INTO Products VALUES(3,'Coffee',3)")
-		cur.execute("INSERT INTO Products VALUES(4,'Bread',5)")
-		cur.execute("INSERT INTO Products VALUES(5,'Oranges',3)")
-		cur.execute("SELECT * FROM Products")
-		while True:
-			row = cur.fetchone()
-			if row == None:
-				break
-			print("Product: " + row[1] + "\t\tPrice: " + str(row[2]))
-		con.commit()
-	except psycopg2.DatabaseError, e:
-		if con:
-			con.rollback()
-			print 'Error %s' % e
-			sys.exit(1)
-	finally:
-		if con:
-			con.close()
+	
+	#con = psycopg2.connect("host='localhost' dbname='testdb' user='pythonspot' password='password'") 
+	con = psycopg2.connect(DATABASE_URL, sslmode='require')
+	cur = con.cursor()
+	cur.execute("CREATE TABLE Products(Id INTEGER PRIMARY KEY, Name VARCHAR(20), Price INT)")
+	cur.execute("INSERT INTO Products VALUES(1,'Milk',5)")
+	cur.execute("INSERT INTO Products VALUES(2,'Sugar',7)")
+	cur.execute("INSERT INTO Products VALUES(3,'Coffee',3)")
+	cur.execute("INSERT INTO Products VALUES(4,'Bread',5)")
+	cur.execute("INSERT INTO Products VALUES(5,'Oranges',3)")
+	cur.execute("SELECT * FROM Products")
+	while True:
+		row = cur.fetchone()
+		if row == None:
+			break
+		print("Product: " + row[1] + "\t\tPrice: " + str(row[2]))
+	con.commit()
+	con.close()
 
 
 def fbrespond(recipient_id,sequence):
