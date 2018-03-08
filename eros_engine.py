@@ -16,6 +16,7 @@ def matchhelper():
 	send the reciepient id
 	If the conversation is already in progress. Just send the existing helper id.
 	something new
+	More 
 	'''
 	DATABASE_URL = os.environ['DATABASE_URL']
 	con = None
