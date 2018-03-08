@@ -30,6 +30,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 sender_id = message['sender']['id']
                 reciever_id = 1720043658018350
+                eros_engine.matchhelper()
                 sender_msg = message['message'].get('text')
                 if message['message'].get('text'):
                     response_sent_text = eros_engine.fbrespond(sender_id, message['message'].get('seq'))
