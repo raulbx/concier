@@ -2,6 +2,8 @@ import random
 import requests
 import eros_engine
 from flask import Flask, request
+import psycopg2
+import os
  
 app = Flask(__name__)
 ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8ZASAXkaIaJEi7H7f5eEddYUC4ovdw3vlaY9UzAuBZAZBHr7mhKImfcu6smyrZBfuXUP8aQA7ZB0VoH9mfL0qJCXaVUX0KmC5LesJ7aPVDP1ABVAZDZD'
@@ -74,7 +76,6 @@ def send_message(recipient_id, response):
 
 @app.route("/show", methods=['GET', 'POST'])
 def showtable():
-    '''
     DATABASE_URL = os.environ['DATABASE_URL']
     con = None
     con = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -82,8 +83,6 @@ def showtable():
     cur = db.execute('SELECT * FROM Products')
     entries = cur.fetchall()
     return render_template('viewer.html', entries=entries)
-    '''
-    return 'This is the message'
 
 if __name__ == "__main__":
     app.run()
