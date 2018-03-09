@@ -6,8 +6,9 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/showtable", methods=['GET', 'POST'])
+@app.route("/show", methods=['GET', 'POST'])
 def showtable():
+	'''
 	DATABASE_URL = os.environ['DATABASE_URL']
 	con = None
 	con = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -15,3 +16,5 @@ def showtable():
 	cur = db.execute('SELECT * FROM Products')
     entries = cur.fetchall()
     return render_template('viewer.html', entries=entries)
+    '''
+    return 'This is the message'
