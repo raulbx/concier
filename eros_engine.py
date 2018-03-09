@@ -35,7 +35,7 @@ def matchhelper():
 		if row == None:
 			break
 		print("Product: " + row[1] + "\t\tPrice: " + str(row[2]))
-	''''
+	'''
 	con.commit()
 	con.close()
 
