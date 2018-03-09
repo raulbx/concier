@@ -19,11 +19,10 @@ def matchhelper():
 	'''
 	DATABASE_URL = os.environ['DATABASE_URL']
 	con = None
-
-	
-	#con = psycopg2.connect("host='localhost' dbname='testdb' user='pythonspot' password='password'") 
 	con = psycopg2.connect(DATABASE_URL, sslmode='require')
 	cur = con.cursor()
+	cur.execute ("DELETE TABLE MEMBERS")
+	'''
 	cur.execute("CREATE TABLE Products(Id INTEGER PRIMARY KEY, Name VARCHAR(20), Price INT)")
 	cur.execute("INSERT INTO Products VALUES(1,'Milk',5)")
 	cur.execute("INSERT INTO Products VALUES(2,'Sugar',7)")
@@ -36,9 +35,9 @@ def matchhelper():
 		if row == None:
 			break
 		print("Product: " + row[1] + "\t\tPrice: " + str(row[2]))
+	''''
 	con.commit()
 	con.close()
-
 
 def fbrespond(recipient_id,sequence):
 	response_message = 'This is empty'
