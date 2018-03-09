@@ -2,8 +2,7 @@ import random
 import requests
 import eros_engine
 from flask import Flask, request
-import psycopg2
-import os
+
  
 app = Flask(__name__)
 ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8ZASAXkaIaJEi7H7f5eEddYUC4ovdw3vlaY9UzAuBZAZBHr7mhKImfcu6smyrZBfuXUP8aQA7ZB0VoH9mfL0qJCXaVUX0KmC5LesJ7aPVDP1ABVAZDZD'
@@ -34,6 +33,7 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #sender_msg = message['message'].get('text')
                 sender_msg = "OK this is altered message"
+                eros_engine.matchhelper()
                 if message['message'].get('text'):
                     response_sent_text = eros_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
