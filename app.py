@@ -33,7 +33,7 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #sender_msg = message['message'].get('text')
                 sender_msg = "OK this is altered message"
-                eros_engine.matchhelper()
+                #eros_engine.matchhelper()
                 if message['message'].get('text'):
                     response_sent_text = eros_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
