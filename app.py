@@ -34,11 +34,14 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
+                core_engine.checkDB()
                 #core_engine.matchhelper()
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
                     # Rahul's ID: 1609342142475258
+                    # This is where the concier Engine fits in
+                    # Below method should be able to broadcast message as well. 
                     send_message(reciever_id, sender_msg)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):

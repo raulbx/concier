@@ -1,6 +1,10 @@
 import psycopg2
 import sys
 import os
+import firebase_admin
+import datetime
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 user_state = {
 	'recipient_id':'',
@@ -9,35 +13,7 @@ user_state = {
 	'responder_id':''
 }
 responses = ['This is your Concier. How can I help you?','Let me find someone, who can help you with it.',' is happy to help you with this purchase. Do you want to connect with him?','Great. I am going to connect you to ']
-def matchhelper():
-	
-	'''Get active helpers
-	find the one that can help this users and is currently available
-	send the reciepient id
-	If the conversation is already in progress. Just send the existing helper id.
-	something new
-	'''
-	DATABASE_URL = os.environ['DATABASE_URL']
-	con = None
-	con = psycopg2.connect(DATABASE_URL, sslmode='require')
-	cur = con.cursor()
-	cur.execute ("DELETE TABLE MEMBERS")
-	'''
-	cur.execute("CREATE TABLE Products(Id INTEGER PRIMARY KEY, Name VARCHAR(20), Price INT)")
-	cur.execute("INSERT INTO Products VALUES(1,'Milk',5)")
-	cur.execute("INSERT INTO Products VALUES(2,'Sugar',7)")
-	cur.execute("INSERT INTO Products VALUES(3,'Coffee',3)")
-	cur.execute("INSERT INTO Products VALUES(4,'Bread',5)")
-	cur.execute("INSERT INTO Products VALUES(5,'Oranges',3)")
-	cur.execute("SELECT * FROM Products")
-	while True:
-		row = cur.fetchone()
-		if row == None:
-			break
-		print("Product: " + row[1] + "\t\tPrice: " + str(row[2]))
-	'''
-	con.commit()
-	con.close()
+
 
 def fbrespond(recipient_id,sequence):
 	response_message = 'This is empty'
@@ -62,3 +38,7 @@ def fbrespond(recipient_id,sequence):
 		user_state['recipient_id'] = recipient_id
 		response_message = responses[1]
 	return response_message
+
+def checkDB():
+	
+	return 'Success'
