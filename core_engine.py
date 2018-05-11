@@ -34,11 +34,4 @@ def checkDB():
 	print ("Attempting to connect to Firestone")
 	default_app = firebase_admin.initialize_app()
 	db = firestore.client()
-	query_ref = db.collection(u'members').where(u'fb_id', u'==', '16093421424752504')
-    	member_obj = None
-    	try:
-    		members = query_ref.get()
-    		for member in members:
-    			member_obj = db.collection(u'members').document(member.id)
-    			print ('Found Member {}'.format(member_obj.id))
 	return 'Success'
