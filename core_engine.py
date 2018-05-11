@@ -40,5 +40,5 @@ def fbrespond(recipient_id,sequence):
 	return response_message
 
 def checkDB():
-	
+	print ("Attempting to connect to Firestone")
 	return 'Success'
