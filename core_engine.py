@@ -6,15 +6,6 @@ import datetime
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-user_state = {
-	'recipient_id':'',
-	'fbseq':0,
-	'active_question':1,
-	'responder_id':''
-}
-responses = ['This is your Concier. How can I help you?','Let me find someone, who can help you with it.',' is happy to help you with this purchase. Do you want to connect with him?','Great. I am going to connect you to ']
-
-
 def fbrespond(recipient_id,sequence):
 	response_message = 'This is empty'
 	if user_state['recipient_id']== recipient_id :
@@ -41,4 +32,13 @@ def fbrespond(recipient_id,sequence):
 
 def checkDB():
 	print ("Attempting to connect to Firestone")
+	default_app = firebase_admin.initialize_app()
+	db = firestore.client()
+	query_ref = db.collection(u'members').where(u'fb_id', u'==', '16093421424752504')
+    	member_obj = None
+    	try:
+    		members = query_ref.get()
+    		for member in members:
+    			member_obj = db.collection(u'members').document(member.id)
+    			print ('Found Member {}'.format(member_obj.id))
 	return 'Success'
