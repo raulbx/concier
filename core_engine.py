@@ -13,6 +13,7 @@ class Members(object):
         self.source = source
         cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
         firebase_admin.initialize_app(cred)
+        db = firestore.client()
 
     def find_member(self):
     	query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
