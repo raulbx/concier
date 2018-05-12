@@ -33,9 +33,10 @@ def fbrespond(recipient_id,sequence):
 def checkDB():
 	#print (os.environ["FIREBASE_CONFIG"])
 	firebase_config = os.environ["FIREBASE_CONFIG"]
-	cred = credentials.Certificate(firebase_config)
-	firebase_admin.initialize_app(cred)
-	#default_app = firebase_admin.initialize_app()
-	db = firestore.client()
+	print (firebase_config)
+	print (isinstance(firebase_config, dict))
+	#cred = credentials.Certificate(firebase_config)
+	#firebase_admin.initialize_app(cred)
+	#db = firestore.client()
 
 	return 'Success'
