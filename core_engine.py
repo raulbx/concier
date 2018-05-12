@@ -61,7 +61,7 @@ def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	#firebase_admin.initialize_app(cred)
 	#db = firestore.client()
-	#fb_id='16093421424752504'
+	fb_id='16093421424752504'
 	member = Members(fb_id).find_member()
 	print(member.id)
 	'''
