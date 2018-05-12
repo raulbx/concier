@@ -44,5 +44,5 @@ def checkDB():
 	for member in members:
 		member_obj = db.collection(u'members').document(member.id)
 		print ('Found Member')
-    print(member_obj.id)
+	print(member_obj.id)
 	return 'Success'
