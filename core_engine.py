@@ -32,7 +32,7 @@ def fbrespond(recipient_id,sequence):
 
 def checkDB():
 	#print (os.environ["FIREBASE_CONFIG"])
-	firebase_config = os.environ["FIREBASE_CONFIG"]
+	firebase_config = ast.literal_eval(os.environ["FIREBASE_CONFIG"])
 	print (firebase_config)
 	print (isinstance(firebase_config, dict))
 	#cred = credentials.Certificate(firebase_config)
