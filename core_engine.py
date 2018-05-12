@@ -32,7 +32,8 @@ def fbrespond(recipient_id,sequence):
 
 def checkDB():
 	#print (os.environ["FIREBASE_CONFIG"])
-	default_app = firebase_admin.initialize_app()
+	options = os.environ["FIREBASE_CONFIG"]
+	default_app = firebase_admin.initialize_app(credential=None, options=options)
 	db = firestore.client()
 
 	return 'Success'
