@@ -38,12 +38,10 @@ def checkDB():
 	firebase_admin.initialize_app(cred)
 	db = firestore.client()
 	query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
-    member_obj = None
-    try:
-    	members = query_ref.get()
-    	for member in members:
-    		member_obj = db.collection(u'members').document(member.id)
-    		print ('Found Member')
-    	print(member_obj.id)
-
+	member_obj = None
+    members = query_ref.get()
+    for member in members:
+    	member_obj = db.collection(u'members').document(member.id)
+    	print ('Found Member')
+    print(member_obj.id)
 	return 'Success'
