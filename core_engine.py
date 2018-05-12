@@ -11,13 +11,13 @@ class Members(object):
     def __init__(self, facebok_id, source='Blank'):
         self.fb_id = facebok_id
         self.source = source
-        cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-        firebase_admin.initialize_app(cred)
+        #cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+        #firebase_admin.initialize_app(cred)
         print("Initialization")
-        self.db = firestore.client()
+        #self.db = firestore.client()
 
     def find_member(self):
-    	query_ref = self.db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
+    	query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
     	member_obj = None
     	try:
     		members = query_ref.get()
@@ -25,7 +25,7 @@ class Members(object):
     			member_obj = db.collection(u'members').document(member.id)
     			print ('Found Member')
     	except ValueError:
-    		print(u'No such document.....!')
+    		print(u'Value Error.....!')
     	except:
     		print(u'No such document!')
     	return member_obj
@@ -60,13 +60,14 @@ class Members(object):
     	return db.collection(u'conversations').add(conversation_data)
 
 def checkDB():
-	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	#print ("Does App still exists {}".format(firebase_admin.get_app())
-	#firebase_admin.initialize_app(cred)
-	#db = firestore.client()
+	if firebase_admin.get_app():
+		firebase_admin.initialize_app(cred)
+	db = firestore.client()
 	fb_id='16093421424752504'
 	member = Members(fb_id).find_member()
-	print(member)
+	print(member.id)
 	'''
 	query_ref = db.collection(u'members').where(u'fb_id', u'==', fb_id)
 	member_obj = None
