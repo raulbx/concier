@@ -61,7 +61,7 @@ class Members(object):
 
 def checkDB():
 	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-	#print ("Does App still exists {}".format(firebase_admin.get_app())
+	print ("Does App still exists {}".format(firebase_admin.get_app())
 	if firebase_admin.get_app() is None:
 		firebase_admin.initialize_app(cred)
 	db = firestore.client()
