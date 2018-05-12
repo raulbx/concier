@@ -31,7 +31,8 @@ def fbrespond(recipient_id,sequence):
 	return response_message
 
 def checkDB():
-	print ("Attempting to connect to Firestone")
-	default_app = firebase_admin.initialize_app()
+	print (os.environ["FIREBASE_CONFIG"])
+	#default_app = firebase_admin.initialize_app()
 	#db = firestore.client()
+
 	return 'Success'
