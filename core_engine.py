@@ -7,36 +7,64 @@ import ast
 from firebase_admin import credentials
 from firebase_admin import firestore
 
+class Members(object):
+    def __init__(self, facebok_id, source='Blank'):
+        self.fb_id = facebok_id
+        self.source = source
+        cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+        firebase_admin.initialize_app(cred)
 
-def fbrespond(recipient_id,sequence):
-	response_message = 'This is empty'
-	if user_state['recipient_id']== recipient_id :
-		print("User interaction is in progress")
-		if sequence > user_state['fbseq'] :
-			#This is new message. Advance to the next question
-			print (user_state)
-			user_state['fbseq'] = sequence
-			if user_state['active_question'] < 3 :
-				user_state['active_question'] = user_state['active_question'] + 1
-			else :
-				user_state['active_question'] = 1
-			nextQID = user_state['active_question']
-			print (user_state)
-			response_message=responses[nextQID]
-		else :
-			print ('Message came twice')
-	# they are already in conversation
-	else :
-		print ('First interaction')
-		user_state['recipient_id'] = recipient_id
-		response_message = responses[1]
-	return response_message
+    def find_member(self):
+    	query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
+    	member_obj = None
+    	try:
+    		members = query_ref.get()
+    		for member in members:
+    			member_obj = db.collection(u'members').document(member.id)
+    			print ('Found Member')
+    	except ValueError:
+    		print(u'No such document.....!')
+    	except:
+    		print(u'No such document!')
+    	return member_obj
+
+    def add_member(self):
+    	#if not member_exists:
+    		member_data = {
+    		'fb_id': self.fb_id,
+    		'source': self.source,
+    		'is_helper':False,
+    		'is_helpee':True,
+    		'token_balance':0,
+    		'conversations':[], # Good idea is to store references in this array
+    		'expertise':['electronics','health'],
+    		'signupdate':datetime.datetime.now(),
+    		'lastactivedate':datetime.datetime.now()
+    		}
+    		print("Added Member")
+    		return db.collection(u'members').add(member_data)
+    		#db.collection(u'members').document(u'member_00001').set(data)
+
+    def add_conversation(self,helpee_ref):
+    	conversation_data = {
+    	'helpee_ref':helpee_ref, # this is reference to the helper obj
+    	#'helpee_id':helpee_id,
+    	'active':True,
+    	'conversation_state':0,
+    	'current_chat_seq':0,
+    	'startdate':datetime.datetime.now(),
+    	'lastactivedate':datetime.datetime.now()
+    	}
+    	return db.collection(u'conversations').add(conversation_data)
 
 def checkDB(): 
-	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-	firebase_admin.initialize_app(cred)
-	db = firestore.client()
-	fb_id='16093421424752504'
+	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+	#firebase_admin.initialize_app(cred)
+	#db = firestore.client()
+	#fb_id='16093421424752504'
+	member = Members(fb_id).find_member()
+	print(member.id)
+	'''
 	query_ref = db.collection(u'members').where(u'fb_id', u'==', fb_id)
 	member_obj = None
 	members = query_ref.get()
@@ -44,4 +72,5 @@ def checkDB():
 		member_obj = db.collection(u'members').document(member.id)
 		print ('Found Member')
 	print(member_obj.id)
+	'''
 	return 'Success'
