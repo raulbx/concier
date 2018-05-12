@@ -9,4 +9,3 @@ requests
 psycopg2-binary==2.7.4
 firebase_admin
 datetime
-ast

@@ -3,7 +3,6 @@ import sys
 import os
 import firebase_admin
 import datetime
-import ast
 from firebase_admin import credentials
 from firebase_admin import firestore
 
