@@ -35,7 +35,7 @@ def receive_message():
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
-                if member.id is None:
+                if member is None:
                     print ("Member was not added")
                 else:
                     print(member.id)
