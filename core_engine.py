@@ -46,10 +46,10 @@ class Members(object):
 		print("Added Member")
 		db = firestore.client()
 		return db.collection(u'members').add(member_data)
+	
 	def add_conversation(self,helpee_ref):
 		db = firestore.client()
-    	return db.collection(u'conversations').add(conversation_data)
-
+		return db.collection(u'conversations').add(conversation_data)
 '''
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
