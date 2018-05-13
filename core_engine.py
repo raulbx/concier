@@ -21,14 +21,14 @@ class Members(object):
 		#member_obj = None
 		try:
 			members = query_ref.get()
-    		for member in members:
-    			member_obj = db.collection(u'members').document(member.id)
-    			print ('Found Member')
-    	except ValueError:
-    		print(u'Value Error.....!')
-    	except:
-    		print(u'No such document!')
-    	return member_obj
+			for member in members:
+				member_obj = db.collection(u'members').document(member.id)
+				print ('Found Member')
+		except ValueError:
+			print(u'Value Error.....!')
+		except:
+			print(u'No such document!')
+		return member_obj
 
 def checkDB():
 	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
