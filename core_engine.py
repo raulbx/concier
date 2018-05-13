@@ -59,6 +59,7 @@ class Members(object):
     	}
     	db = firestore.client()
     	return db.collection(u'conversations').add(conversation_data)
+
 '''
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
