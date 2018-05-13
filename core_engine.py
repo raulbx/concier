@@ -18,13 +18,13 @@ class Members(object):
 	def get_member(self):
 		db = firestore.client()
 		member_refs = db.collection(u'members').where(u'fb_id', u'==', self.fb_id).get()
+		print(member_refs)
 		member_ref = None
 		try:
 			#member_refs = query_ref.get()
 			for member in member_refs:
 				print("Found Member directly with Id: ".format(member.id))
-				#member_ref = db.collection(u'members').document(member.id)
-				member_ref=member.id
+				member_ref = db.collection(u'members').document(member.id)
 				print ('Found Member with query: '.format(member_ref.id))
 		except ValueError:
 			print(u'Value Error.....!')
