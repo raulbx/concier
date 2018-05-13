@@ -21,7 +21,7 @@ class Members(object):
     def find_member(self):
     	db = firestore.client()
     	query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
-    	member_obj = None
+    	#member_obj = None
     	try:
     		members = query_ref.get()
     		for member in members:
