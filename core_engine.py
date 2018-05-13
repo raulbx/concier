@@ -18,7 +18,7 @@ class Members(object):
 	def get_member(self):
 		db = firestore.client()
 		member_refs = db.collection(u'members').where(u'fb_id', u'==', self.fb_id).get()
-		print(member_refs)
+		print("Legth of this query".format(len(member_refs)))
 		member_ref = None
 		try:
 			#member_refs = query_ref.get()
