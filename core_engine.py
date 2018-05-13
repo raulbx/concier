@@ -25,7 +25,7 @@ class Members(object):
 				member_obj = db.collection(u'members').document(member.id)
 				print ('Found Member')
 			if not members:
-
+				print('Member not found')
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
