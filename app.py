@@ -34,8 +34,8 @@ def receive_message():
                 placeHolderFbId='16093421424752505'
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
-                member=core_engine.Members(placeHolderFbId)
-                member.get_member()
+                member=core_engine.Members(placeHolderFbId).get_member()
+                #member.get_member()
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
