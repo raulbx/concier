@@ -47,18 +47,6 @@ class Members(object):
     		db = firestore.client()
     		return db.collection(u'members').add(member_data)
 
-    def add_conversation(self,helpee_ref):
-    	conversation_data = {
-    	'helpee_ref':helpee_ref, # this is reference to the helper obj
-    	#'helpee_id':helpee_id,
-    	'active':True,
-    	'conversation_state':0,
-    	'current_chat_seq':0,
-    	'startdate':datetime.datetime.now(),
-    	'lastactivedate':datetime.datetime.now()
-    	}
-    	db = firestore.client()
-    	return db.collection(u'conversations').add(conversation_data)
 '''
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
