@@ -25,11 +25,11 @@ class Members(object):
 				member_ref = db.collection(u'members').document(member.id)
 			if member_ref is None:
 				print("Member doesn't exist. Adding Member")
-				member_ref = Members(fb_id,'FB').add_member()[1]
+				member_ref = add_member()[1]
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
-			print(u'No such document!')
+			print(u'This is an Exception situation')
 		return member_ref
 
 	def add_member(self):
