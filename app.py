@@ -32,9 +32,13 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 sender_id = message['sender']['id']
                 reciever_id = 1609342142475258
+                placeHolderFbId='16093421424752504'
+
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
-                core_engine.checkDB()
+                member=core_engine.Members(placeHolderFbId)
+                member.find_member()
+                #core_engine.checkDB()
                 #core_engine.matchhelper()
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
