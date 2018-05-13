@@ -15,7 +15,7 @@ class Members(object):
 		self.fb_id = facebok_id
 		self.source = source
 
-	def find_member(self):
+	def get_member(self):
 		db = firestore.client()
 		query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
 		#member_obj = None
@@ -24,6 +24,8 @@ class Members(object):
 			for member in members:
 				member_obj = db.collection(u'members').document(member.id)
 				print ('Found Member')
+			if not members:
+
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
