@@ -10,13 +10,13 @@ from firebase_admin import firestore
 class Members(object):
 	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	firebase_admin.initialize_app(cred)
-	db = firestore.client()
 
 	def __init__(self, facebok_id, source='Blank'):
 		self.fb_id = facebok_id
 		self.source = source
 
 	def find_member(self):
+		db = firestore.client()
 		query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
 		#member_obj = None
 		try:
@@ -33,7 +33,5 @@ class Members(object):
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	fb_id='16093421424752504'
-	
-	member_obj = Members(fb_id)
-	member_obj.find_member()
+	member = Members(fb_id).find_member()
 	return 'Success'
