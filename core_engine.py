@@ -61,12 +61,20 @@ class Members(object):
 
 def checkDB():
 	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-	print ("Does App still exists {}".format(firebase_admin.get_app())
+	print ("Does App still exists {}".format(firebase_admin.get_app()))
 	#if firebase_admin.get_app() is None:
 	#	firebase_admin.initialize_app(cred)
 	#db = firestore.client()
 	#fb_id='16093421424752504'
 	#member = Members(fb_id).find_member()
 	#print(member.id)
-
+	'''
+	query_ref = db.collection(u'members').where(u'fb_id', u'==', fb_id)
+	member_obj = None
+	members = query_ref.get()
+	for member in members:
+		member_obj = db.collection(u'members').document(member.id)
+		print ('Found Member')
+	print(member_obj.id)
+'''
 	return 'Success'
