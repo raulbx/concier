@@ -22,9 +22,9 @@ class Members(object):
 		try:
 			#member_refs = query_ref.get()
 			for member in query_refs:
-				print("Found Member directly with Id: ".format(member.id))
 				member_ref = db.collection(u'members').document(member.id)
-				print ('Found Member with query: '.format(member_ref.id))
+			if member_ref is None:
+				print("Member doesn't exist")
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
