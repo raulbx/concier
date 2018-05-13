@@ -10,16 +10,12 @@ from firebase_admin import firestore
 class Members(object):
 	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	firebase_admin.initialize_app(cred)
-	
+
 	def __init__(self, facebok_id, source='Blank'):
 		self.fb_id = facebok_id
 		self.source = source
-        #cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-        #firebase_admin.initialize_app(cred)
-        #print("Initialization")
-        #self.db = firestore.client()
 
-    def find_member(self):
+	def find_member(self):
     	db = firestore.client()
     	query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
     	#member_obj = None
