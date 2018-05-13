@@ -36,7 +36,7 @@ def receive_message():
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
                 if not member:
-                    member = Members(fb_id,'FB').add_member()[1]
+                    member = core_engine.Members(fb_id,'FB').add_member()[1]
                 print(member.id)
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
