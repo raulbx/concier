@@ -24,7 +24,6 @@ def receive_message():
         # get whatever message a user sent the bot
        output = request.get_json()
        print (output)
-       print ("-------------------HO----------")
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
@@ -32,14 +31,11 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 sender_id = message['sender']['id']
                 reciever_id = 1609342142475258
-                placeHolderFbId='16093421424752504'
-
+                placeHolderFbId='16093421424752502'
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId)
                 member.get_member()
-                #core_engine.checkDB()
-                #core_engine.matchhelper()
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
