@@ -24,8 +24,8 @@ class Members(object):
 			for member in query_refs:
 				member_ref = db.collection(u'members').document(member.id)
 			if member_ref is None:
-				print("Member doesn't exist. Need to add Member")
-				#member_ref = add_member(self)[1]
+				print("Member doesn't exist. Adding Member")
+				member_ref = Members(self.fb_id,'FB').add_member()[1]
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
