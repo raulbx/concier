@@ -35,7 +35,10 @@ def receive_message():
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
-                print(member.id)
+                if member.id is None:
+                    print ("Member was not added")
+                else:
+                    print(member.id)
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
