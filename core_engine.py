@@ -31,7 +31,7 @@ class Members(object):
 		return member_obj
 
 def checkDB():
-	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	'''
 	firebase_admin_instance_exist = False
 	if firebase_admin_instance_exist is False:
