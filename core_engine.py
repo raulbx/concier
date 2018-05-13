@@ -46,12 +46,11 @@ class Members(object):
     		print("Added Member")
     		db = firestore.client()
     		return db.collection(u'members').add(member_data)
-    		#db.collection(u'members').document(u'member_00001').set(data)
 
     def add_conversation(self,helpee_ref):
     	conversation_data = {
     	'helpee_ref':helpee_ref, # this is reference to the helper obj
-    	'helpee_id':helpee_id,
+    	#'helpee_id':helpee_id,
     	'active':True,
     	'conversation_state':0,
     	'current_chat_seq':0,
