@@ -29,7 +29,7 @@ class Members(object):
 		except:
 			print(u'No such document!')
 		return member_obj
-		
+
 	def add_member(self):
     	#if not member_exists:
     		member_data = {
@@ -44,6 +44,7 @@ class Members(object):
     		'lastactivedate':datetime.datetime.now()
     		}
     		print("Added Member")
+    		db = firestore.client()
     		return db.collection(u'members').add(member_data)
     		#db.collection(u'members').document(u'member_00001').set(data)
 
@@ -57,6 +58,7 @@ class Members(object):
     	'startdate':datetime.datetime.now(),
     	'lastactivedate':datetime.datetime.now()
     	}
+    	db = firestore.client()
     	return db.collection(u'conversations').add(conversation_data)
 '''
 def checkDB():
