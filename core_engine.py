@@ -17,12 +17,13 @@ class Members(object):
 
 	def get_member(self):
 		db = firestore.client()
-		query_ref = db.collection(u'members').where(u'fb_id', u'==', self.fb_id)
-		#member_obj = None
+		member_refs = db.collection(u'members').where(u'fb_id', u'==', self.fb_id).get()
+		member_ref = None
 		try:
-			members = query_ref.get()
-			for member in members:
-				member_obj = db.collection(u'members').document(member.id)
+			#member_refs = query_ref.get()
+			for member in member_refs:
+				print("Found Member with Id".format(member.id))
+				member_ref = db.collection(u'members').document(member.id)
 				print ('Found Member')
 			if not members:
 				print('Member not found')
@@ -30,7 +31,7 @@ class Members(object):
 			print(u'Value Error.....!')
 		except:
 			print(u'No such document!')
-		return member_obj
+		return member_ref
 
 	def add_member(self):
     	#if not member_exists:
