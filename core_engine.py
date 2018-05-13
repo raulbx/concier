@@ -32,6 +32,7 @@ class Members(object):
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	fb_id='16093421424752504'
+	member_obj = Members(fb_id)
 	db = firestore.client()
-	member = Members(fb_id).find_member()
+	member_ref=member_obj.find_member()
 	return 'Success'
