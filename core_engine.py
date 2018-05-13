@@ -68,14 +68,5 @@ def checkDB():
 	#fb_id='16093421424752504'
 	#member = Members(fb_id).find_member()
 	#print(member.id)
-	
-	'''
-	query_ref = db.collection(u'members').where(u'fb_id', u'==', fb_id)
-	member_obj = None
-	members = query_ref.get()
-	for member in members:
-		member_obj = db.collection(u'members').document(member.id)
-		print ('Found Member')
-	print(member_obj.id)
-	'''
+
 	return 'Success'
