@@ -37,7 +37,7 @@ def receive_message():
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId)
-                member.find_member()
+                member.get_member()
                 #core_engine.checkDB()
                 #core_engine.matchhelper()
                 if message['message'].get('text'):
