@@ -63,9 +63,9 @@ class Members(object):
 		return db.collection(u'conversations').add(conversation_data)
 
 	def get_active_conversation(self,member):
-		print("Member ID: ".format(member.id))
+		print("Member ID: ".format(member))
 		conversations_array = member.get().get('conversations')
-		print(conversations_array)
+		#print(conversations_array)
 		return len(conversations_array)
 '''
 def checkDB():
