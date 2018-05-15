@@ -68,5 +68,5 @@ class Members(object):
 		#active_conv = len(conversations_array)
 		#conversation_ref = conversations_array[-1]
 		# TODO: Need to fix above to get the right conversation
-		conversation = conversation_ref.get()
+		conversation = conversations_array.get()
 		return conversation
