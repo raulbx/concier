@@ -35,10 +35,15 @@ def receive_message():
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
-                if not member:
-                    #member = core_engine.Members(placeHolderFbId,'FB').add_member()[1]
-                    print("member added")
                 print(member.id)
+                active_messages = core_engine.get_active_conversation(member)
+                sender_msg = sender_msg.format(active_messages)
+                '''
+                Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
+                Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
+                After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
+                '''
+                
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
