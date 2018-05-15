@@ -37,6 +37,7 @@ def receive_message():
                 member=core_engine.Members(placeHolderFbId).get_member()
                 print(member.id)
                 active_messages = core_engine.get_active_conversation(member)
+                print("No of active messages ".format(active_messages))
                 sender_msg = sender_msg.format(active_messages)
                 '''
                 Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
