@@ -36,7 +36,7 @@ def receive_message():
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
-                print(member.id)
+                print(member.get().to_dict().get('fb_id'))
                 active_messages = get_active_conversation(member)
                 print("No of active messages ".format(active_messages))
                 sender_msg = sender_msg.format(active_messages)

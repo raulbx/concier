@@ -62,11 +62,11 @@ class Members(object):
 		db = firestore.client()
 		return db.collection(u'conversations').add(conversation_data)
 
-def get_active_conversation(member):
-	print("Member ID: ".format(member.id))
-	conversations_array = member.get().get('conversations')
-	print(conversations_array)
-	return len(conversations_array)
+	def get_active_conversation(member):
+		print("Member ID: ".format(member.id))
+		conversations_array = member.get().get('conversations')
+		print(conversations_array)
+		return len(conversations_array)
 '''
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
