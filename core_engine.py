@@ -65,8 +65,8 @@ class Members(object):
 	def get_active_conversation(self,member):
 		print(member.id)
 		conversations_array = member.get().get('conversations')
-		print(len(conversations_array))
-		return len(conversations_array)
+		active_conv = print(len(conversations_array))
+		return active_conv
 '''
 def checkDB():
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
