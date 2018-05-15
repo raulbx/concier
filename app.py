@@ -39,7 +39,7 @@ def receive_message():
                 member_obj=core_engine.Members(placeHolderFbId)
                 member = member_obj.get_member()
                 #print(member.get().to_dict().get('fb_id'))
-                active_count = member_Obj.get_active_conversation(member)
+                active_count = member_obj.get_active_conversation(member)
                 print(active_count)
                 sender_msg = active_count
                 '''
