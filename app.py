@@ -1,6 +1,7 @@
 import random
 import requests
 import core_engine
+from core_engine import get_active_conversation
 from flask import Flask, request
 
  
@@ -36,7 +37,7 @@ def receive_message():
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
                 print(member.id)
-                active_messages = core_engine.get_active_conversation(member)
+                active_messages = get_active_conversation(member)
                 print("No of active messages ".format(active_messages))
                 sender_msg = sender_msg.format(active_messages)
                 '''
