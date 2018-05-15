@@ -62,7 +62,7 @@ class Members(object):
 		db = firestore.client()
 		return db.collection(u'conversations').add(conversation_data)
 
-	def get_active_conversation(member):
+	def get_active_conversation(self,member):
 		print("Member ID: ".format(member.id))
 		conversations_array = member.get().get('conversations')
 		print(conversations_array)
