@@ -63,6 +63,10 @@ class Members(object):
 		return db.collection(u'conversations').add(conversation_data)
 
 	def get_active_conversation(self,member):
+		# Get the latest conversation. If no convers
 		conversations_array = member.get().get('conversations')
 		#active_conv = len(conversations_array)
-		return conversations_array
+		conversation_ref = conversations_array[-1]
+		# TODO: Need to fix above to get the right conversation
+		conversation = conversation_ref.get()
+		return conversation
