@@ -64,5 +64,5 @@ class Members(object):
 
 	def get_active_conversation(self,member):
 		conversations_array = member.get().get('conversations')
-		active_conv = len(conversations_array)
-		return active_conv
+		#active_conv = len(conversations_array)
+		return conversations_array
