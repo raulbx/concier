@@ -66,6 +66,7 @@ class Members(object):
 		print(member.id)
 		conversations_array = member.get().get('conversations')
 		active_conv = len(conversations_array)
+		print(active_conv)
 		return active_conv
 '''
 def checkDB():
