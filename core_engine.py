@@ -63,7 +63,7 @@ class Members(object):
 		return db.collection(u'conversations').add(conversation_data)
 
 	def get_active_conversation(self,member):
-		print(member)
+		print(member.id)
 		conversations_array = member.get().get('conversations')
 		#print(conversations_array)
 		return len(conversations_array)
