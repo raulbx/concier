@@ -1,7 +1,7 @@
 import random
 import requests
 import core_engine
-from core_engine import get_active_conversation
+from core_engine import Members
 from flask import Flask, request
 
  
@@ -37,8 +37,8 @@ def receive_message():
                 sender_msg = message['message'].get('text')
                 member=core_engine.Members(placeHolderFbId).get_member()
                 print(member.get().to_dict().get('fb_id'))
-                active_messages = get_active_conversation(member)
-                print("No of active messages ".format(active_messages))
+                #active_messages = get_active_conversation(member)
+                #print("No of active messages ".format(active_messages))
                 sender_msg = sender_msg.format(active_messages)
                 '''
                 Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
