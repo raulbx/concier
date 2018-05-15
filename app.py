@@ -40,7 +40,7 @@ def receive_message():
                 member = member_obj.get_member()
                 #print(member.get().to_dict().get('fb_id'))
                 conversation = member_obj.get_active_conversation(member)
-                print(conversation)
+                print(conversation.to_dict()['current_chat_seq'])
 
                 #sender_msg = active_count
                 '''
