@@ -41,7 +41,7 @@ def receive_message():
                 print(member.get().to_dict().get('fb_id'))
                 active_count = member_Obj.get_active_conversation(member)
                 print(active_count)
-                #sender_msg = sender_msg.format(active_messages)
+                sender_msg = active_count
                 '''
                 Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
                 Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
