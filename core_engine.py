@@ -63,15 +63,6 @@ class Members(object):
 		return db.collection(u'conversations').add(conversation_data)
 
 	def get_active_conversation(self,member):
-		print(member.id)
 		conversations_array = member.get().get('conversations')
 		active_conv = len(conversations_array)
-		print(active_conv)
 		return active_conv
-'''
-def checkDB():
-	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-	fb_id='16093421424752504'
-	member = Members(fb_id).find_member()
-	return 'Success'
-	'''

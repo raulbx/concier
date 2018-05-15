@@ -32,13 +32,13 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 sender_id = message['sender']['id']
                 reciever_id = 1609342142475258
-                placeHolderFbId='16093421424752504'
+                placeHolderFbId='16093421424752501'
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 #member=core_engine.Members(placeHolderFbId).get_member()
-                member_Obj=core_engine.Members(placeHolderFbId)
-                member = member_Obj.get_member()
-                print(member.get().to_dict().get('fb_id'))
+                member_obj=core_engine.Members(placeHolderFbId)
+                member = member_obj.get_member()
+                #print(member.get().to_dict().get('fb_id'))
                 active_count = member_Obj.get_active_conversation(member)
                 print(active_count)
                 sender_msg = active_count
