@@ -118,7 +118,7 @@ def form_payload(response_type,text_message,recipient_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Need shopping advice?",
+                    "title":"Ask shopping advice?",
                     "payload":"seekingHelp"
                     },
                     {
