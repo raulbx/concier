@@ -90,15 +90,11 @@ def send_message(recipient_id, response):
     'text' : response,
     'quick_replies':[
     {
-    'content_type':'text',
-    'title':'Do you need with a product?',
+    'content_type':'postback',
+    'title':'I want advice?',
     'payload':'helpee'},
     {
-    'content_type':'text',
-    'title':'I want to register as an expert?',
-    'payload':'expert_registration'},
-    {
-    'content_type':'text',
+    'content_type':'postback',
     'title':'Something Else?',
     'payload':'other'}
     ]
