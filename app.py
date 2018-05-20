@@ -118,12 +118,12 @@ def form_payload(response_type,text_message,recipient_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"I need advice?",
+                    "title":"Need shopping advice?",
                     "payload":"seekingHelp"
                     },
                     {
                     "type":"postback",
-                    "title":"Register as an expert?",
+                    "title":"Other?",
                     "payload":"expertRegistration"
                     }
                     ]
