@@ -45,7 +45,7 @@ def receive_message():
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
-                    print(conversation.to_dict()['helpee_ref'])
+                    print(conversation.to_dict()['helpee_ref'].get().to_dict()['fb_id'])
 
                 #sender_msg = active_count
                 '''
