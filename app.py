@@ -96,13 +96,11 @@ def send_message(recipient_id, response):
     {
     'content_type':'text',
     'title':'I want to register as an expert?',
-    'payload':'expert_registration'}
-    },
+    'payload':'expert_registration'},
     {
     'content_type':'text',
     'title':'Something Else?',
     'payload':'other'}
-    }
     ]
     }
     request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
