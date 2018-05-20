@@ -41,9 +41,11 @@ def receive_message():
                 #print(member.get().to_dict().get('fb_id'))
                 conversation = member_obj.get_active_conversation(member)
                 if not conversation: 
-                    print("No Active Conversation")
+                    print("No conversations")
+                    # This means that either this is the first time member is interacting with the 
                 else:
-                    print(conversation.to_dict()['current_chat_seq'])
+                    #Log the conversation. Get the other party id and send it to them.
+                    print(conversation.to_dict()['helpee_ref'])
 
                 #sender_msg = active_count
                 '''
