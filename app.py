@@ -90,13 +90,13 @@ def send_message(recipient_id, response):
     'text' : response,
     'quick_replies':[
     {
-    'content_type':'postback',
-    'title':'I want advice?',
+    'content_type':'text',
+    'title':'I need advice?',
     'payload':'helpee'},
     {
-    'content_type':'postback',
-    'title':'Something Else?',
-    'payload':'other'}
+    'content_type':'text',
+    'title':'I want to be an expert?',
+    'payload':'expert_registration'}
     ]
     }
     request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
