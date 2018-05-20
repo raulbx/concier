@@ -91,7 +91,7 @@ def send_message(recipient_id, response):
     'quick_replies':[
     {
     'content_type':'text',
-    'title':'Do you want to talk to an expert?',
+    'title':'Do you need with a product?',
     'payload':'helpee'},
     {
     'content_type':'text',
