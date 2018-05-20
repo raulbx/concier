@@ -62,7 +62,10 @@ def receive_message():
                     # Rahul's ID: 1609342142475258
                     # This is where the concier Engine fits in
                     # Below method should be able to broadcast message as well. 
-                    send_message(reciever_id, sender_msg)
+                    payload = form_payload('plain_message',sender_msg,reciever_id)
+                    print(payload)
+                    send_message(payload)
+                    #send_message(reciever_id, sender_msg)
                 #if user sends us a GIF, photo,video, or any other non-text item
                 if message['message'].get('attachments'):
                     response_sent_nontext = get_message()
@@ -76,17 +79,13 @@ def verify_fb_token(token_sent):
         return request.args.get("hub.challenge")
     return 'Invalid verification token'
 
-def send_message(recipient_id, sender_msg):
+def send_message(payload):
     #sends user the text message provided via input response parameter
     #bot.send_text_message(recipient_id, response)
     auth = {
     'access_token':ACCESS_TOKEN
     }
-    payload['recipient'] = {
-    'id': recipient_id
-    }
-    payload['notification_type'] = 'REGULAR'
-    payload['message'] = {'text' : sender_msg}
+    
     request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
     response = requests.post(
         request_endpoint,
@@ -95,6 +94,20 @@ def send_message(recipient_id, sender_msg):
         )
     result = response.json()
     return result
+
+def form_payload(response_type,text_message,recipient_id):
+    payload['recipient'] = {
+        'id': recipient_id
+        }
+    if response_type =='plain_message':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : text_message
+        }
+    elif response_type =='buttons':
+        print("Form Button")
+
+    return payload
 
 if __name__ == "__main__":
     app.run()
