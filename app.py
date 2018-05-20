@@ -95,7 +95,7 @@ def send_message(recipient_id, response):
     'payload':'helpee'},
     {
     'content_type':'text',
-    'title':'I want to be an expert?',
+    'title':'Register as an expert?',
     'payload':'expert_registration'}
     ]
     }
