@@ -42,6 +42,8 @@ def receive_message():
                 conversation = member_obj.get_active_conversation(member)
                 if not conversation: 
                     print("No conversations")
+                    # Prompt if help needed or else
+
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
@@ -85,7 +87,12 @@ def send_message(recipient_id, response):
     }
     payload['notification_type'] = 'REGULAR'
     payload['message'] = {
-    'text' : response
+    'text' : response,
+    'quick_replies':[
+    {'content_type':'text',
+    'title':'Need Help?',
+    'payload':'helpee'}
+    ]
     }
     request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
     response = requests.post(
