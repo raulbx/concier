@@ -40,6 +40,7 @@ def receive_message():
                 member = member_obj.get_member()
                 #print(member.get().to_dict().get('fb_id'))
                 conversation = member_obj.get_active_conversation(member)
+                print(sender_msg)
                 if not conversation:
                     # Prompt if help needed or else
                     sender_msg = "No Active converstation"
@@ -107,23 +108,27 @@ def form_payload(response_type,text_message,recipient_id):
         'text' : text_message
         }
     elif response_type =='buttons':
-        print("Forming Button")
         #payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        "attachment":{
-        "type":"template",
-        "payload":{
-        "template_type":"button",
-        "text":"Try the postback button!",
-        "buttons":[
-        {
-        "type":"postback",
-        "title":"Postback Button",
-        "payload":"DEVELOPER_DEFINED_PAYLOAD"
-        }
-        ]
-        }
-        }
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":"You look new here! How can we help?",
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"I need advice?",
+                    "payload":"seekingHelp"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Register as an expert?",
+                    "payload":"expertRegistration"
+                    }
+                    ]
+                }
+            }
         }
     return payload
 
