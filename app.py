@@ -57,26 +57,10 @@ def receive_message():
                 After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
                 '''
                 print(payload)
-                send_message(payload)
-                '''
-                if message['message'].get('text'):
-                   # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
-                    # Tony ID: 1720043658018350
-                    # Rahul's ID: 1609342142475258
-                    # This is where the concier Engine fits in
-                    # Below method should be able to broadcast message as well. 
-                    payload = form_payload('plain_message',sender_msg,reciever_id)
-                    print(payload)
-                    send_message(payload)
-                    #send_message(reciever_id, sender_msg)
-                #if user sends us a GIF, photo,video, or any other non-text item
-                if message['message'].get('attachments'):
-                    response_sent_nontext = get_message()
-                    send_message(recipient_id, response_sent_nontext)
-                '''
-                elif message.get('postback'):
-                    user_response = message['postback'].get('payload')
-                    print(user_response)
+                send_message(payload)   
+            elif message.get('postback'):
+                user_response = message['postback'].get('payload')
+                print(user_response)
     return "Message Processed"
  
 def verify_fb_token(token_sent):
@@ -137,3 +121,20 @@ def form_payload(response_type,text_message,recipient_id):
 
 if __name__ == "__main__":
     app.run()
+
+'''
+                if message['message'].get('text'):
+                   # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
+                    # Tony ID: 1720043658018350
+                    # Rahul's ID: 1609342142475258
+                    # This is where the concier Engine fits in
+                    # Below method should be able to broadcast message as well. 
+                    payload = form_payload('plain_message',sender_msg,reciever_id)
+                    print(payload)
+                    send_message(payload)
+                    #send_message(reciever_id, sender_msg)
+                #if user sends us a GIF, photo,video, or any other non-text item
+                if message['message'].get('attachments'):
+                    response_sent_nontext = get_message()
+                    send_message(recipient_id, response_sent_nontext)
+                '''
