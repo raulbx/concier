@@ -74,7 +74,7 @@ def receive_message():
                     response_sent_nontext = get_message()
                     send_message(recipient_id, response_sent_nontext)
                 '''
-                if message.get('postback'):
+                elif message.get('postback'):
                     user_response = message['postback'].get('payload')
                     print(user_response)
     return "Message Processed"
