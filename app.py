@@ -76,7 +76,7 @@ def verify_fb_token(token_sent):
         return request.args.get("hub.challenge")
     return 'Invalid verification token'
 
-def send_message(recipient_id, response):
+def send_message(recipient_id, sender_msg):
     #sends user the text message provided via input response parameter
     #bot.send_text_message(recipient_id, response)
     auth = {
@@ -86,19 +86,7 @@ def send_message(recipient_id, response):
     'id': recipient_id
     }
     payload['notification_type'] = 'REGULAR'
-    payload['message'] = {
-    'text' : response,
-    'quick_replies':[
-    {
-    'content_type':'text',
-    'title':'I need advice?',
-    'payload':'helpee'},
-    {
-    'content_type':'text',
-    'title':'Register as an expert?',
-    'payload':'expert_registration'}
-    ]
-    }
+    payload['message'] = {'text' : sender_msg}
     request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
     response = requests.post(
         request_endpoint,
