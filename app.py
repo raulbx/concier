@@ -32,7 +32,7 @@ def receive_message():
                 #Facebook Messenger ID for user so we know where to send response back to
                 sender_id = message['sender']['id']
                 reciever_id = 1609342142475258
-                placeHolderFbId='16093421424752505'
+                placeHolderFbId='16093421424752501'
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 #member=core_engine.Members(placeHolderFbId).get_member()
@@ -40,10 +40,10 @@ def receive_message():
                 member = member_obj.get_member()
                 #print(member.get().to_dict().get('fb_id'))
                 conversation = member_obj.get_active_conversation(member)
-                if not conversation: 
-                    print("No conversations")
+                if not conversation:
                     # Prompt if help needed or else
-
+                    sender_msg = "No Active converstation"
+                    payload = form_payload('plain_message',sender_msg,reciever_id)
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
