@@ -47,15 +47,17 @@ def receive_message():
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
+                    payload = form_payload('plain_message',sender_msg,reciever_id)
                     print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
-
                 #sender_msg = active_count
                 '''
                 Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
                 Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
                 After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
                 '''
-                
+                print(payload)
+                send_message(payload)
+                '''
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
                     # Tony ID: 1720043658018350
@@ -70,6 +72,7 @@ def receive_message():
                 if message['message'].get('attachments'):
                     response_sent_nontext = get_message()
                     send_message(recipient_id, response_sent_nontext)
+                '''
     return "Message Processed"
  
 def verify_fb_token(token_sent):
@@ -85,7 +88,6 @@ def send_message(payload):
     auth = {
     'access_token':ACCESS_TOKEN
     }
-    
     request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
     response = requests.post(
         request_endpoint,
