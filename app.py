@@ -44,7 +44,7 @@ def receive_message():
                 if not conversation:
                     # Prompt if help needed or else
                     sender_msg = "No Active converstation"
-                    #payload = form_payload('buttons',sender_msg,reciever_id)
+                    payload = form_payload('buttons',sender_msg,reciever_id)
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
@@ -74,6 +74,9 @@ def receive_message():
                     response_sent_nontext = get_message()
                     send_message(recipient_id, response_sent_nontext)
                 '''
+                if message.get('postback'):
+                    user_response = message['postback'].get('payload')
+                    print(user_response)
     return "Message Processed"
  
 def verify_fb_token(token_sent):
