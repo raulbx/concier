@@ -44,7 +44,7 @@ def receive_message():
                 if not conversation:
                     # Prompt if help needed or else
                     sender_msg = "No Active converstation"
-                    payload = form_payload('buttons',sender_msg,reciever_id)
+                    #payload = form_payload('buttons',sender_msg,reciever_id)
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
@@ -114,7 +114,7 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"You look new here! How can we help?",
+                    "text":"You look new here! How can I help?",
                     "buttons":[
                     {
                     "type":"postback",
