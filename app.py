@@ -143,12 +143,12 @@ def form_payload(response_type,text_message,recipient_id):
 if __name__ == "__main__":
     app.run()
 
- #sender_msg = active_count
-                '''
-                Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
-                Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
-                After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
-                '''
+#sender_msg = active_count
+            '''
+            Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
+            Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
+            After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
+            '''
 '''
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
