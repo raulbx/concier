@@ -32,7 +32,7 @@ def receive_message():
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
                 reciever_id = 1609342142475258
-                placeHolderFbId='16093421424752505'
+                placeHolderFbId='16093421424752501'
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 #member=core_engine.Members(placeHolderFbId).get_member()
@@ -51,6 +51,7 @@ def receive_message():
                     print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
             elif message.get('postback'):
+                #These are responses to the button
                 user_response = message['postback'].get('payload')
                 sender_msg = 'Button Menus'
                 if user_response == 'seekingHelp':
