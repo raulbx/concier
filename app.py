@@ -55,6 +55,7 @@ def receive_message():
                 sender_msg = 'Button Menus'
                 if user_response == 'seekingHelp':
                     print("Member is seeking help")
+                    payload = form_payload('plain_message',sender_msg,sender_id)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
                     payload = form_payload('other_buttons',sender_msg,sender_id)
