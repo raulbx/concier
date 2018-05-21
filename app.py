@@ -57,7 +57,7 @@ def receive_message():
                     print("Member is seeking help")
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
-                    payload = form_payload('welcome_buttons',sender_msg,sender_id)
+                    payload = form_payload('other_buttons',sender_msg,sender_id)
             send_message(payload)
     return "Message Processed"
  
@@ -115,7 +115,7 @@ def form_payload(response_type,text_message,recipient_id):
                 }
             }
         }
-    elif response_type =='other':
+    elif response_type =='other_buttons':
         payload['message'] = {
             "attachment":{
                 "type":"template",
