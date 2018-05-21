@@ -142,26 +142,3 @@ def form_payload(response_type,text_message,recipient_id):
 
 if __name__ == "__main__":
     app.run()
-
-#sender_msg = active_count
-            '''
-            Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
-            Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
-            After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
-            '''
-'''
-                if message['message'].get('text'):
-                   # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
-                    # Tony ID: 1720043658018350
-                    # Rahul's ID: 1609342142475258
-                    # This is where the concier Engine fits in
-                    # Below method should be able to broadcast message as well. 
-                    payload = form_payload('plain_message',sender_msg,reciever_id)
-                    print(payload)
-                    send_message(payload)
-                    #send_message(reciever_id, sender_msg)
-                #if user sends us a GIF, photo,video, or any other non-text item
-                if message['message'].get('attachments'):
-                    response_sent_nontext = get_message()
-                    send_message(recipient_id, response_sent_nontext)
-                '''
