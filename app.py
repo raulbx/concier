@@ -42,8 +42,7 @@ def receive_message():
                 conversation = member_obj.get_active_conversation(member)
                 print(sender_msg)
                 if not conversation:
-                    # Prompt if help needed or else
-                    sender_msg = "No Active converstation"
+                    # Prompt member if he needs help of wants to do something sele
                     payload = form_payload('buttons',sender_msg,reciever_id)
                     # This means that either this is the first time member is interacting with the 
                 else:
@@ -60,6 +59,8 @@ def receive_message():
                 send_message(payload)   
             elif message.get('postback'):
                 user_response = message['postback'].get('payload')
+                if user_response == 'seekingHelp':
+
                 print(user_response)
     return "Message Processed"
  
@@ -101,11 +102,11 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"You look new here! How can I help?",
+                    "text":"Hey stranger! How can I help?",
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Ask shopping advice?",
+                    "title":"Get shopping advice?",
                     "payload":"seekingHelp"
                     },
                     {
