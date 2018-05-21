@@ -113,7 +113,7 @@ def form_payload(response_type,text_message,recipient_id):
                     {
                     "type":"postback",
                     "title":"Other?",
-                    "payload":"expertRegistration"
+                    "payload":"other"
                     }
                     ]
                 }
