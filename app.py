@@ -123,7 +123,7 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"There are few more things you can do?",
+                    "text":"Other things you can do?",
                     "buttons":[
                     {
                     "type":"postback",
