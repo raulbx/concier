@@ -60,8 +60,9 @@ def receive_message():
             elif message.get('postback'):
                 user_response = message['postback'].get('payload')
                 if user_response == 'seekingHelp':
-
-                print(user_response)
+                    print("Member is seeking help")
+                elif user_response =='other':
+                    print("Member wants to do something else, present other options")
     return "Message Processed"
  
 def verify_fb_token(token_sent):
