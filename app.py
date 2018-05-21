@@ -54,7 +54,7 @@ def receive_message():
                 #These are responses to the button
                 user_response = message['postback'].get('payload')
                 sender_msg = 'Button Menus'
-                if user_response == 'seekingHelp':
+                if user_response == 'seekingAdvice':
                     print("Member is seeking help")
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 elif user_response =='other':
