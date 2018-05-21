@@ -28,9 +28,9 @@ def receive_message():
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
+            sender_id = message['sender']['id']
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
-                sender_id = message['sender']['id']
                 reciever_id = 1609342142475258
                 placeHolderFbId='16093421424752501'
                 #core_engine.verify_member_state(sender_id)
@@ -43,26 +43,22 @@ def receive_message():
                 print(sender_msg)
                 if not conversation:
                     # Prompt member if he needs help of wants to do something sele
-                    payload = form_payload('buttons',sender_msg,reciever_id)
+                    payload = form_payload('welcome_buttons',sender_msg,reciever_id)
                     # This means that either this is the first time member is interacting with the 
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     payload = form_payload('plain_message',sender_msg,reciever_id)
                     print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
-                #sender_msg = active_count
-                '''
-                Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
-                Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
-                After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
-                '''
-                print(payload)
-                send_message(payload)   
+                #print(payload)
             elif message.get('postback'):
                 user_response = message['postback'].get('payload')
+                sender_msg = 'Button Menus'
                 if user_response == 'seekingHelp':
                     print("Member is seeking help")
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
+                    payload = form_payload('welcome_buttons',sender_msg,sender_id)
+            send_message(payload)
     return "Message Processed"
  
 def verify_fb_token(token_sent):
@@ -96,7 +92,7 @@ def form_payload(response_type,text_message,recipient_id):
         payload['message'] = {
         'text' : text_message
         }
-    elif response_type =='buttons':
+    elif response_type =='welcome_buttons':
         #payload['notification_type'] = 'REGULAR'
         payload['message'] = {
             "attachment":{
@@ -108,7 +104,7 @@ def form_payload(response_type,text_message,recipient_id):
                     {
                     "type":"postback",
                     "title":"Get shopping advice?",
-                    "payload":"seekingHelp"
+                    "payload":"seekingAdvice"
                     },
                     {
                     "type":"postback",
@@ -119,11 +115,40 @@ def form_payload(response_type,text_message,recipient_id):
                 }
             }
         }
+    elif response_type =='other':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":"There are few more things you can do?",
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Register as expert?",
+                    "payload":"expertRegsteration"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"FAQ",
+                    "payload":"faq"
+                    }
+                    ]
+                }
+            }
+        }
+
     return payload
 
 if __name__ == "__main__":
     app.run()
 
+ #sender_msg = active_count
+                '''
+                Member found or added. Check the converstation. If there is no conversation, then this person is either an expert signing up or a new person needing help.
+                Ask them if they need help? If yes, then mark them as helpee, and start the conversation thread. 
+                After initial conversation, broadcast the message to all the helpers. The first helper to aggree to will be paired with the helpee. Continue the conversation, and continue using the coins.
+                '''
 '''
                 if message['message'].get('text'):
                    # response_sent_text = core_engine.fbrespond(sender_id, message['message'].get('seq'))
