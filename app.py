@@ -26,6 +26,10 @@ def receive_message():
        output = request.get_json()
        print (output)
        placeHolderFbId='16093421424752501'
+       member_obj=core_engine.Members(placeHolderFbId)
+       member = member_obj.get_member()
+       #print(member.get().to_dict().get('fb_id'))
+       conversation = member_obj.get_active_conversation(member)
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
@@ -36,15 +40,11 @@ def receive_message():
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 #member=core_engine.Members(placeHolderFbId).get_member()
-                member_obj=core_engine.Members(placeHolderFbId)
-                member = member_obj.get_member()
-                #print(member.get().to_dict().get('fb_id'))
-                conversation = member_obj.get_active_conversation(member)
                 print(sender_msg)
                 if not conversation:
                     # Prompt member if he needs help of wants to do something sele
                     payload = form_payload('welcome_buttons',sender_msg,reciever_id)
-                    # This means that either this is the first time member is interacting with the 
+                    # This means that either this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     payload = form_payload('plain_message',sender_msg,reciever_id)
