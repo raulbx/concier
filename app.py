@@ -26,10 +26,10 @@ def receive_message():
        output = request.get_json()
        print (output)
        placeHolderFbId='16093421424752501'
-       member_obj=core_engine.Members(placeHolderFbId)
-       member = member_obj.get_member()
+       member_ref=core_engine.Members(placeHolderFbId)
+       member = member_ref.get_member()
        #print(member.get().to_dict().get('fb_id'))
-       conversation = member_obj.get_active_conversation(member)
+       conversation = member_ref.get_active_conversation(member)
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
@@ -72,6 +72,7 @@ def receive_message():
                     print("Member choosen category")
                     sender_msg = 'I can connect you to {} expert. Before that, can you tell me exactly what you are looking for?'.format(sender_msg)
                     payload = form_payload('plain_message',sender_msg,sender_id)
+                    #conversation.add_conversation(member)
                 else :
                     print("Some other option choosen")
                     sender_msg = 'User has selected: '+sender_msg
