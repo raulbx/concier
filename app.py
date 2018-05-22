@@ -64,7 +64,7 @@ def receive_message():
                 elif user_response =='expertRegsteration':
                     print("Member wants to register as expert")
                     sender_msg = 'Please visit http://concier.org to register as expert'
-                    payload = form_payload('other_buttons',sender_msg,sender_id)
+                    payload = form_payload('plain_message',sender_msg,sender_id)
                 elif user_response =='faq':
                     print("Member wants to see FAQ")
                     payload = form_payload('plain_message',sender_msg,sender_id)
