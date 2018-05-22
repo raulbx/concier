@@ -39,8 +39,9 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
+                quick_reply_response = message['message'].get('quick_reply')
                 #member=core_engine.Members(placeHolderFbId).get_member()
-                print(sender_msg)
+                print(quick_reply_response)
                 if not conversation:
                     # Prompt member if he needs help of wants to do something sele
                     payload = form_payload('welcome_buttons',sender_msg,reciever_id)
@@ -58,7 +59,6 @@ def receive_message():
                     print("Member is seeking help now...")
                     sender_msg='What are you shopping for?'
                     payload = form_payload('shopping_category_quick_replies',sender_msg,sender_id)
-                    print(payload)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
                     payload = form_payload('other_buttons',sender_msg,sender_id)
