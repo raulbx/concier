@@ -39,9 +39,9 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
-                quick_reply_response = message['message']['quick_reply']['payload']
+                quick_reply_response = message['message'].get('quick_reply')
                 #member=core_engine.Members(placeHolderFbId).get_member()
-                print(quick_reply_response)
+                print(quick_reply_response['payload'])
                 if not conversation:
                     # Prompt member if he needs help of wants to do something sele
                     payload = form_payload('welcome_buttons',sender_msg,reciever_id)
