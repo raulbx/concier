@@ -188,22 +188,27 @@ def form_payload(response_type,text_message,recipient_id):
         payload['message'] = {
         'text' : text_message,
         "quick_replies":[
-        {
-        "content_type":"text",
-        "title":"Electronics",
-        "payload":"electronics",
-        },
-        {
-        "content_type":"text",
-        "title":"Computers",
-        "payload":"computers",
-        },
-        {
-        "content_type":"text",
-        "title":"Household Items",
-        "payload":"house_hold_items",
-        }
-        ]
+            {
+            "content_type":"text",
+            "title":"Phone",
+            "payload":"phone"
+            },
+            {
+            "content_type":"text",
+            "title":"Electronics",
+            "payload":"electronics"
+            },
+            {
+            "content_type":"text",
+            "title":"Computers",
+            "payload":"computers"
+            },
+            {
+            "content_type":"text",
+            "title":"Household Items",
+            "payload":"house_hold_items"
+            }
+            ]
         }
     return payload
 
