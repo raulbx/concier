@@ -66,7 +66,7 @@ def receive_message():
                 elif user_response =='faq':
                     print("Member wants to see FAQ")
                     payload = form_payload('other_buttons',sender_msg,sender_id)
-                elif user_response =='electronics'||'computers'||'house_hold_items':
+                elif user_response =='electronics' or user_response =='computers' or user_response =='house_hold_items':
                     print("Member choosen category")
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 else :
