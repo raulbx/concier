@@ -57,6 +57,7 @@ def receive_message():
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help")
                     payload = form_payload('shopping_category_buttons',sender_msg,sender_id)
+                    print(payload)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
                     payload = form_payload('other_buttons',sender_msg,sender_id)
