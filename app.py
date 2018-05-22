@@ -44,9 +44,11 @@ def receive_message():
                     quick_reply_response = message['message'].get('quick_reply')
                     #member=core_engine.Members(placeHolderFbId).get_member()
                     if quick_reply_response:
-                        print(quick_reply_response['payload'])
+                        #print(quick_reply_response['payload'])
                         #sender_msg = 'User has choosen the category. Inside conversation'
-                        sender_msg = 'I can connect you to {} expert. Before that, can you tell me exactly what you are looking for?'.format(sender_msg)
+                        sender_msg = 'I can connect you to {} expert. To do that, can you tell me exactly what you are looking for?'.format(sender_msg)
+                        conversation_ref = member_ref.add_conversation(member)
+                        print(conversation_ref)
                         payload = form_payload('plain_message',sender_msg,reciever_id)
                     else :
                         payload = form_payload('welcome_buttons',sender_msg,reciever_id)
