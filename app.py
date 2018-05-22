@@ -39,7 +39,7 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
-                quick_reply_response = message['message']['quick_reply']
+                quick_reply_response = message['message'].get('quick_reply')
                 #member=core_engine.Members(placeHolderFbId).get_member()
                 if quick_reply_response.get('payload'):
                     print(quick_reply_response['payload'])
