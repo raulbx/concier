@@ -160,32 +160,21 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"What are you shopping for?",
+                    "text":"Other things you can do?",
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Electronics",
-                    "payload":"electronics"
+                    "title":"Register as expert?---",
+                    "payload":"expertRegsteration"
                     },
                     {
                     "type":"postback",
-                    "title":"Computers",
-                    "payload":"computers"
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Household Items",
-                    "payload":"house_hold_items"
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Other Item",
-                    "payload":"other_item"
+                    "title":"FAQ--",
+                    "payload":"faq"
                     }
                     ]
                 }
             }
-        }
     return payload
 
 if __name__ == "__main__":
