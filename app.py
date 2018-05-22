@@ -74,13 +74,11 @@ def receive_message():
                 elif user_response =='faq':
                     print("Member wants to see FAQ")
                     payload = form_payload('plain_message',sender_msg,sender_id)
-                '''
-                elif user_response =='electronics' or user_response =='computers' or user_response =='house_hold_items'or user_response =='other_items':
+                '''elif user_response =='electronics' or user_response =='computers' or user_response =='house_hold_items'or user_response =='other_items':
                     print("Member choosen category")
                     sender_msg = 'I can connect you to {} expert. Before that, can you tell me exactly what you are looking for?'.format(sender_msg)
                     payload = form_payload('plain_message',sender_msg,sender_id)
-                    #conversation.add_conversation(member)
-                '''
+                    #conversation.add_conversation(member)'''
                 else :
                     print("Some other option choosen")
                     sender_msg = 'User has selected: '+sender_msg
