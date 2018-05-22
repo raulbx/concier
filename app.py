@@ -183,6 +183,27 @@ def form_payload(response_type,text_message,recipient_id):
                 }
             }
         }
+    elif response_type =='shopping_category_quick_replies':
+        payload['message'] = {
+        'text' : text_message,
+        "quick_replies":[
+        {
+        "content_type":"text",
+        "title":"Electronics",
+        "payload":"electronics",
+        },
+        {
+        "content_type":"text",
+        "title":"Computers",
+        "payload":"computers",
+        },
+        {
+        "content_type":"text",
+        "title":"Household Items",
+        "payload":"house_hold_items",
+        }
+        ]
+        }
     return payload
 
 if __name__ == "__main__":
