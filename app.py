@@ -48,7 +48,6 @@ def receive_message():
                         #sender_msg = 'User has choosen the category. Inside conversation'
                         sender_msg = 'I can connect you to {} expert. To do that, can you tell me exactly what you are looking for?'.format(sender_msg)
                         conversation_ref = member_ref.add_conversation(member)
-                        print(conversation_ref)
                         payload = form_payload('plain_message',sender_msg,reciever_id)
                     else :
                         payload = form_payload('welcome_buttons',sender_msg,reciever_id)
@@ -56,7 +55,7 @@ def receive_message():
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     payload = form_payload('plain_message',sender_msg,reciever_id)
-                    print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
+                    #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
             elif message.get('postback'):
                 #These are responses to the button
