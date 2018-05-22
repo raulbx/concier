@@ -56,6 +56,7 @@ def receive_message():
                 sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help now...")
+                    sender_msg='What are you shopping for?'
                     payload = form_payload('shopping_category_quick_replies',sender_msg,sender_id)
                     print(payload)
                 elif user_response =='other':
@@ -162,7 +163,7 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"What are you shopping for?",
+                    "text":text_message,
                     "buttons":[
                     {
                     "type":"postback",
