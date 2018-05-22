@@ -56,7 +56,7 @@ def receive_message():
                 sender_msg = 'Button Menus'
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help")
-                    payload = form_payload('plain_message',sender_msg,sender_id)
+                    payload = form_payload('shopping_category_buttons',sender_msg,sender_id)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
                     payload = form_payload('other_buttons',sender_msg,sender_id)
@@ -139,7 +139,33 @@ def form_payload(response_type,text_message,recipient_id):
                 }
             }
         }
-
+    elif response_type =='shopping_category_buttons':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":"What are you shopping for?",
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Electronics",
+                    "payload":"electronics"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Computers",
+                    "payload":"computers"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Household Items",
+                    "payload":"house_hold_items"
+                    }
+                    ]
+                }
+            }
+        }
     return payload
 
 if __name__ == "__main__":
