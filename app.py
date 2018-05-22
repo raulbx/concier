@@ -165,17 +165,17 @@ def form_payload(response_type,text_message,recipient_id):
                     "text":"What are you shopping for?",
                     "quick_replies":[
                     {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Electronics",
                     "payload":"electronics"
                     },
                     {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Computers",
                     "payload":"computers"
                     },
                     {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Household Items",
                     "payload":"house_hold_items"
                     }
