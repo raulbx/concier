@@ -177,11 +177,6 @@ def form_payload(response_type,text_message,recipient_id):
                     "type":"postback",
                     "title":"Household Items",
                     "payload":"house_hold_items"
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Other Item",
-                    "payload":"other_item"
                     }
                     ]
                 }
