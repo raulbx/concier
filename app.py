@@ -53,13 +53,26 @@ def receive_message():
             elif message.get('postback'):
                 #These are responses to the button
                 user_response = message['postback'].get('payload')
-                sender_msg = 'Button Menus'
+                sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help")
                     payload = form_payload('shopping_category_buttons',sender_msg,sender_id)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
                     payload = form_payload('other_buttons',sender_msg,sender_id)
+                elif user_response =='expertRegsteration':
+                    print("Member wants to register as expert")
+                    payload = form_payload('other_buttons',sender_msg,sender_id)
+                elif user_response =='faq':
+                    print("Member wants to see FAQ")
+                    payload = form_payload('other_buttons',sender_msg,sender_id)
+                elif user_response =='electronics'||'computers'||'house_hold_items':
+                    print("Member choosen category")
+                    payload = form_payload('plain_message',sender_msg,sender_id)
+                else :
+                    print("Some other option choosen")
+                    sender_msg = 'User has selected: '+sender_msg
+                    payload = form_payload('plain_message',sender_msg,sender_id)
             send_message(payload)
     return "Message Processed"
  
