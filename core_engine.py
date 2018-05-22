@@ -47,13 +47,11 @@ class Members(object):
 		}
 		print("Added Member")
 		db = firestore.client()
-		conversation_ref = db.collection(u'members').add(member_data)
-		member.update({'conversations':[conversation_ref[1]]})
-		return conversation_ref
+		return db.collection(u'members').add(member_data)
 	
-	def add_conversation(self,helpee_ref):
+	def add_conversation(self,member_ref):
 		conversation_data = {
-    	'helpee_ref':helpee_ref, # this is reference to the helper obj
+    	'helpee_ref':member_ref, # this is reference to the member obj
     	#'helpee_id':helpee_id,
     	'active':True,
     	'conversation_state':0,
@@ -62,7 +60,9 @@ class Members(object):
     	'lastactivedate':datetime.datetime.now()
     	}
 		db = firestore.client()
-		return db.collection(u'conversations').add(conversation_data)
+		conversation_ref=db.collection(u'conversations').add(conversation_data)
+		member.update({'conversations':[conversation_ref[1]]})
+		return conversation_ref
 
 	def get_active_conversation(self,member):
 		# Get the latest conversation. If no convers
