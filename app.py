@@ -160,21 +160,22 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"Other things you can do?",
+                    "text":"Other things you can do?--",
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Register as expert?---",
+                    "title":"Register as expert?--",
                     "payload":"expertRegsteration"
                     },
                     {
                     "type":"postback",
-                    "title":"FAQ--",
+                    "title":"FAQ---",
                     "payload":"faq"
                     }
                     ]
                 }
             }
+        }
     return payload
 
 if __name__ == "__main__":
