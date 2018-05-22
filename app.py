@@ -39,13 +39,16 @@ def receive_message():
                 reciever_id = 1609342142475258
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
-                quick_reply_response = message['message'].get('quick_reply')
-                #member=core_engine.Members(placeHolderFbId).get_member()
-                if quick_reply_response:
-                    print(quick_reply_response['payload'])
                 if not conversation:
                     # Prompt member if he needs help of wants to do something sele
-                    payload = form_payload('welcome_buttons',sender_msg,reciever_id)
+                    quick_reply_response = message['message'].get('quick_reply')
+                    #member=core_engine.Members(placeHolderFbId).get_member()
+                    if quick_reply_response:
+                        print(quick_reply_response['payload'])
+                        sender_msg = 'User has choosen the category. Inside conversation'
+                        payload = form_payload('plain_message',sender_msg,reciever_id)
+                    else :
+                        payload = form_payload('welcome_buttons',sender_msg,reciever_id)
                     # This means that either this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
