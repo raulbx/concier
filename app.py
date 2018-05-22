@@ -68,7 +68,7 @@ def receive_message():
                     payload = form_payload('other_buttons',sender_msg,sender_id)
                 elif user_response =='electronics' or user_response =='computers' or user_response =='house_hold_items'or user_response =='other_items':
                     print("Member choosen category")
-                    send_message = "We can find an expert, who can help you. Before that, can you tell me exactly what you are looking for?"
+                    sender_msg = "We can find an expert, who can help you. Before that, can you tell me exactly what you are looking for?"
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 else :
                     print("Some other option choosen")
