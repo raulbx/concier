@@ -54,6 +54,7 @@ def receive_message():
                     # This means that either this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
+                    print ('conversation in progress'.format(conversation.get().to_dict()['current_chat_seq']))
                     payload = form_payload('plain_message',sender_msg,reciever_id)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
