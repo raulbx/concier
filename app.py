@@ -63,13 +63,14 @@ def receive_message():
                     payload = form_payload('other_buttons',sender_msg,sender_id)
                 elif user_response =='expertRegsteration':
                     print("Member wants to register as expert")
+                    sender_msg = 'Please visit http://concier.org to register as expert'
                     payload = form_payload('other_buttons',sender_msg,sender_id)
                 elif user_response =='faq':
                     print("Member wants to see FAQ")
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 elif user_response =='electronics' or user_response =='computers' or user_response =='house_hold_items'or user_response =='other_items':
                     print("Member choosen category")
-                    sender_msg = 'I can connect you to an {} expert. Before that, can you tell me exactly what you are looking for?'.format(sender_msg)
+                    sender_msg = 'I can connect you to {} expert. Before that, can you tell me exactly what you are looking for?'.format(sender_msg)
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 else :
                     print("Some other option choosen")
