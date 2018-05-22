@@ -56,7 +56,7 @@ def receive_message():
                 sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help now...")
-                    payload = form_payload('shopping_category_buttons',sender_msg,sender_id)
+                    payload = form_payload('shopping_category_quick_replies',sender_msg,sender_id)
                     print(payload)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
