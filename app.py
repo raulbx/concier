@@ -181,7 +181,7 @@ def form_payload(response_type,text_message,recipient_id):
                     {
                     "type":"postback",
                     "title":"Other Item",
-                    "payload":"oter_item"
+                    "payload":"other_item"
                     }
                     ]
                 }
