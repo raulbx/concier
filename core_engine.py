@@ -53,7 +53,7 @@ class Members(object):
 		conversation_data = {
     	'helpee_ref':member_ref, # this is reference to the member obj
     	#'helpee_id':helpee_id,
-    	'active':True,
+    	'active':False,
     	'conversation_state':0,
     	'current_chat_seq':0,
     	'startdate':datetime.datetime.now(),
@@ -75,3 +75,5 @@ class Members(object):
 		else:
 			conversation = None
 		return conversation
+
+	def log_chat(self,)
