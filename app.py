@@ -54,8 +54,13 @@ def receive_message():
                     # This means that either this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
-                    print(conversation.to_dict().get('active'))
-                    payload = form_payload('plain_message',sender_msg,reciever_id)
+                    if conversation.to_dict().get('active'):
+                        print("Send the message to the counter party")
+                        sender_msg ="I am sending this message to counter party"
+                        payload = form_payload('plain_message',sender_msg,reciever_id)
+                    else :
+                        sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
+                        payload = form_payload('plain_message',sender_msg,reciever_id)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
             elif message.get('postback'):
