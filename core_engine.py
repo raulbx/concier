@@ -75,5 +75,4 @@ class Members(object):
 		else:
 			conversation = None
 		return conversation
-
-	def log_chat(self,)
+	
