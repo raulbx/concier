@@ -76,7 +76,10 @@ class Members(object):
 			conversation = None
 		return conversation
 
-	def log_message(self,member,conversation,message):
+	def log_message(self,member,message):
+		conversations_array = member.get().get('conversations')
+		conversation_ref = conversations_array[-1]
+		conversation = conversation_ref.get()
 		chat_seq=conversation.to_dict()['current_chat_seq']+1
 		chat_log = {
 		'sender':member,
@@ -84,6 +87,6 @@ class Members(object):
 		'chat_seq':chat_seq,
 		'timestamp':datetime.datetime.now()
 		}
-		conversation.update({u'current_chat_seq': chat_seq})
-		conversation.collection(u'chats').add(chat_log)
+		conversation_ref.update({u'current_chat_seq': chat_seq})
+		conversation_ref.collection(u'chats').add(chat_log)
 		return
