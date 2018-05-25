@@ -24,7 +24,7 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
        output = request.get_json()
-       print (output)
+       #print (output)
        placeHolderFbId='16093421424752501'
        member_ref=core_engine.Members(placeHolderFbId)
        member = member_ref.get_member()
@@ -64,7 +64,7 @@ def receive_message():
                         payload = form_payload('plain_message',sender_msg,reciever_id)
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
-                        query_results = member_ref.get_experts('AMZN')
+                        query_results = member_ref.get_experts('AMZN').get()
                         for result in query_results:
                             print('ID {} and {}'.format(result.id, result.get()))
                         #se
