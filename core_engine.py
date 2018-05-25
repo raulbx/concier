@@ -90,3 +90,6 @@ class Members(object):
 		conversation_ref.update({u'current_chat_seq': chat_seq})
 		conversation_ref.collection(u'chats').add(chat_log)
 		return
+
+	def get_experts(self,expertise):
+		return db.collection("members").where("source", "==", expertise)
