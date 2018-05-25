@@ -76,7 +76,7 @@ class Members(object):
 			conversation = None
 		return conversation
 
-	def log_message(self,member,conversation,message)
+	def log_message(self,member,conversation,message):
 		chat_seq=conversation.to_dict()['current_chat_seq']+1
 		chat_log = {
 		'sender':member,
