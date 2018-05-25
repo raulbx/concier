@@ -67,7 +67,7 @@ def receive_message():
                         query_results = member_ref.get_experts('electronics').get()
                         for result in query_results:
                             for expert_ref in result.to_dict()['member']:
-                                print ('Expert Reference is: '.format(expert_ref))
+                                print ('Expert Reference is: '.format(expert_ref.to_dict()['fb_id']))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
                         #se
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
