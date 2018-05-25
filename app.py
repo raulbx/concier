@@ -59,6 +59,8 @@ def receive_message():
                         sender_msg ="I am sending this message to counter party"
                         payload = form_payload('plain_message',sender_msg,reciever_id)
                     else :
+                        # log this message
+                        member_ref.log_message(member,conversation,sender_msg)
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,reciever_id)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])

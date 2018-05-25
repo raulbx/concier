@@ -75,4 +75,15 @@ class Members(object):
 		else:
 			conversation = None
 		return conversation
-	
+
+	def log_message(self,member,conversation,message)
+		chat_seq=conversation.to_dict()['current_chat_seq']+1
+		chat_log = {
+		'sender':member,
+		'message':message,
+		'chat_seq':chat_seq,
+		'timestamp':datetime.datetime.now()
+		}
+		conversation.update({u'current_chat_seq': chat_seq})
+		conversation.collection(u'chats').add(chat_log)
+		return
