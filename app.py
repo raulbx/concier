@@ -64,8 +64,9 @@ def receive_message():
                         payload = form_payload('plain_message',sender_msg,reciever_id)
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
-                        query_result = member_ref.get_experts('AMZN')
-                        print(query_result.get())
+                        query_results = member_ref.get_experts('AMZN')
+                        for result in query_results:
+                            print('ID {} and {}'.format(result.id, result.get()))
                         #se
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
