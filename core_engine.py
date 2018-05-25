@@ -92,4 +92,5 @@ class Members(object):
 		return
 
 	def get_experts(self,expertise):
+		db = firestore.client()
 		return db.collection("members").where("source", "==", expertise)
