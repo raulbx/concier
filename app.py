@@ -48,7 +48,7 @@ def receive_message():
                     if quick_reply_response:
                         #print(quick_reply_response['payload'])
                         #sender_msg = 'User has choosen the category. Inside conversation'
-                        sender_msg = 'I can connect you to {} expert. To do that, can you tell me exactly what you are looking for?'.format(sender_msg)
+                        sender_msg = 'I can connect you to {} expert. Please share what are you looking for?  More descriptive the better!'.format(sender_msg)
                         conversation_ref = member_ref.add_conversation(member)
                         payload = form_payload('plain_message',sender_msg,sender_id)
                     else :
@@ -61,7 +61,7 @@ def receive_message():
                         sender_msg ="I am sending this message to counter party"
                         payload = form_payload('plain_message',sender_msg,sender_id)
                     else :
-                        #member_ref.log_message(member,sender_msg)
+                        member_ref.log_message(member,sender_msg)
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
                         #Broadcast this message, to the community of experts
@@ -164,7 +164,7 @@ def form_payload(response_type,text_message,recipient_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Register as expert?",
+                    "title":"Register as expert",
                     "payload":"expertRegsteration"
                     },
                     {

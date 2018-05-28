@@ -41,7 +41,7 @@ class Members(object):
 		'is_helpee':True,
 		'token_balance':0,
 		'conversations':[], # Good idea is to store references in this array
-		'expertise':['electronics','health'],
+		#'expertise':['electronics','health'], # This is now stored in a different collection
 		'signupdate':datetime.datetime.now(),
 		'lastactivedate':datetime.datetime.now()
 		}
