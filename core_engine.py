@@ -88,7 +88,7 @@ class Members(object):
 			conversation_ref = None
 		return conversation_ref
 
-	def log_message(self,conversation_ref,message):
+	def log_message(self,member,conversation_ref,message):
 		#conversations_array = member.get().get('conversations')
 		#conversation_ref = conversations_array[-1]
 		conversation = conversation_ref.get()
