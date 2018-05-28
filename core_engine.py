@@ -60,8 +60,8 @@ class Members(object):
     	'lastactivedate':datetime.datetime.now()
     	}
 		db = firestore.client()
-		conversation_ref=db.collection(u'conversations').add(conversation_data)
-		member_ref.update({'conversations':[conversation_ref[1]]})
+		conversation_ref=db.collection(u'conversations').add(conversation_data)[1]
+		member_ref.update({'conversations':[conversation_ref})
 		return conversation_ref
 
 	def get_active_conversation(self,member):
