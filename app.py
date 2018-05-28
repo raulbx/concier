@@ -30,8 +30,8 @@ def receive_message():
           messaging = event['messaging']
           for message in messaging:
             sender_id = message['sender']['id']
-            placeHolderFbId=sender_id
-            member_ref=core_engine.Members(placeHolderFbId)
+            #placeHolderFbId=sender_id
+            member_ref=core_engine.Members(sender_id)
             member = member_ref.get_member()
             #print(member.get().to_dict().get('fb_id'))
             conversation = member_ref.get_active_conversation(member)
@@ -50,20 +50,20 @@ def receive_message():
                         #sender_msg = 'User has choosen the category. Inside conversation'
                         sender_msg = 'I can connect you to {} expert. To do that, can you tell me exactly what you are looking for?'.format(sender_msg)
                         conversation_ref = member_ref.add_conversation(member)
-                        payload = form_payload('plain_message',sender_msg,reciever_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id)
                     else :
-                        payload = form_payload('welcome_buttons',sender_msg,reciever_id)
+                        payload = form_payload('welcome_buttons',sender_msg,sender_id)
                     # This means that either this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
-                        payload = form_payload('plain_message',sender_msg,reciever_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id)
                     else :
                         #member_ref.log_message(member,sender_msg)
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
-                        payload = form_payload('plain_message',sender_msg,reciever_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id)
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
                         query_results = member_ref.get_experts('electronics').get()
