@@ -26,7 +26,6 @@ def receive_message():
        output = request.get_json()
        #print (output)
        placeHolderFbId='16093421424752501'
-      
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
@@ -38,7 +37,8 @@ def receive_message():
             conversation = member_ref.get_active_conversation(member)
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
-                reciever_id = 1609342142475258
+                #reciever_id = 1609342142475258
+                reciever_id=sender_id
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
                 if not conversation:
