@@ -58,6 +58,7 @@ def receive_message():
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     conversation = conversation_ref.get()
+                    payload_message = message['message'].get('payload')
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
@@ -65,21 +66,23 @@ def receive_message():
                         counter_party = 'YP....'
                         payload = form_payload('plain_message',sender_msg,counter_party)
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
+                        # Ask user about his time frame for the purchase. Log the question. Move the conversation in Identify price state
                         conversation_ref.update({'conversation_state':'identify_price'})
                         conversation_ref.update({'question':sender_msg})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
+                         # Ask user about price for his purchase. Log the timeframe. Move the conversation in find expert state
                         conversation_ref.update({'conversation_state':'find_expert'})
-                        conversation_ref.update({'time_frame':sender_msg})
+                        conversation_ref.update({'time_frame':payload_message})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'find_expert':
                         # Reach this state after all the member question onboarding is complete.
                         member_ref.log_message(member,conversation_ref,sender_msg)
-                        conversation_ref.update({'max_price':sender_msg})
+                        conversation_ref.update({'max_price':payload_message})
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
                         #Broadcast this message, to the community of experts
@@ -156,7 +159,7 @@ def form_payload(response_type,text_message,recipient_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"Hey stranger! How can I help?",
+                    "text":"Hey there! How can I help?",
                     "buttons":[
                     {
                     "type":"postback",
