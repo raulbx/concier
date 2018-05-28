@@ -26,14 +26,16 @@ def receive_message():
        output = request.get_json()
        #print (output)
        placeHolderFbId='16093421424752501'
-       member_ref=core_engine.Members(placeHolderFbId)
-       member = member_ref.get_member()
-       #print(member.get().to_dict().get('fb_id'))
-       conversation = member_ref.get_active_conversation(member)
+      
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
             sender_id = message['sender']['id']
+            placeHolderFbId=sender_id
+            member_ref=core_engine.Members(placeHolderFbId)
+            member = member_ref.get_member()
+            #print(member.get().to_dict().get('fb_id'))
+            conversation = member_ref.get_active_conversation(member)
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
                 reciever_id = 1609342142475258
@@ -66,7 +68,7 @@ def receive_message():
                         # Get all the experts for this expertise 
                         query_results = member_ref.get_experts('electronics').get()
                         for result in query_results:
-                            print(result.to_dict()['member'])
+                            print(result.to_dict()['member'][0].get())
                             #for expert_ref in result.to_dict()['member']:
                              #   print ('Expert Reference is: '.format(expert_ref.get()))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
