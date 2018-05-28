@@ -124,7 +124,7 @@ def receive_message():
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 else :
                     print("Some other option choosen")
-                    sender_msg = 'User has selected: '+sender_msg
+                    sender_msg = 'This is the back room of the Concier maze: '+sender_msg
                     payload = form_payload('plain_message',sender_msg,sender_id)
             send_message(payload)
     return "Message Processed"
@@ -305,8 +305,23 @@ def form_payload(response_type,text_message,recipient_id):
             },
             {
             "content_type":"text",
-            "title":"Specify max amount",
-            "payload":"max_price"
+            "title":"Max $1000",
+            "payload":"$1000"
+            },
+            {
+            "content_type":"text",
+            "title":"Max $500",
+            "payload":"$500"
+            },
+            {
+            "content_type":"text",
+            "title":"Max $100",
+            "payload":"$100"
+            },
+            {
+            "content_type":"text",
+            "title":"Price doesn't matter",
+            "payload":"Price doesn't matter"
             }
             ]
         }
