@@ -66,12 +66,12 @@ def receive_message():
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
                         member_ref.log_message(member,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
-                        member_ref.update_conversation_state(conversation_id,'identify_price')
+                        member_ref.update_conversation_state(conversation,'identify_price')
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
                         member_ref.log_message(member,sender_msg)
                         sender_msg = "What price range do you have in mind?"
-                        member_ref.update_conversation_state(conversation_id,'request_identified')
+                        member_ref.update_conversation_state(conversation,'request_identified')
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     else :
                         # Reach this state after all the member question onboarding is complete.
@@ -290,7 +290,7 @@ def form_payload(response_type,text_message,recipient_id):
             },
             {
             "content_type":"text",
-            "title":"I am willing to pay max (specify amount)...",
+            "title":"Specify max amount",
             "payload":"max_price"
             }
             ]

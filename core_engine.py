@@ -91,10 +91,10 @@ class Members(object):
 		conversation_ref.collection(u'chats').add(chat_log)
 		return
 
-	def update_conversation_state(self,conversation_id,state):
-		db = firestore.client()
-		conversation_ref = db.collection(u'conversations').document(conversation_id)
-		conversation_ref.update({'conversation_state':state})
+	def update_conversation_state(self,conversation,state):
+		#db = firestore.client()
+		#conversation_ref = db.collection(u'conversations').document(conversation_id)
+		conversation.update({'conversation_state':state})
 		return
 
 	def get_experts(self,expertise):
