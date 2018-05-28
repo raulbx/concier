@@ -60,7 +60,6 @@ def receive_message():
                     conversation = conversation_ref.get()
                     #quick_reply_response = message['message'].get('quick_reply')
                     print(message['message'])
-                    payload_message = message['message']['quick_reply'].get('payload')
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
@@ -75,6 +74,7 @@ def receive_message():
                         sender_msg = "How soon do you want to buy this product?"
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
+                        payload_message = message['message']['quick_reply'].get('payload')
                          # Ask user about price for his purchase. Log the timeframe. Move the conversation in find expert state
                         conversation_ref.update({'conversation_state':'find_expert'})
                         conversation_ref.update({'time_frame':payload_message})
@@ -82,6 +82,7 @@ def receive_message():
                         sender_msg = "What price range do you have in mind?"
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'find_expert':
+                        payload_message = message['message']['quick_reply'].get('payload')
                         # Reach this state after all the member question onboarding is complete.
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         conversation_ref.update({'max_price':payload_message})
