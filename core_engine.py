@@ -107,5 +107,10 @@ class Members(object):
 		db = firestore.client()
 		return db.collection("expertise").where("expertise_category", "==", expertise)
 
-	def add_expert(self):
-		return
+	def add_expert(self,member,product_category):
+		db = firestore.client()
+		expertise_data = {
+		expertise_category=product_category,
+		member=[member]
+		}
+		return db.collection("expertise").update(expertise_data, firestore.CreateIfMissingOption(True))

@@ -122,6 +122,7 @@ def receive_message():
                     # Add member to a expertise category
                     payload = form_payload('choose_expertise_category',sender_msg,sender_id)
                 elif user_response =='phone' or user_response =='electronics' or user_response =='computers':
+                    member_ref.add_expert(member,user_response)
                     sender_msg = 'Great I have added you as an expert for '+user_response
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 elif user_response =='manage_account':
