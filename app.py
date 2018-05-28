@@ -65,18 +65,21 @@ def receive_message():
                         counter_party = 'YP....'
                         payload = form_payload('plain_message',sender_msg,counter_party)
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
+                        conversation_ref.update({'conversation_state':'identify_price'})
+                        conversation_ref.update({'question':sender_msg})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
-                        member_ref.update_conversation_state(conversation_ref,'identify_price')
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
+                        conversation_ref.update({'conversation_state':'find_expert'})
+                        conversation_ref.update({'time_frame':sender_msg})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
-                        member_ref.update_conversation_state(conversation_ref,'request_identified')
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
-                    else :
+                    elif conversation.to_dict().get('conversation_state') == 'find_expert'::
                         # Reach this state after all the member question onboarding is complete.
                         member_ref.log_message(member,conversation_ref,sender_msg)
+                        conversation_ref.update({'max_price':sender_msg})
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
                         #Broadcast this message, to the community of experts
@@ -261,22 +264,22 @@ def form_payload(response_type,text_message,recipient_id):
             {
             "content_type":"text",
             "title":"Less than 24 hours",
-            "payload":"24hours"
+            "payload":"24 hours"
             },
             {
             "content_type":"text",
             "title":"One week",
-            "payload":"one_week"
+            "payload":"one week"
             },
             {
             "content_type":"text",
             "title":"One month",
-            "payload":"one_month"
+            "payload":"one month"
             },
             {
             "content_type":"text",
             "title":"Don't have a timeframe",
-            "payload":"no_timeframe"
+            "payload":"no timeframe"
             }
             ]
         }
@@ -287,7 +290,7 @@ def form_payload(response_type,text_message,recipient_id):
             {
             "content_type":"text",
             "title":"Do not know",
-            "payload":"dont_know"
+            "payload":"no price in mind"
             },
             {
             "content_type":"text",

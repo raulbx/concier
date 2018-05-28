@@ -103,10 +103,6 @@ class Members(object):
 		conversation_ref.collection(u'chats').add(chat_log)
 		return
 
-	def update_conversation_state(self,conversation_ref,state):
-		conversation_ref.update({'conversation_state':state})
-		return
-
 	def get_experts(self,expertise):
 		db = firestore.client()
 		return db.collection("expertise").where("expertise_category", "==", expertise)
