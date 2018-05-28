@@ -51,6 +51,7 @@ def receive_message():
                         #sender_msg = 'User has choosen the category. Inside conversation'
                         sender_msg = 'I can connect you to {} expert. Please share what are you looking for?  More descriptive the better!'.format(sender_msg)
                         conversation_ref = member_ref.add_conversation(member)
+                        conversation_ref.update({'product_category':quick_reply_response[payload]})
                         payload = form_payload('plain_message',sender_msg,sender_id)
                     else :
                         payload = form_payload('welcome_buttons',sender_msg,sender_id)
@@ -230,13 +231,13 @@ def form_payload(response_type,text_message,recipient_id):
                     },
                     {
                     "type":"postback",
-                    "title":"Household Items",
-                    "payload":"house_hold_items"
+                    "title":"Household Item",
+                    "payload":"house hold item"
                     },
                     {
                     "type":"postback",
                     "title":"Other",
-                    "payload":"Other_items"
+                    "payload":"other item"
                     }
                     ]
                 }
