@@ -76,6 +76,18 @@ class Members(object):
 			conversation = None
 		return conversation
 
+	def get_active_conversation_ref(self,member):
+		# Get the latest conversation. If no convers
+		conversations_array = member.get().get('conversations')
+		#active_conv = len(conversations_array)
+		if len(conversations_array) > 0:
+			# TODO: Need to fix this to get the right conversation
+			conversation_ref = conversations_array[-1]
+			#conversation = conversation_ref.get()
+		else:
+			conversation_ref = None
+		return conversation_ref
+
 	def log_message(self,member,message):
 		conversations_array = member.get().get('conversations')
 		conversation_ref = conversations_array[-1]
@@ -91,10 +103,10 @@ class Members(object):
 		conversation_ref.collection(u'chats').add(chat_log)
 		return
 
-	def update_conversation_state(self,conversation,state):
+	def update_conversation_state(self,conversation_ref,state):
 		#db = firestore.client()
 		#conversation_ref = db.collection(u'conversations').document(conversation_id)
-		conversation.get().update({'conversation_state':state})
+		conversation_ref.get().update({'conversation_state':state})
 		return
 
 	def get_experts(self,expertise):

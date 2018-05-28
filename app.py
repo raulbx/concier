@@ -34,14 +34,15 @@ def receive_message():
             member_ref=core_engine.Members(sender_id)
             member = member_ref.get_member()
             #print(member.get().to_dict().get('fb_id'))
-            conversation = member_ref.get_active_conversation(member)
+            #conversation = member_ref.get_active_conversation(member)
+            conversation_ref = member_ref.get_active_conversation_ref(member)
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
                 #reciever_id = 1609342142475258
                 reciever_id=sender_id
                 #core_engine.verify_member_state(sender_id)
                 sender_msg = message['message'].get('text')
-                if not conversation:
+                if not conversation_ref:
                     # Prompt member if he needs help of wants to do something sele
                     quick_reply_response = message['message'].get('quick_reply')
                     #member=core_engine.Members(placeHolderFbId).get_member()
@@ -56,7 +57,8 @@ def receive_message():
                         # This means that this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
-                    conversation_id = conversation.id
+                    #conversation_id = conversation.id
+                    conversation = conversation_ref.get()
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
@@ -66,12 +68,12 @@ def receive_message():
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
                         member_ref.log_message(member,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
-                        member_ref.update_conversation_state(conversation,'identify_price')
+                        member_ref.update_conversation_state(conversation_ref,'identify_price')
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
                         member_ref.log_message(member,sender_msg)
                         sender_msg = "What price range do you have in mind?"
-                        member_ref.update_conversation_state(conversation,'request_identified')
+                        member_ref.update_conversation_state(conversation_ref,'request_identified')
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     else :
                         # Reach this state after all the member question onboarding is complete.
