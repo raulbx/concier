@@ -76,7 +76,7 @@ def receive_message():
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
-                    elif conversation.to_dict().get('conversation_state') == 'find_expert'::
+                    elif conversation.to_dict().get('conversation_state') == 'find_expert':
                         # Reach this state after all the member question onboarding is complete.
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         conversation_ref.update({'max_price':sender_msg})
