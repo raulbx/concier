@@ -58,8 +58,8 @@ def receive_message():
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     conversation = conversation_ref.get()
-                    quick_reply_response = message['message'].get('quick_reply')
-                    payload_message = quick_reply_response['payload']
+                    #quick_reply_response = message['message'].get('quick_reply')
+                    payload_message = message['message']['quick_reply'].get('payload')
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
