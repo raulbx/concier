@@ -53,14 +53,28 @@ def receive_message():
                         payload = form_payload('plain_message',sender_msg,sender_id)
                     else :
                         payload = form_payload('welcome_buttons',sender_msg,sender_id)
-                    # This means that either this is the first time member is interacting with the platform.
+                        # This means that this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
+                    conversation_id = conversation.id
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
-                        payload = form_payload('plain_message',sender_msg,sender_id)
+                        # Get the counter party from the conversation
+                        counter_party = 'YP....'
+                        payload = form_payload('plain_message',sender_msg,counter_party)
+                    elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
+                        member_ref.log_message(member,sender_msg)
+                        sender_msg = "How soon do you want to buy this product?"
+                        member_ref.update_conversation_state(conversation_id,'identify_price')
+                        payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
+                    elif conversation.to_dict().get('conversation_state') == 'identify_price':
+                        member_ref.log_message(member,sender_msg)
+                        sender_msg = "What price range do you have in mind?"
+                        member_ref.update_conversation_state(conversation_id,'request_identified')
+                        payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     else :
+                        # Reach this state after all the member question onboarding is complete.
                         member_ref.log_message(member,sender_msg)
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
@@ -90,8 +104,8 @@ def receive_message():
                     print("Member wants to register as expert")
                     sender_msg = 'Please visit http://concier.org to register as expert'
                     payload = form_payload('plain_message',sender_msg,sender_id)
-                elif user_response =='faq':
-                    print("Member wants to see FAQ")
+                elif user_response =='manage_account':
+                    print("Member wants to manage account")
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 else :
                     print("Some other option choosen")
@@ -236,6 +250,48 @@ def form_payload(response_type,text_message,recipient_id):
             "content_type":"text",
             "title":"Household Items",
             "payload":"house_hold_items"
+            }
+            ]
+        }
+     elif response_type =='shopping_timeframe_quick_replies':
+        payload['message'] = {
+        'text' : text_message,
+        "quick_replies":[
+            {
+            "content_type":"text",
+            "title":"Less than 24 hours",
+            "payload":"24hours"
+            },
+            {
+            "content_type":"text",
+            "title":"One week",
+            "payload":"one_week"
+            },
+            {
+            "content_type":"text",
+            "title":"One month",
+            "payload":"one_month"
+            },
+            {
+            "content_type":"text",
+            "title":"Don't have a timeframe",
+            "payload":"no_timeframe"
+            }
+            ]
+        }
+    elif response_type =='shopping_price_quick_replies':
+        payload['message'] = {
+        'text' : text_message,
+        "quick_replies":[
+            {
+            "content_type":"text",
+            "title":"Do not know",
+            "payload":"dont_know"
+            },
+            {
+            "content_type":"text",
+            "title":"I am willing to pay max (specify amount)...",
+            "payload":"max_price"
             }
             ]
         }

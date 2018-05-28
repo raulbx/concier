@@ -54,7 +54,7 @@ class Members(object):
     	'helpee_ref':member_ref, # this is reference to the member obj
     	#'helpee_id':helpee_id,
     	'active':False,
-    	'conversation_state':0,
+    	'conversation_state':'identify_timeframe',
     	'current_chat_seq':0,
     	'startdate':datetime.datetime.now(),
     	'lastactivedate':datetime.datetime.now()
@@ -89,6 +89,12 @@ class Members(object):
 		}
 		conversation_ref.update({u'current_chat_seq': chat_seq})
 		conversation_ref.collection(u'chats').add(chat_log)
+		return
+
+	def update_conversation_state(self,conversation_id,state):
+		db = firestore.client()
+		conversation_ref = db.collection(u'conversations').document(conversation_id)
+		conversation_ref.update({'conversation_state':state})
 		return
 
 	def get_experts(self,expertise):
