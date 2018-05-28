@@ -106,7 +106,7 @@ class Members(object):
 	def update_conversation_state(self,conversation_ref,state):
 		#db = firestore.client()
 		#conversation_ref = db.collection(u'conversations').document(conversation_id)
-		conversation_ref.get().update({'conversation_state':state})
+		conversation_ref.update({'conversation_state':state})
 		return
 
 	def get_experts(self,expertise):
