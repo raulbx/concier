@@ -253,7 +253,7 @@ def form_payload(response_type,text_message,recipient_id):
             }
             ]
         }
-     elif response_type =='shopping_timeframe_quick_replies':
+    elif response_type =='shopping_timeframe_quick_replies':
         payload['message'] = {
         'text' : text_message,
         "quick_replies":[
