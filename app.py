@@ -121,7 +121,7 @@ def receive_message():
                     #sender_msg = 'Please visit http://concier.org to register as expert'
                     # Add member to a expertise category
                     payload = form_payload('choose_expertise_category',sender_msg,sender_id)
-                elif user_response =='Phone' or user_response =='Electronics' or user_response =='Computers':
+                elif user_response =='phone' or user_response =='electronics' or user_response =='computers':
                     sender_msg = 'Great I have added you as an expert for '.format(user_response)
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 elif user_response =='manage_account':
