@@ -88,9 +88,9 @@ class Members(object):
 			conversation_ref = None
 		return conversation_ref
 
-	def log_message(self,member,message):
-		conversations_array = member.get().get('conversations')
-		conversation_ref = conversations_array[-1]
+	def log_message(self,conversation_ref,message):
+		#conversations_array = member.get().get('conversations')
+		#conversation_ref = conversations_array[-1]
 		conversation = conversation_ref.get()
 		chat_seq=conversation.to_dict()['current_chat_seq']+1
 		chat_log = {
@@ -104,8 +104,6 @@ class Members(object):
 		return
 
 	def update_conversation_state(self,conversation_ref,state):
-		#db = firestore.client()
-		#conversation_ref = db.collection(u'conversations').document(conversation_id)
 		conversation_ref.update({'conversation_state':state})
 		return
 

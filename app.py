@@ -57,7 +57,6 @@ def receive_message():
                         # This means that this is the first time member is interacting with the platform.
                 else:
                     #Log the conversation. Get the other party id and send it to them.
-                    #conversation_id = conversation.id
                     conversation = conversation_ref.get()
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
@@ -66,18 +65,18 @@ def receive_message():
                         counter_party = 'YP....'
                         payload = form_payload('plain_message',sender_msg,counter_party)
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
-                        member_ref.log_message(member,sender_msg)
+                        member_ref.log_message(conversation_ref,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
                         member_ref.update_conversation_state(conversation_ref,'identify_price')
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
-                        member_ref.log_message(member,sender_msg)
+                        member_ref.log_message(conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
                         member_ref.update_conversation_state(conversation_ref,'request_identified')
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     else :
                         # Reach this state after all the member question onboarding is complete.
-                        member_ref.log_message(member,sender_msg)
+                        member_ref.log_message(conversation_ref,sender_msg)
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
                         #Broadcast this message, to the community of experts
