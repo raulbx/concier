@@ -92,7 +92,7 @@ def receive_message():
                         payload = form_payload('plain_message',sender_msg,sender_id)
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
-                        query_results = member_ref.get_experts('electronics').get()
+                        query_results = member_ref.get_experts(conversation.to_dict().get('product_category')).get()
                         for result in query_results:
                             print(result.to_dict()['member'][0].get())
                             #for expert_ref in result.to_dict()['member']:
@@ -118,10 +118,11 @@ def receive_message():
                     payload = form_payload('other_buttons',sender_msg,sender_id)
                 elif user_response =='expertRegsteration':
                     print("Member wants to register as expert")
-                    sender_msg = 'Please visit http://concier.org to register as expert'
-                    payload = form_payload('plain_message',sender_msg,sender_id)
+                    #sender_msg = 'Please visit http://concier.org to register as expert'
+                    # Add member to a expertise category
+                    payload = form_payload('choose_expertise_category',sender_msg,sender_id)
                 elif user_response =='manage_account':
-                    print("Member wants to manage account")
+                    print("Manage your account at http://concier.org/account")
                     payload = form_payload('plain_message',sender_msg,sender_id)
                 else :
                     print("Some other option choosen")
@@ -179,6 +180,34 @@ def form_payload(response_type,text_message,recipient_id):
                     "type":"postback",
                     "title":"Other?",
                     "payload":"other"
+                    }
+                    ]
+                }
+            }
+        }
+    elif response_type =='choose_expertise_category':
+        #payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":"What kind of products you know well?",
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Phone",
+                    "payload":"phone"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Electronics?",
+                    "payload":"electronics"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Computers",
+                    "payload":"computers"
                     }
                     ]
                 }
