@@ -110,7 +110,7 @@ class Members(object):
 	def add_expert(self,member,product_category):
 		db = firestore.client()
 		expertise_data = {
-		expertise_category=product_category,
-		member=[member]
+		expertise_category:product_category,
+		member:[member]
 		}
 		return db.collection("expertise").update(expertise_data, firestore.CreateIfMissingOption(True))
