@@ -76,15 +76,16 @@ def receive_message():
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
                         payload_message = message['message']['quick_reply'].get('payload')
                          # Ask user about price for his purchase. Log the timeframe. Move the conversation in find expert state
-                        conversation_ref.update({'conversation_state':'find_expert'})
+                        conversation_ref.update({'conversation_state':'basic_info_gathered'})
                         conversation_ref.update({'time_frame':payload_message})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
-                    elif conversation.to_dict().get('conversation_state') == 'find_expert':
+                    elif conversation.to_dict().get('conversation_state') == 'basic_info_gathered':
                         payload_message = message['message']['quick_reply'].get('payload')
-                        # Reach this state after all the member question onboarding is complete.
+                        # Reach this state after all the member question onboarding is complete. Member 
                         member_ref.log_message(member,conversation_ref,sender_msg)
+                        conversation_ref.update({'conversation_state':'find_expert'})
                         conversation_ref.update({'max_price':payload_message})
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
@@ -97,6 +98,10 @@ def receive_message():
                              #   print ('Expert Reference is: '.format(expert_ref.get()))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
                         #se
+                    elif conversation.to_dict().get('conversation_state') == 'find_expert':
+                        sender_msg = "I am checking with the community to find the right expert for you. I will let you know once I have found someone who can help you"
+                        payload = form_payload('plain_message',sender_msg,sender_id)
+
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
             elif message.get('postback'):
