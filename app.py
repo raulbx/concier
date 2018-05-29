@@ -100,7 +100,7 @@ def receive_message():
                             expert_member_array = result.to_dict()['member']
                             print('Expert Member Arrays are'.format(expert_member_array))
                             for expert_member in expert_member_array:
-                                print('Expert Member is '.format(expert_member))
+                                print(expert_member.to_dict().get('fb_id'))
                             #for expert_ref in result.to_dict()['member']:
                              #   print ('Expert Reference is: '.format(expert_ref.get()))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
