@@ -60,7 +60,7 @@ def receive_message():
                     #Log the conversation. Get the other party id and send it to them.
                     conversation = conversation_ref.get()
                     #quick_reply_response = message['message'].get('quick_reply')
-                    print(message['message'])
+                    #print(message['message'])
                     if conversation.to_dict().get('active'):
                         print("Send the message to the counter party")
                         sender_msg ="I am sending this message to counter party"
@@ -96,11 +96,13 @@ def receive_message():
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
                         query_results = member_ref.get_experts(conversation.to_dict().get('product_category')).get()
+                        message_to_expert = 'We have a member, who is looking for an {} item within {}. Members question is :{}'.format(conversation.to_dict().get('product_category'),conversation.to_dict().get('max_price'),conversation.to_dict().get('question'))
                         for result in query_results:
                             expert_member_array = result.to_dict()['member']
-                            print('Expert Member Arrays are'.format(expert_member_array))
                             for expert_member in expert_member_array:
-                                print(expert_member.get().to_dict().get('fb_id'))
+                                expert_id=expert_member.get().to_dict().get('fb_id')
+                                print(expert_id)
+                                payload = form_payload('broadcast_to_experts',message_to_expert,expert_id)
                             #for expert_ref in result.to_dict()['member']:
                              #   print ('Expert Reference is: '.format(expert_ref.get()))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
@@ -218,6 +220,29 @@ def form_payload(response_type,text_message,recipient_id):
                     "type":"postback",
                     "title":"Computers",
                     "payload":"computers"
+                    }
+                    ]
+                }
+            }
+        }
+    elif response_type =='broadcast_to_experts':
+        #payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":text_message,
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"YES",
+                    "payload":"acceptAssignment"
+                    },
+                    {
+                    "type":"postback",
+                    "title":"NO",
+                    "payload":"declineAssignment"
                     }
                     ]
                 }
