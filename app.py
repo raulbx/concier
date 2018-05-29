@@ -95,7 +95,7 @@ def receive_message():
                        
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
-                        query_results = member_ref.get_experts(conversation.to_dict().get('expertise_category')).get()
+                        query_results = member_ref.get_experts(conversation.to_dict().get('product_category')).get()
                         for result in query_results:
                             print(result.to_dict()['member'].get())
                             #for expert_ref in result.to_dict()['member']:
