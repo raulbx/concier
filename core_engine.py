@@ -124,7 +124,7 @@ class Members(object):
 			else :
 				print("Expertise exists. Adding Member to existing expertise")
 				member_array = expertise_ref.get().to_dict().get('member')
-				member_array.extend(member)
+				member_array.append(member)
 				print(member_array)
 				#expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
 		except ValueError:
