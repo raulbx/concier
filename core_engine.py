@@ -1,5 +1,5 @@
 import psycopg2
-import sys
+import sys, traceback
 import os
 import firebase_admin
 import datetime
@@ -114,7 +114,7 @@ class Members(object):
 		}
 		expertise_ref = None
 		db = firestore.client()
-		expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise)
+		expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
 		try:
 			for expertise in expertise_query_ref:
 				expertise_ref = db.collection(u'expertise').document(expertise.id)
@@ -127,6 +127,6 @@ class Members(object):
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
-			print(u'This is an Exception situation')
+			print(u'This is an exception situation')
 			traceback.print_stack()
 		return expertise_ref
