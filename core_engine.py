@@ -118,12 +118,15 @@ class Members(object):
 		try:
 			for expertise in expertise_query_ref:
 				expertise_ref = db.collection(u'expertise').document(expertise.id)
-				expertise_ref.update({'member':[member]}, firestore.CreateIfMissingOption(True))
 			if expertise_ref is None:
 				print("Expertise doesn't exist. Adding Member")
 				expertise_ref = db.collection(u'expertise').add(expertise_data)
+			else :
+				print("Expertise exists. Adding Member to existing expertise")
+				expertise_ref.update({'member':[member]}, firestore.CreateIfMissingOption(True))
 		except ValueError:
 			print(u'Value Error.....!')
 		except:
 			print(u'This is an Exception situation')
+			traceback.print_stack()
 		return expertise_ref
