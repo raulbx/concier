@@ -56,6 +56,7 @@ def receive_message():
                     else :
                         payload = form_payload('welcome_buttons',sender_msg,sender_id)
                         # This means that this is the first time member is interacting with the platform.
+                    send_message(payload)
                 else:
                     #Log the conversation. Get the other party id and send it to them.
                     conversation = conversation_ref.get()
@@ -67,6 +68,7 @@ def receive_message():
                         # Get the counter party from the conversation
                         counter_party = 'YP....'
                         payload = form_payload('plain_message',sender_msg,counter_party)
+                        send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
                         # Ask user about his time frame for the purchase. Log the question. Move the conversation in Identify price state
                         conversation_ref.update({'conversation_state':'identify_price'})
@@ -74,6 +76,7 @@ def receive_message():
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
                         payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
+                        send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
                         payload_message = message['message']['quick_reply'].get('payload')
                          # Ask user about price for his purchase. Log the timeframe. Move the conversation in find expert state
@@ -82,6 +85,7 @@ def receive_message():
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
+                        send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'basic_info_gathered':
                         '''
                         payload_message = message['message']['quick_reply'].get('payload')
@@ -101,16 +105,13 @@ def receive_message():
                             expert_member_array = result.to_dict()['member']
                             for expert_member in expert_member_array:
                                 expert_id=expert_member.get().to_dict().get('fb_id')
-                                print(expert_id)
                                 payload = form_payload('broadcast_to_experts',message_to_expert,expert_id)
-                            #for expert_ref in result.to_dict()['member']:
-                             #   print ('Expert Reference is: '.format(expert_ref.get()))
-                                #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
-                        #se
+                                print(expert_id)
+                                send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'find_expert':
                         sender_msg = "I am checking with the community to find the right expert for you. I will let you know once I have found someone who can help you"
                         payload = form_payload('plain_message',sender_msg,sender_id)
-
+                        send_message(payload)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
             elif message.get('postback'):
@@ -140,7 +141,7 @@ def receive_message():
                     print("Some other option choosen")
                     sender_msg = 'This is the back room of the Concier maze: '+sender_msg
                     payload = form_payload('plain_message',sender_msg,sender_id)
-            send_message(payload)
+                send_message(payload)
     return "Message Processed"
  
 def verify_fb_token(token_sent):
