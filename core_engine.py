@@ -112,14 +112,14 @@ class Members(object):
 		'expertise_category':member_expertise,
 		'member':[member]
 		}
+		expertise_ref = None
 		db = firestore.client()
 		expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise)
 		try:
-			#member_refs = query_ref.get()
 			for expertise in expertise_query_ref:
 				expertise_ref = db.collection(u'expertise').document(expertise.id)
 				expertise_ref.update({'member':[member]}, firestore.CreateIfMissingOption(True))
-			if member_ref is None:
+			if expertise_ref is None:
 				print("Expertise doesn't exist. Adding Member")
 				expertise_ref = db.collection(u'expertise').add(expertise_data)
 		except ValueError:
@@ -127,4 +127,3 @@ class Members(object):
 		except:
 			print(u'This is an Exception situation')
 		return expertise_ref
-		#return db.collection("expertise").update(expertise_data, firestore.CreateIfMissingOption(True))
