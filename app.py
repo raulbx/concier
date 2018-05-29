@@ -89,9 +89,10 @@ def receive_message():
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         conversation_ref.update({'conversation_state':'find_expert'})
                         conversation_ref.update({'max_price':payload_message})
+                        '''
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
-                        '''
+                       
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
                         query_results = member_ref.get_experts(conversation.to_dict().get('expertise_category')).get()
