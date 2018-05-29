@@ -83,7 +83,7 @@ def receive_message():
                         sender_msg = "What price range do you have in mind?"
                         payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
                     elif conversation.to_dict().get('conversation_state') == 'basic_info_gathered':
-                         '''
+                        '''
                         payload_message = message['message']['quick_reply'].get('payload')
                         # Reach this state after all the member question onboarding is complete. Member 
                         member_ref.log_message(member,conversation_ref,sender_msg)
