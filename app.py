@@ -96,8 +96,10 @@ def receive_message():
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
                         query_results = member_ref.get_experts(conversation.to_dict().get('product_category')).get()
+                        i = 0
                         for result in query_results:
-                            print(result.to_dict()['member'])
+                            print(result.to_dict()['member'][i])
+                            i++
                             #for expert_ref in result.to_dict()['member']:
                              #   print ('Expert Reference is: '.format(expert_ref.get()))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
