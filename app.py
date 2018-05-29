@@ -85,16 +85,18 @@ def receive_message():
                     elif conversation.to_dict().get('conversation_state') == 'basic_info_gathered':
                         payload_message = message['message']['quick_reply'].get('payload')
                         # Reach this state after all the member question onboarding is complete. Member 
+                        '''
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         conversation_ref.update({'conversation_state':'find_expert'})
                         conversation_ref.update({'max_price':payload_message})
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
                         payload = form_payload('plain_message',sender_msg,sender_id)
+                        '''
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
-                        query_results = member_ref.get_experts(conversation.to_dict().get('product_category')).get()
+                        query_results = member_ref.get_experts(conversation.to_dict().get('expertise_category')).get()
                         for result in query_results:
-                            print(result.to_dict()['member'][0].get())
+                            print(result.to_dict()['member'].get())
                             #for expert_ref in result.to_dict()['member']:
                              #   print ('Expert Reference is: '.format(expert_ref.get()))
                                 #print('ID {} and {}'.format(result.id, result.to_dict()['member']))
