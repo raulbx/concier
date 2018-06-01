@@ -100,13 +100,12 @@ def receive_message():
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
                         query_results = member_ref.get_experts(conversation.to_dict().get('product_category')).get()
-                        message_to_expert = 'We have a member, who is looking for an {} item within {}. Members question is :{}. Do you want to help?'.format(conversation.to_dict().get('product_category'),conversation.to_dict().get('max_price'),conversation.to_dict().get('question'))
+                        message_to_expert = 'We have a member, who is looking for an {} item within {}. Members question is : {}. Do you want to help?'.format(conversation.to_dict().get('product_category'),conversation.to_dict().get('max_price'),conversation.to_dict().get('question'))
                         for result in query_results:
                             expert_member_array = result.to_dict()['member']
                             for expert_member in expert_member_array:
                                 expert_id=expert_member.get().to_dict().get('fb_id')
                                 payload = form_payload('broadcast_to_experts',message_to_expert,expert_id)
-                                print(expert_id)
                                 send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'find_expert':
                         sender_msg = "I am checking with the community to find the right expert for you. I will let you know once I have found someone who can help you"
