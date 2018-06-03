@@ -127,11 +127,13 @@ def receive_message():
                     print('This is active conversation or the person')
                 else :
                     conversation_state = conversation_ref.get().to_dict().get('basic_info_gathered')
-                    print('Expert has responded on a broadcast message')
+                    print('Expert has responded on a broadcast message in the state: '.format(conversation_state))
                     if conversation_state == 'basic_info_gathered' and user_response =='YES':
-                        'Set this user as expert'
                         conversation_ref.update({'helper_ref':member})
-                        sender_msg ='Great. I will connect you to {}.'
+                        sender_msg ='Great. I am going to connect you to {}.'
+                        payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
+                    else :
+                        sender_msg ='We are still looking for an expert for you.'
                         payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 ''' Determine if the responder is seeker or adviser
                 
