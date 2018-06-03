@@ -118,8 +118,10 @@ def receive_message():
                 user_response = message['postback'].get('payload')
                 conversation = user_response.split(':')
                 conversation_id = conversation[-1]
+                print(conversation_ref)
                 conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
-                print(conversation_ref.get().to_dict().get('max_price'))
+                print(conversation_ref)
+                #print(conversation_ref.get().to_dict().get('max_price'))
                 sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help now...")
