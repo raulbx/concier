@@ -116,6 +116,8 @@ def receive_message():
             elif message.get('postback'):
                 #These are responses to the button
                 user_response = message['postback'].get('payload')
+                conversation = user_response.split(':')
+                print(conversation)
                 sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help now...")
