@@ -124,7 +124,7 @@ def receive_message():
                 print(conversation_id)
                 #print ("Conversation ID from the response: ".format(conversation_id))
                 conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
-                print (conversation_ref)
+                print (conversation_ref.get().to_dict().get('conversation_state'))
                 if (member_conversation_id==conversation_id):
                     print('This is active conversation or the person')
                     sender_msg ='Sender is recieving to himself'
