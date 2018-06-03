@@ -121,6 +121,7 @@ def receive_message():
                 if conversation_ref: 
                     print ("Responder's active conv: ".format(conversation_ref.id))
                     member_conversation_id = conversation_ref.get().id
+                print(conversation_id)
                 print ("Conversation ID from the response: ".format(conversation_id))
                 conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
                 if (member_conversation_id==conversation_id):
@@ -129,7 +130,7 @@ def receive_message():
                     payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 else :
                     conversation_state = conversation_ref.get().to_dict().get('conversation_state')
-                    print('Expert has responded on a broadcast message in the state: '.format(conversation_state))
+                    print('Expert has responded to a broadcast message in the state: '.format(conversation_state))
                     if conversation_state == 'basic_info_gathered' and user_response =='YES':
                         conversation_ref.update({'helper_ref':member})
                         sender_msg ='Great. I am going to connect you to {}.'
