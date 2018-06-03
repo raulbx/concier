@@ -118,9 +118,26 @@ def receive_message():
                 user_response = message['postback'].get('payload')
                 conversation = user_response.split(':')
                 conversation_id = conversation[-1]
-                print(conversation_ref)
+                if conversation_ref: 
+                    print ("Responder's active conv: ".format(conversation_ref.get().id))
+                    member_conversation_id = conversation_ref.get().id
+                print ("Conversation ID from the response: ".format(conversation_ref.get().id))
                 conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
-                print(conversation_ref)
+                if (member_conversation_id==conversation_id):
+                    print('This is active conversation or the person')
+                else :
+                    conversation_state = conversation_ref.get().to_dict().get('basic_info_gathered')
+                    print('Expert has responded on a broadcast message')
+                    if conversation_state == 'basic_info_gathered' and user_response =='YES':
+                        'Set this user as expert'
+                        conversation_ref.update({'helper_ref':member})
+                        sender_msg ='Great. I will connect you to {}.'
+                        payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
+                ''' Determine if the responder is seeker or adviser
+                
+                if conversation_state == 'basic_info_gathered':
+                    if user_response=='YES':
+                '''
                 #print(conversation_ref.get().to_dict().get('max_price'))
                 sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
@@ -144,8 +161,8 @@ def receive_message():
                     payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 else :
                     print("Some other option choosen")
-                    sender_msg = 'This is the back room of the Concier maze: '+sender_msg
-                    payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
+                    #sender_msg = 'This is the back room of the Concier maze: '+sender_msg
+                    #payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 send_message(payload)
     return "Message Processed"
  
