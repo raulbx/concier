@@ -95,7 +95,7 @@ def receive_message():
                         conversation_ref.update({'max_price':payload_message})
                         '''
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
-                        payload = form_payload('plain_message',sender_msg,sender_id,sender_id, conversation.id)
+                        payload = form_payload('plain_message',sender_msg,sender_id,conversation.id)
                        
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
