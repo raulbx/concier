@@ -139,7 +139,7 @@ def receive_message():
                 else :
                     print("Some other option choosen")
                     sender_msg = 'This is the back room of the Concier maze: '+sender_msg
-                    payload = form_payload('plain_message',sender_msg,sender_id)
+                    payload = form_payload('plain_message',sender_msg,sender_id,sender_id)
                 send_message(payload)
     return "Message Processed"
  
