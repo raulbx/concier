@@ -88,7 +88,7 @@ class Members(object):
 			conversation_ref = None
 		return conversation_ref
 
-	def get_active_conversation_ref_byID(self,member, conversation_id):
+	def get_active_conversation_ref_byID(self,conversation_id):
 		db = firestore.client()
 		conversation_ref = db.collection("conversations").document(conversation_id)
 		return conversation_ref
