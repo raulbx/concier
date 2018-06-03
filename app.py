@@ -52,9 +52,9 @@ def receive_message():
                         sender_msg = 'I can connect you to {} expert. Please share what are you looking for?  More descriptive the better!'.format(sender_msg)
                         conversation_ref = member_ref.add_conversation(member)
                         conversation_ref.update({'product_category':quick_reply_response['payload']})
-                        payload = form_payload('plain_message',sender_msg,sender_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id,'')
                     else :
-                        payload = form_payload('welcome_buttons',sender_msg,sender_id)
+                        payload = form_payload('welcome_buttons',sender_msg,sender_id,'')
                         # This means that this is the first time member is interacting with the platform.
                     send_message(payload)
                 else:
@@ -67,7 +67,7 @@ def receive_message():
                         sender_msg ="I am sending this message to counter party"
                         # Get the counter party from the conversation
                         counter_party = 'YP....'
-                        payload = form_payload('plain_message',sender_msg,counter_party)
+                        payload = form_payload('plain_message',sender_msg,counter_party, conversation.id)
                         send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'identify_timeframe':
                         # Ask user about his time frame for the purchase. Log the question. Move the conversation in Identify price state
@@ -75,7 +75,7 @@ def receive_message():
                         conversation_ref.update({'question':sender_msg})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "How soon do you want to buy this product?"
-                        payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id)
+                        payload = form_payload('shopping_timeframe_quick_replies',sender_msg,sender_id, conversation.id)
                         send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'identify_price':
                         payload_message = message['message']['quick_reply'].get('payload')
@@ -84,7 +84,7 @@ def receive_message():
                         conversation_ref.update({'time_frame':payload_message})
                         member_ref.log_message(member,conversation_ref,sender_msg)
                         sender_msg = "What price range do you have in mind?"
-                        payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id)
+                        payload = form_payload('shopping_price_quick_replies',sender_msg,sender_id, conversation.id)
                         send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'basic_info_gathered':
                         '''
@@ -95,7 +95,7 @@ def receive_message():
                         conversation_ref.update({'max_price':payload_message})
                         '''
                         sender_msg = "Thanks. Let me find an expert, who can help you make a decision."
-                        payload = form_payload('plain_message',sender_msg,sender_id,sender_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id,sender_id, conversation.id)
                        
                         #Broadcast this message, to the community of experts
                         # Get all the experts for this expertise 
@@ -109,7 +109,7 @@ def receive_message():
                                 send_message(payload)
                     elif conversation.to_dict().get('conversation_state') == 'find_expert':
                         sender_msg = "I am checking with the community to find the right expert for you. I will let you know once I have found someone who can help you"
-                        payload = form_payload('plain_message',sender_msg,sender_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id, conversation.id)
                         send_message(payload)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
@@ -117,31 +117,31 @@ def receive_message():
                 #These are responses to the button
                 user_response = message['postback'].get('payload')
                 conversation = user_response.split(':')
-                print(conversation[-1])
+                conversation_id = conversation[-1]
                 sender_msg = message['postback'].get('title')
                 if user_response == 'seekingAdvice':
                     print("Member is seeking help now...")
                     sender_msg='What are you shopping for?'
-                    payload = form_payload('shopping_category_quick_replies',sender_msg,sender_id)
+                    payload = form_payload('shopping_category_quick_replies',sender_msg,sender_id,conversation_id)
                 elif user_response =='other':
                     print("Member wants to do something else, present other options")
-                    payload = form_payload('other_buttons',sender_msg,sender_id)
+                    payload = form_payload('other_buttons',sender_msg,sender_id,conversation_id)
                 elif user_response =='expertRegsteration':
                     print("Member wants to register as expert")
                     #sender_msg = 'Please visit http://concier.org to register as expert'
                     # Add member to a expertise category
-                    payload = form_payload('choose_expertise_category',sender_msg,sender_id)
+                    payload = form_payload('choose_expertise_category',sender_msg,sender_id,conversation_id)
                 elif user_response =='phone' or user_response =='electronics' or user_response =='computers':
                     member_ref.add_expert(member,user_response)
                     sender_msg = 'Great I have added you as an expert for '+user_response
-                    payload = form_payload('plain_message',sender_msg,sender_id)
+                    payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 elif user_response =='manage_account':
                     print("Manage your account at http://concier.org/account")
-                    payload = form_payload('plain_message',sender_msg,sender_id)
+                    payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 else :
                     print("Some other option choosen")
                     sender_msg = 'This is the back room of the Concier maze: '+sender_msg
-                    payload = form_payload('plain_message',sender_msg,sender_id,sender_id)
+                    payload = form_payload('plain_message',sender_msg,sender_id,sender_id,conversation_id)
                 send_message(payload)
     return "Message Processed"
  
