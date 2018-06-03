@@ -128,7 +128,7 @@ def receive_message():
                     sender_msg ='Sender is recieving to himself'
                     payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
                 else :
-                    conversation_state = conversation_ref.get().to_dict().get('basic_info_gathered')
+                    conversation_state = conversation_ref.get().to_dict().get('conversation_state')
                     print('Expert has responded on a broadcast message in the state: '.format(conversation_state))
                     if conversation_state == 'basic_info_gathered' and user_response =='YES':
                         conversation_ref.update({'helper_ref':member})
