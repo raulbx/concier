@@ -24,7 +24,7 @@ def receive_message():
     else:
         # get whatever message a user sent the bot
        output = request.get_json()
-       #print (output)
+       print (output)
        placeHolderFbId='16093421424752501'
        for event in output['entry']:
           messaging = event['messaging']
