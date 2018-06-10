@@ -36,7 +36,7 @@ def receive_message():
             #print(member.get().to_dict().get('fb_id'))
             #conversation = member_ref.get_active_conversation(member)
             conversation_ref = member_ref.get_active_conversation_ref(member)
-            print("First time to get the conversation: ".format(conversation_ref.get().id))
+            print(conversation_ref.get().id)
             if message.get('message'):
                 #Facebook Messenger ID for user so we know where to send response back to
                 #reciever_id = 1609342142475258
