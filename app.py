@@ -121,7 +121,7 @@ def receive_message():
                 print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id))
                 if conversation_ref:
                     member_conversation_id = conversation_ref.get().id
-                    print ("Responder's active conv: ".format(member_conversation_id)
+                    print ("Responder's active conv: ".format(member_conversation_id))
                 
                 #print ("Conversation ID from the response: ".format(conversation_id))
                 conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
