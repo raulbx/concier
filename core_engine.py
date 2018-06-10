@@ -83,8 +83,9 @@ class Members(object):
 		if len(conversations_array) > 0:
 			# TODO: Need to fix this to get the right conversation
 			conversation_ref = conversations_array[-1]
-			#conversation = conversation_ref.get()
+			print(conversation_ref.get().id)
 			print("This is the if loop: ".format(conversation_ref.get().id))
+			#conversation = conversation_ref.get()
 		else:
 			conversation_ref = None
 		print("This is the call to conversation".format(conversation_ref.get()))
