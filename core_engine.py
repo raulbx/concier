@@ -83,11 +83,10 @@ class Members(object):
 		if len(conversations_array) > 0:
 			# TODO: Need to fix this to get the right conversation
 			conversation_ref = conversations_array[-1]
-			
 			#conversation = conversation_ref.get()
 		else:
 			conversation_ref = None
-		print("this is the call to conversation".format(conversation_ref.get().id))
+		print("This is the call to conversation".format(conversation_ref.get()))
 		return conversation_ref
 
 	def get_active_conversation_ref_byID(self,conversation_id):
