@@ -80,6 +80,7 @@ class Members(object):
 		# Get the latest conversation. If no convers
 		conversations_array = member.get().get('conversations')
 		#active_conv = len(conversations_array)
+		print(conversations_array)
 		if len(conversations_array) > 0:
 			# TODO: Need to fix this to get the right conversation
 			conversation_ref = conversations_array[-1]
