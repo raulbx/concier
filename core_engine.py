@@ -84,10 +84,10 @@ class Members(object):
 			# TODO: Need to fix this to get the right conversation
 			conversation_ref = conversations_array[-1]
 			print(conversation_ref.get().id)
-			print('This is the if loop: '.format(conversation_ref.get().id))
 			#conversation = conversation_ref.get()
 		else:
 			conversation_ref = None
+		# THERE IS SOME BUG IN PYTHON. This print statement doesn't return values from the call
 		print("This is the call to conversation".format(conversation_ref.get()))
 		return conversation_ref
 

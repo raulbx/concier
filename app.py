@@ -123,7 +123,7 @@ def receive_message():
                 if conversation_ref:
                     member_conversation_id = conversation_ref.get().id
                     print ("Responder's active conv: ".format(member_conversation_id))
-                
+                    
                 #print ("Conversation ID from the response: ".format(conversation_id))
                 conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
                 print (conversation_ref.get().to_dict().get('conversation_state'))
