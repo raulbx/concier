@@ -88,8 +88,8 @@ class Members(object):
 		else:
 			conversation_ref = None
 		# THERE IS SOME BUG IN PYTHON. This print statement doesn't return values from the call
-		conversation_id = ' this is ID' % (conversation_ref.get().id)
-		print (conversation_id)
+		conversation_id = 
+		print (type(conversation_ref.get().id))
 		return conversation_ref
 
 	def get_active_conversation_ref_byID(self,conversation_id):
