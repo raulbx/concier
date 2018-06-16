@@ -118,16 +118,16 @@ def receive_message():
                 #These are responses to the button
                 user_response = message['postback'].get('payload')
                 conversation = user_response.split(':')
-                conversation_id = conversation[-1]
-                print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id))
+                conversation_id_frm_msg = conversation[-1]
+                print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id_frm_msg))
                 if conversation_ref:
                     member_conversation_id = conversation_ref.get().id
                     print ('Responder active conv: '+ member_conversation_id)
                     
                 #print ("Conversation ID from the response: ".format(conversation_id))
-                conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id)
+                conversation_ref = member_ref.get_active_conversation_ref_byID(conversation_id_frm_msg)
                 print (conversation_ref.get().to_dict().get('conversation_state'))
-                if (member_conversation_id==conversation_id):
+                if (member_conversation_id==conversation_id_frm_msg):
                     print('This is active conversation or the person')
                     sender_msg ='Sender is recieving to himself'
                     payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
