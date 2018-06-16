@@ -119,7 +119,7 @@ def receive_message():
                 user_response = message['postback'].get('payload')
                 conversation = user_response.split(':')
                 conversation_id = conversation[-1]
-                print("Conversation ID from the message:{} , {} ".format(conversation, type(conversation_id)))
+                print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id))
                 if conversation_ref:
                     member_conversation_id = conversation_ref.get().id
                     print ('Responder active conv: '+ member_conversation_id)
