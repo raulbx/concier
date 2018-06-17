@@ -137,7 +137,7 @@ def receive_message():
                     print('Expert has responded to a broadcast message in the state: '.format(conversation_state))
                     if conversation_state == 'basic_info_gathered' and user_response =='YES':
                         conversation_ref.update({'helper_ref':member})
-                        sender_msg ='Great. I am going to connect you to {}.'
+                        sender_msg ='Great. I am going to connect you to {}.'.format(member.get().to_dict.get('Name'))
                         payload = form_payload('plain_message',sender_msg,sender_id,'')
                     else :
                         sender_msg ='We are still looking for an expert for you.'
