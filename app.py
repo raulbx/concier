@@ -116,9 +116,9 @@ def receive_message():
                 #print(payload)
             elif message.get('postback'):
                 #These are responses to the button
-                user_response = message['postback'].get('payload')
-                conversation = user_response.split(':')
-                print (user_response)
+                user_response = 
+                conversation = message['postback'].get('payload').split(':')
+                user_response = message['postback'].get('title')
                 conversation_id_frm_msg = conversation[-1]
                 print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id_frm_msg))
                 member_conversation_id = None
@@ -136,7 +136,7 @@ def receive_message():
                 else :
                     conversation_state = conversation_ref.get().to_dict().get('conversation_state')
                     print('Expert has responded to a broadcast message in the state: '.format(conversation_state))
-                    if conversation_state == 'basic_info_gathered' and conversation[0] =='YES':
+                    if conversation_state == 'basic_info_gathered' and user_response =='YES':
                         conversation_ref.update({'helper_ref':member})
                         sender_msg ='Great. I am going to connect you to {}.'
                         payload = form_payload('plain_message',sender_msg,sender_id,'')
