@@ -141,6 +141,7 @@ def receive_message():
                         payload = form_payload('plain_message',helper_msg,sender_id,'')
                         helpee_msg = 'We are going to connect you too {}'.format()
                         helpee_ref = conversation_ref.get().to_dict().get('helpee_ref')
+                        helpee_msg = 'We are going to connect you too {}'.format(helpee_ref.get().get('Name'))
                         payload_other = form_payload('plain_message',helpee_msg,helpee_ref.get().get('fb_id'),'')
                         send_message(payload_other)
                     else :
