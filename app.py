@@ -138,10 +138,10 @@ def receive_message():
                     if conversation_state == 'basic_info_gathered' and conversation[0] =='YES':
                         conversation_ref.update({'helper_ref':member})
                         sender_msg ='Great. I am going to connect you to {}.'
-                        payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id,'')
                     else :
                         sender_msg ='We are still looking for an expert for you.'
-                        payload = form_payload('plain_message',sender_msg,sender_id,conversation_id)
+                        payload = form_payload('plain_message',sender_msg,sender_id,'')
                 ''' Determine if the responder is seeker or adviser
                 
                 if conversation_state == 'basic_info_gathered':
