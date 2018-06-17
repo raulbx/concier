@@ -120,6 +120,7 @@ def receive_message():
                 conversation = user_response.split(':')
                 conversation_id_frm_msg = conversation[-1]
                 print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id_frm_msg))
+                member_conversation_id = None
                 if conversation_ref:
                     member_conversation_id = conversation_ref.get().id
                     print ('Responder active conv: '+ member_conversation_id)
