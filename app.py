@@ -118,7 +118,7 @@ def receive_message():
                 #These are responses to the button
                 user_response = message['postback'].get('payload')
                 conversation = user_response.split(':')
-                print (conversation)
+                print (user_response)
                 conversation_id_frm_msg = conversation[-1]
                 print("Conversation ID from the message:{} , {} ".format(conversation, conversation_id_frm_msg))
                 member_conversation_id = None
