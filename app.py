@@ -138,9 +138,10 @@ def receive_message():
                     if conversation_state == 'basic_info_gathered' and user_response =='YES':
                         conversation_ref.update({'helper_ref':member})
                         conversation_ref.update({'conversation_state':'conversation_in_progress'})
+                        member.update({'conversations':conversation_ref})
                         helpee_ref = conversation_ref.get().to_dict().get('helpee_ref')
                         helper_msg ='Great. I am going to connect you to {}'.format(helpee_ref.get().get('Name'))
-                        helpee_msg = 'We are going to connect you too {}'.format(member.get().get('Name'))
+                        helpee_msg = 'We are going to connect you to {}'.format(member.get().get('Name'))
                         payload_other = form_payload('plain_message',helpee_msg,helpee_ref.get().get('fb_id'),'')
                         send_message(payload_other)
                         payload = form_payload('plain_message',helper_msg,sender_id,'')
