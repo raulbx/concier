@@ -139,7 +139,6 @@ def receive_message():
                         conversation_ref.update({'helper_ref':member})
                         helper_msg ='Great. I am going to connect you to {}'.format(member.get().get('Name'))
                         payload = form_payload('plain_message',helper_msg,sender_id,'')
-                        helpee_msg = 'We are going to connect you too {}'.format()
                         helpee_ref = conversation_ref.get().to_dict().get('helpee_ref')
                         helpee_msg = 'We are going to connect you too {}'.format(helpee_ref.get().get('Name'))
                         payload_other = form_payload('plain_message',helpee_msg,helpee_ref.get().get('fb_id'),'')
