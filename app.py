@@ -116,7 +116,6 @@ def receive_message():
                 #print(payload)
             elif message.get('postback'):
                 #These are responses to the button
-                user_response = 
                 conversation = message['postback'].get('payload').split(':')
                 user_response = message['postback'].get('title')
                 conversation_id_frm_msg = conversation[-1]
