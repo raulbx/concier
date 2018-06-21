@@ -116,7 +116,7 @@ def receive_message():
                         msg =message['message'].get('text')
                         print("This is an exchange state")
                         #Send the message across. Get the other party's ID and send the message to them.#if the message has @concier then don't send the message to the other party
-                        sender_id = conversation.to_dict().get('helper_ref').get().to_dict().fb_id
+                        sender_id = conversation.to_dict().get('helper_ref').get().to_dict().get('fb_id')
                         payload = form_payload('plain_message',msg,sender_id, conversation.id)
                         send_message(payload)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
