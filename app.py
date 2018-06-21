@@ -113,8 +113,7 @@ def receive_message():
                         payload = form_payload('plain_message',sender_msg,sender_id, conversation.id)
                         send_message(payload)  
                     elif conversation.to_dict().get('conversation_state') == 'conversation_in_progress':
-                        msg =message['message'].get('text')
-                        print("This is an exchange state")
+                        msg =conversation.to_dict().get('helpee_ref').get().to_dict().get('Name')+': '+message['message'].get('text')
                         #Send the message across. Get the other party's ID and send the message to them.#if the message has @concier then don't send the message to the other party
                         sender_id = conversation.to_dict().get('helpee_ref').get().to_dict().get('fb_id')
                         payload = form_payload('plain_message',msg,sender_id, conversation.id)
