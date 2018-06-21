@@ -114,13 +114,21 @@ def receive_message():
                         helpee_id = conversation.to_dict().get('helpee_ref').get().to_dict().get('fb_id')
                         helper_id = conversation.to_dict().get('helper_ref').get().to_dict().get('fb_id')
                         print(sender_id)
-                        counterparty_id =  helpee_id if sender_id == helper_id else helper_id
-                        print(counterparty_id)
-                        msg =conversation.to_dict().get('helpee_ref').get().to_dict().get('Name')+': '+message['message'].get('text')
+                        #Deternine if this helper or helpee
+                        if sender_id == helper_id:
+                            #send message to helpee
+                            sender_id = helpee_id
+                            partyName = conversation.to_dict().get('helpee_ref').get().to_dict().get('Name')
+                        else:
+                            #send message to helper
+                             sender_id = helper_id
+                             partyName = conversation.to_dict().get('helpee_ref').get().to_dict().get('Name')
+                        #counterparty_id =  helpee_id if sender_id == helper_id else helper_id
+                        print(sender_id)
+                        msg =partyName+': '+message['message'].get('text')
                         #Send the message across. Get the other party's ID and send the message to them.#if the message has @concier then don't send the message to the other party
                         #sender_id = conversation.to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-
-                        payload = form_payload('plain_message',msg,counterparty_id, conversation.id)
+                        payload = form_payload('plain_message',msg,sender_id, conversation.id)
                         send_message(payload)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
