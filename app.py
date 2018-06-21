@@ -122,7 +122,7 @@ def receive_message():
                         else:
                             #send message to helper
                              sender_id = helper_id
-                             partyName = conversation.to_dict().get('helpee_ref').get().to_dict().get('Name')
+                             partyName = conversation.to_dict().get('helper_ref').get().to_dict().get('Name')
                         #counterparty_id =  helpee_id if sender_id == helper_id else helper_id
                         print(sender_id)
                         msg =partyName+': '+message['message'].get('text')
