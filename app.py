@@ -114,6 +114,7 @@ def receive_message():
                         send_message(payload)  
                     elif conversation.to_dict().get('conversation_state') == 'conversation_in_progress':
                         msg =message['message'].get('text')
+                        print("This is an exchange state")
                         payload = form_payload('plain_message',msg,sender_id, conversation.id)
                         send_message(payload)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
