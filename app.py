@@ -111,6 +111,10 @@ def receive_message():
                     elif conversation.to_dict().get('conversation_state') == 'find_expert':
                         sender_msg = "I am checking with the community to find the right expert for you. I will let you know once I have found someone who can help you"
                         payload = form_payload('plain_message',sender_msg,sender_id, conversation.id)
+                        send_message(payload)  
+                    elif conversation.to_dict().get('conversation_state') == 'conversation_in_progress':
+                        msg =message['message'].get('text')
+                        payload = form_payload('plain_message',msg,sender_id, conversation.id)
                         send_message(payload)
                     #print(conversation.to_dict()['helper_ref'].get().to_dict()['fb_id'])
                 #print(payload)
