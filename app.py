@@ -44,16 +44,17 @@ def receive_message():
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
-
+            print("User response is {}".format(user_response))
             conv_exchange = conversation_exchange.exchange(sender_id,'FB')
 
             if not conversation_ref:
                 #This is first time this person is interacting
                 # Get the conversation flow template from backend and send the message
                 # This means that it could be the first time user is asking a question or an expert is trying to register as expert
-                conv_exchange = 
+                payload = conv_exchange.start_conversation()
             else:
                 # Helpee is explaining about their need or the conversation is aready in progress
+
                 conversation = conversation_ref.get()
                 conv_state_ref = conversation.to_dict().get('conversation_state')
                 payload = form_payload(conv_state_ref.to_dict('response_type'),conv_state_ref.to_dict('response'),conv_state_ref.to_dict('recipient'), conversation.id)
