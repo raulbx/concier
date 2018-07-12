@@ -18,12 +18,11 @@ class Exchange(object):
 		payload['recipient'] = {
 		'id': recipient_id
 		}
-		
 		if response_type =='plain_message':
 			payload['notification_type'] = 'REGULAR'
-			 payload['message'] = {
-			 'text' : text_message
-			 }
+			payload['message'] = {
+			'text' : text_message
+			}
 		elif response_type =='welcome_buttons':
 			payload['message'] = {
 			}
