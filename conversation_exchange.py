@@ -7,4 +7,4 @@ class Exchange(object):
 		self.source = source
 
 	def get_action(self):
-		print("Member Identifier is {}".format(member_identifier))
+		print("Member Identifier is {}".format(self.member_identifier))
