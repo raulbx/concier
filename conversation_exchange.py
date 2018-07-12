@@ -9,7 +9,7 @@ class Exchange(object):
 	def get_action(self):
 		print("Member Identifier is {}".format(self.member_identifier))
 		sender_msg = "This is new"
-		return form_payload('plain_message',sender_msg,self.member_identifier,conversation_id)
+		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
 	def start_conversation(self):
 		print("Starting Conversation")
