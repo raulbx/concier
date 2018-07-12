@@ -46,6 +46,7 @@ def receive_message():
             # Make the change here to make this code generic
             print("User response is {}".format(user_response))
             conv_exchange = conversation_exchange.Exchange(sender_id,'FB')
+    return "Message Processed"
 
 def receive_message_old():
     if request.method == 'GET':
