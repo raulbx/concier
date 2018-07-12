@@ -45,7 +45,7 @@ def receive_message():
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
             print("User response is {}".format(user_response))
-            conv_exchange = conversation_exchange.exchange(sender_id,'FB')
+            conv_exchange = conversation_exchange.Exchange(sender_id,'FB')
 
 def receive_message_old():
     if request.method == 'GET':
