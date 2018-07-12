@@ -1,5 +1,7 @@
 import core_engine
 
+payload = {}
+
 class Exchange(object):
 
 	def __init__(self, member_identifier, source):
