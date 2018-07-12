@@ -37,16 +37,23 @@ def receive_message():
                 user_response = message['message'].get('text')
                 quick_reply_response = message['message'].get('quick_reply')
             elif message.get('postback'):
+                user_response = message['postback'].get('title')
                 conversation = message['postback'].get('payload').split(':')
                 #user_response = message['postback'].get('title')
                 msg_conversation_id = conversation[-1]
-                user_response = message['postback'].get('title')
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
             #print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
             exchange_obj = conversation_exchange.Exchange(sender_id,'FB')
-            exchange_obj.get_action()
+          #  exchange_obj.get_action()
+            if not conversation_ref:
+                #start the conversation
+                payload = exchange_obj.startConversation()
+            else:
+                exchange_obj.get_action()
+                #Get the conversation flow state, form the payload and send it
+
     return "Message Processed"
 
 def receive_message_old():
