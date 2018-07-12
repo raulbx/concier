@@ -14,17 +14,17 @@ class Exchange(object):
 	def start_conversation(self):
 		print("Starting Conversation")
 
-	def form_payload(response_type,text_message,recipient_id,conversation_id):
-		payload['recipient'] = {
-		'id': recipient_id
+def form_payload(response_type,text_message,recipient_id,conversation_id):
+	payload['recipient'] = {
+	'id': recipient_id
+	}
+	if response_type =='plain_message':
+		payload['notification_type'] = 'REGULAR'
+		payload['message'] = {
+		'text' : text_message
 		}
-		if response_type =='plain_message':
-			payload['notification_type'] = 'REGULAR'
-			payload['message'] = {
-			'text' : text_message
-			}
-		elif response_type =='welcome_buttons':
-			payload['message'] = {
-			}
+	elif response_type =='welcome_buttons':
+		payload['message'] = {
+		}
 
-		return payload
+	return payload
