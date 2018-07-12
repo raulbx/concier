@@ -8,8 +8,8 @@ class Exchange(object):
 		self.member_identifier = member_identifier
 		self.source = source
 
-	def get_action(self):
-		print("Member Identifier is {}".format(self.member_identifier))
+	def get_action(self, conversation_ref):
+		print("Member Identifier is {} and conversation_ref is {}".format(self.member_identifier,conversation_ref.get().id))
 		sender_msg = "This is new"
 		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
