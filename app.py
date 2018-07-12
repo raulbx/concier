@@ -53,8 +53,7 @@ def receive_message():
             else:
                 payload = exchange_obj.get_action()
                 #Get the conversation flow state, form the payload and send it
-
-        send_message(payload)
+    send_message(payload)
     return "Message Processed"
 
 def receive_message_old():
