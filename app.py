@@ -44,8 +44,9 @@ def receive_message():
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
-            print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
-            conv_exchange = conversation_exchange.Exchange(sender_id,'FB')
+            #print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
+            exchange_obj = conversation_exchange.Exchange(sender_id,'FB')
+            exchange_obj.get_action()
     return "Message Processed"
 
 def receive_message_old():
