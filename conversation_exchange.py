@@ -13,8 +13,9 @@ class Exchange(object):
 		sender_msg = "This is new"
 		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
-	def start_conversation(self):
-		print("Starting Conversation")
+	def startConversation(self):
+		sender_msg = "Starting a new conversation"
+		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
 def form_payload(response_type,text_message,recipient_id,conversation_id):
 	payload['recipient'] = {
