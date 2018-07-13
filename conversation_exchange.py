@@ -4,10 +4,10 @@ payload = {}
 
 class Exchange(object):
 
-	def __init__(self, member_identifier, source,core_engine):
+	def __init__(self, member_identifier, source,member_core_engine_ref):
 		self.member_identifier = member_identifier
 		self.source = source
-		self.core_engine=core_engine
+		self.member_core_engine_ref=member_core_engine_ref
 
 	def get_action(self, conversation_ref):
 		print("Member Identifier is {} and conversation_ref is {}".format(self.member_identifier,conversation_ref.get().id))
@@ -17,7 +17,7 @@ class Exchange(object):
 	def start_conversation(self,member_ref):
 		sender_msg = "This is start of a new conversation"
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
-		flow_state_ref = core_engine.get_conv_flow_state("start_here")
+		flow_state_ref = member_core_engine_ref.get_conv_flow_state("start_here")
 		print(flow_state_ref)
 		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
