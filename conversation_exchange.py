@@ -17,22 +17,22 @@ class Exchange(object):
 	def start_conversation(self,member_ref):
 		#conversation_ref = member_ref.add_conversation(member_ref.get_member())
 		flow_state_ref = self.member_core_engine_ref.get_conv_flow_state("start_here")
-		response = flow_state_ref.get().to_dict().get('response')
 		response_type = flow_state_ref.get().to_dict().get('response_type')
+		response = flow_state_ref.get().to_dict().get('response')
 		recipient = None 
 		if flow_state_ref.get().to_dict().get('response_type')== 'recipient':
-			recipient = platform_id
- 
+			recipient = platform_id 
+		print ("Hitting the start conversation ID is {}".format(platform_id))
 		return form_payload(response_type,response,recipient,"conversation_id")
 
-def form_payload(response_type,text_message,recipient_id,conversation_id):
+def form_payload(response_type,response,recipient_id,conversation_id):
 	payload['recipient'] = {
 	'id': recipient_id
 	}
 	if response_type =='plain_message':
 		payload['notification_type'] = 'REGULAR'
 		payload['message'] = {
-		'text' : text_message
+		'text' : response
 		}
 	elif response_type =='welcome_buttons':
 		payload['message'] = {
