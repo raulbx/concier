@@ -113,7 +113,8 @@ class Members(object):
 
 	def get_conv_flow_state(self,flow_state):
 		db = firestore.client()
-		return db.collection("conversations").document(flow_state)
+		flow_state_ref = db.collection("conversations").document(flow_state)
+		return flow_state_ref
 
 	def get_experts(self,expertise):
 		db = firestore.client()
