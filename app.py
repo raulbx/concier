@@ -49,7 +49,7 @@ def receive_message():
           #  exchange_obj.get_action()
             if not conversation_ref:
                 #start the conversation
-                payload = exchange_obj.startConversation()
+                payload = exchange_obj.start_conversation(member_ref,)
             else:
                 payload = exchange_obj.get_action(conversation_ref)
                 #Get the conversation flow state, form the payload and send it

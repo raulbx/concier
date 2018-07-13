@@ -13,8 +13,11 @@ class Exchange(object):
 		sender_msg = "This is new"
 		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
-	def startConversation(self):
+	def start_conversation(self,member_ref):
 		sender_msg = "Starting a new conversation"
+		conversation_ref = member_ref.add_conversation(member_ref.get_member())
+		flow_state_ref = core_engine.get_conv_flow_state("start_here")
+		print(flow_state_ref)
 		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
 def form_payload(response_type,text_message,recipient_id,conversation_id):
