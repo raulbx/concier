@@ -21,7 +21,7 @@ class Exchange(object):
 		response = flow_state_ref.get().to_dict().get('response')
 		recipient = None 
 		if flow_state_ref.get().to_dict().get('response_type')== 'recipient':
-			recipient = platform_id 
+			recipient = self.platform_id 
 		print ("Hitting the start conversation ID is {}".format(platform_id))
 		return form_payload(response_type,response,recipient,"conversation_id")
 
