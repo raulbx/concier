@@ -16,8 +16,8 @@ class Exchange(object):
 
 	def start_conversation(self,member_ref):
 		sender_msg = "This is start of a new conversation"
-		conversation_ref = member_ref.add_conversation(member_ref.get_member())
-		flow_state_ref = member_core_engine_ref.get_conv_flow_state("start_here")
+		#conversation_ref = member_ref.add_conversation(member_ref.get_member())
+		flow_state_ref = self.member_core_engine_ref.get_conv_flow_state("start_here")
 		print(flow_state_ref)
 		return form_payload('plain_message',sender_msg,self.member_identifier,"conversation_id")
 
