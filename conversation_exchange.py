@@ -4,9 +4,10 @@ payload = {}
 
 class Exchange(object):
 
-	def __init__(self, member_identifier, source):
+	def __init__(self, member_identifier, source,core_engine):
 		self.member_identifier = member_identifier
 		self.source = source
+		self.core_engine=core_engine
 
 	def get_action(self, conversation_ref):
 		print("Member Identifier is {} and conversation_ref is {}".format(self.member_identifier,conversation_ref.get().id))
