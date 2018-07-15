@@ -11,7 +11,7 @@ class Exchange(object):
 
 	def get_action(self, conversation_ref):
 		print("Member Identifier is {} and conversation_ref is {}".format(self.user_id_on_platform,conversation_ref.get().id))
-		sender_msg = "This is new"
+		sender_msg = "This is going to the action state"
 		return form_payload('plain_message',sender_msg,self.user_id_on_platform,"conversation_id")
 
 	def start_conversation(self,member_ref):
