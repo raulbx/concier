@@ -19,7 +19,8 @@ class Exchange(object):
 		flow_state_ref = self.member_core_engine_ref.get_conv_flow_state("start_here")
 		response_type = flow_state_ref.get().to_dict().get('response_type')
 		response = flow_state_ref.get().to_dict().get('response')
-		recipient = None 
+		recipient = None
+		print("Starting new conversation")
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
 			recipient = self.user_id_on_platform 
 		return form_payload(response_type,response,recipient,"conversation_id")
@@ -33,7 +34,7 @@ def form_payload(response_type,response,recipient_id,conversation_id):
 		payload['message'] = {
 		'text' : response
 		}
-	elif response_type =='welcome_buttons':
+	elif response_type =='welcome_user':
 		payload['message'] = {
             "attachment":{
                 "type":"template",
