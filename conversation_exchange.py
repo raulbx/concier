@@ -12,7 +12,7 @@ class Exchange(object):
 	def get_action(self, conversation_ref):
 		print("Member Identifier is {} and conversation_ref is {}".format(self.user_id_on_platform,conversation_ref.get().id))
 		sender_msg = "This is going to the action state"
-		return form_payload('plain_message',sender_msg,self.user_id_on_platform,"conversation_id")
+		return form_payload('welcome_buttons',sender_msg,self.user_id_on_platform,"conversation_id")
 
 	def start_conversation(self,member_ref):
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
@@ -39,7 +39,7 @@ def form_payload(response_type,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":"Hey there! How can I help?",
+                    "text":response,
                     "buttons":[
                     {
                     "type":"postback",
