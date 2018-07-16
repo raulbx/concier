@@ -23,7 +23,7 @@ class Exchange(object):
 		print("Starting new conversation")
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
 			recipient = self.user_id_on_platform 
-		return form_payload(response_type,response,recipient,"conversation_id")
+		return form_payload(response_type,response,recipient,conversation_ref.get().id)
 
 def form_payload(response_type,response,recipient_id,conversation_id):
 	payload['recipient'] = {
@@ -45,12 +45,12 @@ def form_payload(response_type,response,recipient_id,conversation_id):
                     {
                     "type":"postback",
                     "title":"Get shopping advice?",
-                    "payload":"seekingAdvice"
+                    "payload":"seekingAdvice:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"Other?",
-                    "payload":"other"
+                    "payload":"other:"+conversation_id
                     }
                     ]
                 }
