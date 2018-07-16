@@ -33,12 +33,14 @@ def receive_message():
             member_ref=core_engine.Members(sender_id) #This sets the facebook ID
             member = member_ref.get_member() #This is getting the firebase reference to the member obj
             conversation_ref = member_ref.get_active_conversation_ref(member) #This gets the reference to the conversation object
+            flow_state="blank_state"
             if message.get('message'):
                 user_response = message['message'].get('text')
                 quick_reply_response = message['message'].get('quick_reply')
             elif message.get('postback'):
                 user_response = message['postback'].get('title')
                 conversation = message['postback'].get('payload').split(':')
+                flow_state = conversation[0]
                 #user_response = message['postback'].get('title')
                 msg_conversation_id = conversation[-1]
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
@@ -51,7 +53,8 @@ def receive_message():
                 #start the conversation
                 payload = exchange_obj.start_conversation(member_ref)
             else:
-                payload = exchange_obj.get_action(conversation_ref)
+                print("Flow State is:{}".format(flow_state))
+                payload = exchange_obj.get_action(conversation_ref,flow_state)
                 #Get the conversation flow state, form the payload and send it
             print("Message payload is {}".format(payload))
     send_message(payload)
