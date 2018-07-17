@@ -33,7 +33,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
         }
     elif response_type =='shopping_category_quick_replies':
         payload['message'] = {
-        'text' : text_message,
+        'text' : response,
         "quick_replies":[
             {
             "content_type":"text",
