@@ -1,7 +1,7 @@
 import core_engine
 import message_payloads
 
-payload = {}
+
 
 class Exchange(object):
 

@@ -1,3 +1,5 @@
+payload = {}
+
 def fb_payload(response_type,response,recipient_id,conversation_id):
 	payload['recipient'] = {
 	'id': recipient_id
