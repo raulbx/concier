@@ -25,7 +25,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
                     {
                     "type":"postback",
                     "title":"Other?",
-                    "payload":"other:"+conversation_id
+                    "payload":"welcomeOtherOption:"+conversation_id
                     }
                     ]
                 }
