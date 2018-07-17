@@ -141,4 +141,32 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
                 }
             }
         }
+    elif response_type =='choose_expertise_category':
+        #payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":response,
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Phone",
+                    "payload":"confirmExpert:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Electronics",
+                    "payload":"confirmExpert:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Computers",
+                    "payload":"confirmExpert:"+conversation_id
+                    }
+                    ]
+                }
+            }
+        }
     return payload
