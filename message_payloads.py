@@ -1,16 +1,16 @@
 payload = {}
 
 def fb_payload(response_type,response,recipient_id,conversation_id):
-	payload['recipient'] = {
-	'id': recipient_id
-	}
-	if response_type =='plain_message':
-		payload['notification_type'] = 'REGULAR'
-		payload['message'] = {
-		'text' : response
-		}
-	elif response_type =='welcome_user':
-		payload['message'] = {
+    payload['recipient'] = {
+    'id': recipient_id
+    }
+    if response_type =='plain_message':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : response
+        }
+    elif response_type =='welcome_user':
+        payload['message'] = {
             "attachment":{
                 "type":"template",
                 "payload":{
@@ -33,8 +33,9 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
         }
     elif response_type =='shopping_category_quick_replies':
         payload['message'] = {
-            'text' : text_message,
-            "quick_replies":[{
+        'text' : text_message,
+        "quick_replies":[
+            {
             "content_type":"text",
             "title":"Phone",
             "payload":"phone"
@@ -56,5 +57,4 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
             }
             ]
         }
-
-	return payload
+    return payload
