@@ -39,8 +39,8 @@ def receive_message():
                 quick_reply_response = message['message'].get('quick_reply')
                 if quick_reply_response:
                     payload = quick_reply_response['payload'].split(':')
-                    flow_state = conversation[0]
-                    msg_conversation_id = conversation[-1]
+                    flow_state = payload[0]
+                    msg_conversation_id = payload[-1]
             elif message.get('postback'):
                 user_response = message['postback'].get('title')
                 conversation = message['postback'].get('payload').split(':')
