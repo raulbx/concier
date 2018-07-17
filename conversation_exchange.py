@@ -10,7 +10,7 @@ class Exchange(object):
 		self.member_core_engine_ref=member_core_engine_ref
 
 	def get_action(self, conversation_ref,flow_state):
-		print("Member Identifier is {} and conversation_ref is {}".format(self.user_id_on_platform,conversation_ref.get().id))
+		print("Member Identifier is {} and conversation_ref is {} and flow_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, flow_state))
 		flow_state_ref = self.member_core_engine_ref.get_conv_flow_state(flow_state)
 		response_type = flow_state_ref.get().to_dict().get('response_type')
 		response = flow_state_ref.get().to_dict().get('response')
