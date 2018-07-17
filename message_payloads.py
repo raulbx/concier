@@ -114,4 +114,31 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
             }
             ]
         }
+    elif response_type =='other_buttons':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":response,
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Register as expert",
+                    "payload":"registerExpert:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Manage Account",
+                    "payload":"manageAccount:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Something else",
+                    "payload":"somethingElse:"+conversation_id
+                    }
+                    ]
+                }
+            }
+        }
     return payload
