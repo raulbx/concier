@@ -1,4 +1,5 @@
 import core_engine
+import message_payloads
 
 payload = {}
 
@@ -15,10 +16,10 @@ class Exchange(object):
 		response_type = flow_state_ref.get().to_dict().get('response_type')
 		response = flow_state_ref.get().to_dict().get('response')
 		recipient = None
-		print("Starting new conversation")
+		print("Contnuing a conversation")
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
 			recipient = self.user_id_on_platform 
-		return form_payload(response_type,response,recipient,conversation_ref.get().id)
+		return message_payloads.fb_payload(response_type,response,recipient,conversation_ref.get().id)
 
 	def start_conversation(self,member_ref):
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
@@ -29,38 +30,4 @@ class Exchange(object):
 		print("Starting new conversation")
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
 			recipient = self.user_id_on_platform 
-		return form_payload(response_type,response,recipient,conversation_ref.get().id)
-
-def form_payload(response_type,response,recipient_id,conversation_id):
-	payload['recipient'] = {
-	'id': recipient_id
-	}
-	if response_type =='plain_message':
-		payload['notification_type'] = 'REGULAR'
-		payload['message'] = {
-		'text' : response
-		}
-	elif response_type =='welcome_user':
-		payload['message'] = {
-            "attachment":{
-                "type":"template",
-                "payload":{
-                    "template_type":"button",
-                    "text":response,
-                    "buttons":[
-                    {
-                    "type":"postback",
-                    "title":"Get shopping advice?",
-                    "payload":"seekingAdvice:"+conversation_id
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Other?",
-                    "payload":"other:"+conversation_id
-                    }
-                    ]
-                }
-            }
-        }
-
-	return payload
+		return message_payloads.fb_payload(response_type,response,recipient,conversation_ref.get().id)
