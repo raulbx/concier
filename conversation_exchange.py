@@ -16,7 +16,7 @@ class Exchange(object):
 		response_type = flow_state_ref.get().to_dict().get('response_type')
 		response = flow_state_ref.get().to_dict().get('response')
 		recipient = None
-		print("Contnuing a conversation")
+		print("Contnuing a conversation. Flow state is {}".format(flow_state))
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
 			recipient = self.user_id_on_platform 
 		return message_payloads.fb_payload(response_type,response,recipient,conversation_ref.get().id)
