@@ -16,7 +16,7 @@ class Exchange(object):
 		response_type = flow_state_ref.get().to_dict().get('response_type')
 		response = flow_state_ref.get().to_dict().get('response')
 		platformAction = flow_state_ref.get().to_dict().get('platformAction')
-		platformAction()
+		getattr(foo, platformAction)()
 		print("Contnuing a conversation. Flow state is {}".format(flow_state))
 		#member_ref.add_expert(member,user_response)
 
