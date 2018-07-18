@@ -30,9 +30,9 @@ def receive_message():
           messaging = event['messaging']
           for message in messaging:
             sender_id = message['sender']['id']
-            member_ref=core_engine.Members(sender_id) #This sets the facebook ID
-            member = member_ref.get_member() #This is getting the firebase reference to the member obj
-            conversation_ref = member_ref.get_active_conversation_ref(member) #This gets the reference to the conversation object
+            core_engine_obj=core_engine.Members(sender_id) #This sets the facebook ID
+            member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj
+            conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the conversation object
             flow_state="blank_state"
             if message.get('message'):
                 user_response = message['message'].get('text')
@@ -51,11 +51,11 @@ def receive_message():
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
             #print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
-            exchange_obj = conversation_exchange.Exchange(sender_id,'FB',member_ref,user_response)
+            exchange_obj = conversation_exchange.Exchange(sender_id,'FB',core_engine_obj,user_response)
           #  exchange_obj.get_action()
             if not conversation_ref:
                 #start the conversation
-                payload = exchange_obj.start_conversation(member_ref)
+                payload = exchange_obj.start_conversation(core_engine_obj)
             else:
                 print("Flow State is:{}".format(flow_state))
                 payload = exchange_obj.get_action(conversation_ref,flow_state)
