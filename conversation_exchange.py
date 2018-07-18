@@ -19,7 +19,6 @@ class Exchange(object):
 		if platformAction:
 			getattr(self, platformAction)()
 		print("Contnuing a conversation. Flow state is {}".format(flow_state))
-		#member_ref.add_expert(member,user_response)
 
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
 			recipient = self.user_id_on_platform
@@ -40,3 +39,4 @@ class Exchange(object):
 
 	def add_expertise(self):
 		print("Calling def programmatically by name")
+		self.member_core_engine_ref.add_expert(member,user_response)
