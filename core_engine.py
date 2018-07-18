@@ -142,7 +142,7 @@ class Members(object):
 				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
 		except ValueError:
 			print(u'Value Error.....!')
-		except:
+		except Exception:
 			print(u'This is an exception situation')
-			traceback.print_stack()
+			print(traceback.format_exc())
 		return expertise_ref
