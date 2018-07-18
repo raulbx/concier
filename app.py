@@ -51,7 +51,7 @@ def receive_message():
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
             #print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
-            exchange_obj = conversation_exchange.Exchange(sender_id,'FB',member_ref,user_response)
+            exchange_obj = conversation_exchange.Exchange(sender_id,'FB',member,user_response)
           #  exchange_obj.get_action()
             if not conversation_ref:
                 #start the conversation
