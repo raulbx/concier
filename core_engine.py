@@ -120,7 +120,7 @@ class Members(object):
 		db = firestore.client()
 		return db.collection("expertise").where("expertise_category", "==", expertise)
 
-	def add_expert(self,member,member_expertise):
+	def add_expertise(self,member,member_expertise):
 		expertise_data = {
 		'expertise_category':member_expertise,
 		'member':[member]
