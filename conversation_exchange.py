@@ -5,10 +5,11 @@ import message_payloads
 
 class Exchange(object):
 
-	def __init__(self, member_identifier, source_platform,member_core_engine_ref):
+	def __init__(self, member_identifier, source_platform,member_core_engine_ref,user_response):
 		self.user_id_on_platform = member_identifier
 		self.source_platform = source_platform
 		self.member_core_engine_ref=member_core_engine_ref
+		self.user_response = user_response
 
 	def get_action(self, conversation_ref,flow_state):
 		print("Member Identifier is {} and conversation_ref is {} and flow_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, flow_state))
@@ -39,4 +40,4 @@ class Exchange(object):
 
 	def add_expertise(self):
 		print("Calling def programmatically by name")
-		self.member_core_engine_ref.add_expert(member,user_response)
+		self.member_core_engine_ref.add_expert(self.member_core_engine_ref,self.user_response )
