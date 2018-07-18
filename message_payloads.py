@@ -94,17 +94,17 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
             },
             {
             "content_type":"text",
-            "title":"Max $1000",
+            "title":"$1000 Max",
             "payload":"priceKnown:"+conversation_id
             },
             {
             "content_type":"text",
-            "title":"Max $500",
+            "title":"$500 Max",
             "payload":"priceKnown:"+conversation_id
             },
             {
             "content_type":"text",
-            "title":"Max $100",
+            "title":"$100 Max",
             "payload":"priceKnown:"+conversation_id
             },
             {
