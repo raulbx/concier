@@ -120,7 +120,7 @@ class Members(object):
 		db = firestore.client()
 		return db.collection("expertise").where("expertise_category", "==", expertise)
 
-	def add_expertise(self,member,member_expertise):
+	def add_expert(self,member,member_expertise):
 		expertise_data = {
 		'expertise_category':member_expertise,
 		'member':[member]
@@ -128,6 +128,7 @@ class Members(object):
 		expertise_ref = None
 		db = firestore.client()
 		expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
+		print("Coming here")
 		try:
 			for expertise in expertise_query_ref:
 				expertise_ref = db.collection(u'expertise').document(expertise.id)
