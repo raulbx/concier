@@ -129,12 +129,14 @@ class Members(object):
 		db = firestore.client()
 		#expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
 		expertise_ref=db.collection("expertise").document(member_expertise)
-		print("Coming here")
+		print(expertise_ref)
 		try:
 			#for expertise in expertise_query_ref:
 			#	expertise_ref = db.collection(u'expertise').document(expertise.id)
+			expertise_obj = expertise_ref.get()
+			'''
 			if expertise_ref is None:
-				print("Expertise doesn't exist. Adding Expertise")
+				print("Expertise doesn't exist. Adding expetise")
 				#expertise_ref = db.collection(u'expertise').add(expertise_data)
 				expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
 			else :
@@ -142,8 +144,11 @@ class Members(object):
 				member_array = expertise_ref.get().to_dict().get('member')
 				member_array.append(member)
 				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
+				'''
 		except ValueError:
 			print(u'Value Error.....!')
+		except google.cloud.exceptions.NotFound:
+			print(u'No such expertise!')
 		except Exception:
 			print(u'This is an exception situation')
 			print(traceback.format_exc())
