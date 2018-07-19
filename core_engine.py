@@ -132,26 +132,32 @@ class Members(object):
 		expertise_ref=db.collection("expertise").document(member_expertise)
 		print(expertise_ref)
 		try:
-			#for expertise in expertise_query_ref:
-			#	expertise_ref = db.collection(u'expertise').document(expertise.id)
-			expertise_obj = expertise_ref.get()
+			expertise_obj = expertise_ref.get() #This will throw error
+			member_array = expertise_obj.to_dict().get('member')
+			member_array.append(member)
+			expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))	
+		except google.cloud.exceptions.NotFound:
+			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
+			print('Expertise does not exist. Add the expertise')
+			expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
+		'''
+		try:
+			for expertise in expertise_query_ref:
+			expertise_ref = db.collection(u'expertise').document(expertise.id)
 			
-			'''
 			if expertise_ref is None:
 				print("Expertise doesn't exist. Adding expetise")
-				#expertise_ref = db.collection(u'expertise').add(expertise_data)
-				expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
+				expertise_ref = db.collection(u'expertise').add(expertise_data)
 			else :
 				print("Expertise exists. Adding Member to existing expertise")
 				member_array = expertise_ref.get().to_dict().get('member')
 				member_array.append(member)
-				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
-				'''
+				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))		
 		except ValueError:
 			print(u'Value Error.....!')
-		except google.cloud.exceptions.NotFound:
-			print('Expertise does not exist')
+		
 		except Exception:
 			print(u'This is an exception situation')
 			print(traceback.format_exc())
+		'''
 		return expertise_ref
