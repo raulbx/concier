@@ -147,8 +147,6 @@ class Members(object):
 				'''
 		except ValueError:
 			print(u'Value Error.....!')
-		except exceptions.NotFound:
-			print(u'No such expertise!')
 		except Exception:
 			print(u'This is an exception situation')
 			print(traceback.format_exc())
