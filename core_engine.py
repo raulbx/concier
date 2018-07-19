@@ -133,7 +133,7 @@ class Members(object):
 		try:
 			#for expertise in expertise_query_ref:
 			#	expertise_ref = db.collection(u'expertise').document(expertise.id)
-			print ("Expertise exists? ".format(expertise_ref.exist))
+			print ("Expertise exists? ".format(expertise_ref.exists))
 			'''
 			if expertise_ref is None:
 				print("Expertise doesn't exist. Adding expetise")
