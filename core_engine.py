@@ -127,14 +127,16 @@ class Members(object):
 		}
 		expertise_ref = None
 		db = firestore.client()
-		expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
+		#expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
+		expertise_query_ref=db.collection("expertise").document(member_expertise).get()
 		print("Coming here")
 		try:
 			for expertise in expertise_query_ref:
 				expertise_ref = db.collection(u'expertise').document(expertise.id)
 			if expertise_ref is None:
-				print("Expertise doesn't exist. Adding Member")
-				expertise_ref = db.collection(u'expertise').add(expertise_data)
+				print("Expertise doesn't exist. Adding Expertise")
+				#expertise_ref = db.collection(u'expertise').add(expertise_data)
+				expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
 			else :
 				print("Expertise exists. Adding Member to existing expertise")
 				member_array = expertise_ref.get().to_dict().get('member')
