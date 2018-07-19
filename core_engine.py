@@ -147,7 +147,7 @@ class Members(object):
 				'''
 		except ValueError:
 			print(u'Value Error.....!')
-		except google.cloud.exceptions.NotFound:
+		except exceptions.NotFound:
 			print(u'No such expertise!')
 		except Exception:
 			print(u'This is an exception situation')
