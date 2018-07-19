@@ -6,6 +6,7 @@ import datetime
 import ast
 from firebase_admin import credentials
 from firebase_admin import firestore
+import google.cloud.exceptions
 
 class Members(object):
 	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
@@ -133,7 +134,8 @@ class Members(object):
 		try:
 			#for expertise in expertise_query_ref:
 			#	expertise_ref = db.collection(u'expertise').document(expertise.id)
-			print ("Expertise exists? ".format(expertise_ref.exists))
+			expertise_obj = expertise_ref.get()
+			
 			'''
 			if expertise_ref is None:
 				print("Expertise doesn't exist. Adding expetise")
@@ -147,6 +149,8 @@ class Members(object):
 				'''
 		except ValueError:
 			print(u'Value Error.....!')
+		except google.cloud.exceptions.NotFound:
+			print('Expertise does not exist')
 		except Exception:
 			print(u'This is an exception situation')
 			print(traceback.format_exc())
