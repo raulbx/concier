@@ -127,8 +127,8 @@ class Members(object):
 		}
 		expertise_ref = None
 		db = firestore.client()
-		expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
-		#expertise_ref=db.collection("expertise").document(member_expertise)
+		#expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
+		expertise_ref=db.collection("expertise").document(member_expertise)
 		print(expertise_ref)
 		try:
 			#for expertise in expertise_query_ref:
