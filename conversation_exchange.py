@@ -16,7 +16,7 @@ class Exchange(object):
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state(flow_state)
 		response_payload = flow_state_ref.get().to_dict().get('response_payload')
 		platformResponse = flow_state_ref.get().to_dict().get('response')
-		platformAction = flow_state_ref.get().to_dict().get('platformAction')
+		platformAction = flow_state_ref.get().to_dict().get('platform_action')
 		if platformAction:
 			platformResponse = getattr(self, platformAction)(platformResponse,conversation_ref)
 		print("Contnuing a conversation. Flow state is {}".format(flow_state))
