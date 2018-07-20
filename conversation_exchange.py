@@ -39,7 +39,6 @@ class Exchange(object):
 		return message_payloads.fb_payload(response_type,response,recipient,conversation_ref.get().id)
 
 	def add_expertise(self,platform_response):
-		print("Calling def programmatically by name")
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
 
 	def broadcast_help_needed_request(self):
