@@ -40,13 +40,13 @@ class Exchange(object):
 	def add_expertise(self,platform_response):
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
 
-	def set_product_category(self,platform_response):
+	def record_product_category(self,platform_response):
 		print("Setting product category")
 
-	def set_time_frame(self,platform_response):
+	def record_time_frame(self,platform_response):
 		print("Setting time frame")
 
-	def set_max_price(self,platform_response):
+	def record_max_price(self,platform_response):
 		print ("Setting product price")
 
 	def broadcast_help_needed_request(self,platform_response):

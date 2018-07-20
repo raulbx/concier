@@ -64,22 +64,22 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
             {
             "content_type":"text",
             "title":"Less than 24 hours",
-            "payload":"timeframeKnown:"+conversation_id
+            "payload":"record_time_frame_ask_price:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"One week",
-            "payload":"timeframeKnown:"+conversation_id
+            "payload":"record_time_frame_ask_price:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"One month",
-            "payload":"timeframeKnown:"+conversation_id
+            "payload":"record_time_frame_ask_price:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Don't have a timeframe",
-            "payload":"timeframeKnown:"+conversation_id
+            "payload":"record_time_frame_ask_price:"+conversation_id
             }
             ]
         }
@@ -90,27 +90,27 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
             {
             "content_type":"text",
             "title":"Do not know",
-            "payload":"priceKnown:"+conversation_id
+            "payload":"record_price_thank_user:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"$1000 Max",
-            "payload":"priceKnown:"+conversation_id
+            "payload":"record_price_thank_user:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"$500 Max",
-            "payload":"priceKnown:"+conversation_id
+            "payload":"record_price_thank_user:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"$100 Max",
-            "payload":"priceKnown:"+conversation_id
+            "payload":"record_price_thank_user:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Price doesn't matter",
-            "payload":"priceKnown:"+conversation_id
+            "payload":"record_price_thank_user:"+conversation_id
             }
             ]
         }
