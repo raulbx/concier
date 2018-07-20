@@ -121,10 +121,10 @@ class Members(object):
 		db = firestore.client()
 		return db.collection("expertise").where("expertise_category", "==", expertise)
 
-	def add_expert(self,member,member_expertise):
+	def add_expert(self,member_ref,member_expertise):
 		expertise_data = {
 		'expertise_category':member_expertise,
-		'member':[member]
+		'member':[member_ref]
 		}
 		expertise_ref = None
 		db = firestore.client()
@@ -132,10 +132,15 @@ class Members(object):
 		expertise_ref=db.collection("expertise").document(member_expertise)
 		print(expertise_ref)
 		try:
-			expertise_obj = expertise_ref.get() #This will throw error
+			expertise_obj = expertise_ref.get() #This will throw error if the expertise doesn't exist.
 			member_array = expertise_obj.to_dict().get('member')
-			member_array.append(member)
-			expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))	
+			if member_ref in member_array:
+				#Member is already registered as an expert for expertise
+				print("Expertise already exists")
+			else: 
+				member_array.append(member_ref)
+				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
+				print("Expertise doesn't exist so we will add it.")
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
 			print('Expertise does not exist. Add the expertise')
