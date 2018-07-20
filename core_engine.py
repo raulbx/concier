@@ -90,7 +90,7 @@ class Members(object):
 		else:
 			conversation_ref = None
 		# THERE IS SOME BUG IN PYTHON. This print statement doesn't return values from the call 
-		print ('We are  getting active conversation ref')
+		print ('We are  getting active conversation ref----Donot remove. Added because of python bug.')
 		return conversation_ref
 
 	def get_active_conversation_ref_byID(self,conversation_id):
@@ -137,20 +137,16 @@ class Members(object):
 			if member_ref in member_array:
 				#Member is already registered as an expert for expertise
 				platform_response = "You are already registered as expert for {}".format(member_expertise)
-				print("Expertise already exists")
+				print("Member is already added as an expert")
 			else: 
 				member_array.append(member_ref)
-				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
-				respone_template = Template(platform_response)
-				platform_response = respone_template.safe_substitute(arg1=member_expertise)
-				print (respone_template.safe_substitute(arg1=member_expertise))
-				print("Expertise doesn't exist so we will add it.")
-				d = dict(who='tim')
-				print(Template('$who likes $what').safe_substitute(d))
+				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))	
+				print("Added member to this expertise.")
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
 			print('Expertise does not exist. Add the expertise')
 			expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
+		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		'''
 		try:
 			for expertise in expertise_query_ref:
