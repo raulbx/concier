@@ -38,22 +38,22 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
             {
             "content_type":"text",
             "title":"Phone",
-            "payload":"categoryKnown:"+conversation_id
+            "payload":"record_category_ask_time_frame:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Electronics",
-            "payload":"categoryKnown:"+conversation_id
+            "payload":"record_category_ask_time_frame:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Computers",
-            "payload":"categoryKnown:"+conversation_id
+            "payload":"record_category_ask_time_frame:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Household Items",
-            "payload":"categoryKnown:"+conversation_id
+            "payload":"record_category_ask_time_frame:"+conversation_id
             }
             ]
         }
