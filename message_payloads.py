@@ -36,6 +36,7 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
     elif response_payload =='shopping_category_quick_replies':
         payload['message'] = {
         'text' : response,
+        "metadata":"record_category_ask_time_frame",
         "quick_replies":[
             {
             "content_type":"text",
