@@ -12,6 +12,7 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
         }
     elif response_payload =='welcome_user':
         payload['message'] = {
+        "metadata":"ask_product_category",
             "attachment":{
                 "type":"template",
                 "payload":{
