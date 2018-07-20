@@ -60,6 +60,7 @@ def receive_message():
                 print("Flow State is:{}".format(flow_state))
                 #Get the conversation flow state, form the payload and send it
                 payload = exchange_obj.get_action(conversation_ref,flow_state)
+                print(payload)
     send_message(payload)
     return "Message Processed"
 
