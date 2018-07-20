@@ -43,14 +43,17 @@ class Exchange(object):
 	def record_product_category(self,platform_response,conversation_ref):
 		conversation_ref.update({'product_category':self.user_response})
 		print("Setting product category")
+		return platform_response
 
 	def record_time_frame(self,platform_response,conversation_ref):
 		conversation_ref.update({'time_frame':self.user_response})
 		print("Setting time frame")
+		return platform_response
 
 	def record_price_and_broadcast_request(self,platform_response,conversation_ref):
 		conversation_ref.update({'max_price':self.user_response})
 		print("Broadcasting message")
 		self.core_engine_obj.get_experts(conversation.to_dict().get('product_category'))
+		return platform_response
 
 
