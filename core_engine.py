@@ -143,7 +143,10 @@ class Members(object):
 				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))
 				respone_template = Template(platform_response)
 				platform_response = respone_template.safe_substitute(arg1=member_expertise)
+				print (respone_template.safe_substitute(arg1=member_expertise))
 				print("Expertise doesn't exist so we will add it.")
+				d = dict(who='tim')
+				print(Template('$who likes $what').safe_substitute(d))
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
 			print('Expertise does not exist. Add the expertise')
