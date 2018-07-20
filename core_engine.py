@@ -120,11 +120,11 @@ class Members(object):
 
 	def get_experts(self,expertise):
 		db = firestore.client()
-		return db.collection("expertise").where("expertise_category", "==", expertise)
+		#return db.collection("expertise").where("expertise_category", "==", expertise)
+		return db.collection("expertise").document(expertise)
 
 	def add_expert(self,member_ref,member_expertise,platform_response):
 		expertise_data = {
-		'expertise_category':member_expertise,
 		'member':[member_ref]
 		}
 		expertise_ref = None
@@ -136,35 +136,13 @@ class Members(object):
 			member_array = expertise_obj.to_dict().get('member')
 			if member_ref in member_array:
 				#Member is already registered as an expert for expertise
-				platform_response = "You are already registered as expert for {}".format(member_expertise)
-				print("Member is already added as an expert")
+				platform_response = "You are already registered as an expert for {}".format(member_expertise)
 			else: 
 				member_array.append(member_ref)
 				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))	
-				print("Added member to this expertise.")
+				
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
-			print('Expertise does not exist. Add the expertise')
 			expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
-		'''
-		try:
-			for expertise in expertise_query_ref:
-			expertise_ref = db.collection(u'expertise').document(expertise.id)
-			
-			if expertise_ref is None:
-				print("Expertise doesn't exist. Adding expetise")
-				expertise_ref = db.collection(u'expertise').add(expertise_data)
-			else :
-				print("Expertise exists. Adding Member to existing expertise")
-				member_array = expertise_ref.get().to_dict().get('member')
-				member_array.append(member)
-				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))		
-		except ValueError:
-			print(u'Value Error.....!')
-		
-		except Exception:
-			print(u'This is an exception situation')
-			print(traceback.format_exc())
-		'''
 		return platform_response
