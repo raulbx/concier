@@ -40,7 +40,7 @@ class Exchange(object):
 
 	def add_expertise(self,platform_response):
 		print("Calling def programmatically by name")
-		self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
+		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
 
 	def broadcast_help_needed_request(self):
 		print("Broadcasting message")
