@@ -18,7 +18,7 @@ class Exchange(object):
 		platformResponse = flow_state_ref.get().to_dict().get('response')
 		platformAction = flow_state_ref.get().to_dict().get('platformAction')
 		if platformAction:
-			platformResponse = getattr(self, platformAction,conversation_ref)(platformResponse)
+			platformResponse = getattr(self, platformAction)(platformResponse,conversation_ref)
 		print("Contnuing a conversation. Flow state is {}".format(flow_state))
 
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
