@@ -45,6 +45,11 @@ class Exchange(object):
 		print("Setting product category")
 		return platform_response
 
+	def record_question():
+		conversation_ref.update({'user_need':user_response})
+		print("Saving users need")
+		return platform_response
+
 	def record_time_frame(self,platform_response,conversation_ref):
 		conversation_ref.update({'time_frame':self.user_response})
 		print("Setting time frame")
