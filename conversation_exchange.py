@@ -18,7 +18,7 @@ class Exchange(object):
 		platformResponse = flow_state_ref.get().to_dict().get('response')
 		platformAction = flow_state_ref.get().to_dict().get('platformAction')
 		if platformAction:
-			platformResponse = getattr(self, platformAction)(platformResponse)
+			platformResponse = getattr(self, platformAction,conversation_ref)(platformResponse)
 		print("Contnuing a conversation. Flow state is {}".format(flow_state))
 
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
@@ -37,19 +37,19 @@ class Exchange(object):
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':recipient = self.user_id_on_platform 
 		return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
 
-	def add_expertise(self,platform_response):
+	def add_expertise(self,platform_response,conversation_ref):
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
 
-	def record_product_category(self,platform_response):
+	def record_product_category(self,platform_response,conversation_ref):
+		conversation_ref.update({'product_category':self.user_response})
 		print("Setting product category")
 
-	def record_time_frame(self,platform_response):
+	def record_time_frame(self,platform_response,conversation_ref):
+		conversation_ref.update({'time_frame':self.user_response})
 		print("Setting time frame")
 
-	def record_max_price(self,platform_response):
-		print ("Setting product price")
-
-	def broadcast_help_needed_request(self,platform_response):
+	def record_price_and_broadcast_request(self,platform_response,conversation_ref):
+		conversation_ref.update({'max_price':self.user_response})
 		print("Broadcasting message")
 		self.core_engine_obj.get_experts(conversation.to_dict().get('product_category'))
 
