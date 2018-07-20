@@ -17,7 +17,8 @@ class Exchange(object):
 		response_type = flow_state_ref.get().to_dict().get('response_type')
 		response = flow_state_ref.get().to_dict().get('response')
 		platformAction = flow_state_ref.get().to_dict().get('platformAction')
-		if platformAction:getattr(self, platformAction)()
+		if platformAction:
+			response = getattr(self, platformAction)(response)
 		print("Contnuing a conversation. Flow state is {}".format(flow_state))
 
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':
@@ -37,9 +38,9 @@ class Exchange(object):
 			recipient = self.user_id_on_platform 
 		return message_payloads.fb_payload(response_type,response,recipient,conversation_ref.get().id)
 
-	def add_expertise(self):
+	def add_expertise(self,platform_response):
 		print("Calling def programmatically by name")
-		self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response )
+		self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
 
 	def broadcast_help_needed_request(self):
 		print("Broadcasting message")

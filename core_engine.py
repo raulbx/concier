@@ -121,7 +121,7 @@ class Members(object):
 		db = firestore.client()
 		return db.collection("expertise").where("expertise_category", "==", expertise)
 
-	def add_expert(self,member_ref,member_expertise):
+	def add_expert(self,member_ref,member_expertise,platform_response):
 		expertise_data = {
 		'expertise_category':member_expertise,
 		'member':[member_ref]
@@ -136,6 +136,7 @@ class Members(object):
 			member_array = expertise_obj.to_dict().get('member')
 			if member_ref in member_array:
 				#Member is already registered as an expert for expertise
+				platform_response = "You are already registered as expert for {}".format(member_expertise)
 				print("Expertise already exists")
 			else: 
 				member_array.append(member_ref)
@@ -165,4 +166,4 @@ class Members(object):
 			print(u'This is an exception situation')
 			print(traceback.format_exc())
 		'''
-		return expertise_ref
+		return platform_response
