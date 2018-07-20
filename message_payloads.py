@@ -1,15 +1,15 @@
 payload = {}
 
-def fb_payload(response_type,response,recipient_id,conversation_id):
+def fb_payload(response_payload,response,recipient_id,conversation_id):
     payload['recipient'] = {
     'id': recipient_id
     }
-    if response_type =='plain_message':
+    if response_payload =='plain_message':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : response
         }
-    elif response_type =='welcome_user':
+    elif response_payload =='welcome_user':
         payload['message'] = {
             "attachment":{
                 "type":"template",
@@ -20,7 +20,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
                     {
                     "type":"postback",
                     "title":"Get shopping advice?",
-                    "payload":"seekingAdvice:"+conversation_id
+                    "payload":"ask_product_category:"+conversation_id
                     },
                     {
                     "type":"postback",
@@ -31,7 +31,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
                 }
             }
         }
-    elif response_type =='shopping_category_quick_replies':
+    elif response_payload =='shopping_category_quick_replies':
         payload['message'] = {
         'text' : response,
         "quick_replies":[
@@ -57,7 +57,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
             }
             ]
         }
-    elif response_type =='shopping_timeframe_quick_replies':
+    elif response_payload =='shopping_timeframe_quick_replies':
         payload['message'] = {
         'text' : response,
         "quick_replies":[
@@ -83,7 +83,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
             }
             ]
         }
-    elif response_type =='shopping_price_quick_replies':
+    elif response_payload =='shopping_price_quick_replies':
         payload['message'] = {
         'text' : response,
         "quick_replies":[
@@ -114,7 +114,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
             }
             ]
         }
-    elif response_type =='other_buttons':
+    elif response_payload =='other_buttons':
         payload['message'] = {
             "attachment":{
                 "type":"template",
@@ -141,7 +141,7 @@ def fb_payload(response_type,response,recipient_id,conversation_id):
                 }
             }
         }
-    elif response_type =='choose_expertise_category':
+    elif response_payload =='choose_expertise_category':
         #payload['notification_type'] = 'REGULAR'
         payload['message'] = {
             "attachment":{
