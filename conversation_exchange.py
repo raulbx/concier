@@ -15,7 +15,10 @@ class Exchange(object):
 	def get_action(self, conversation_ref,flow_state):
 		print("Member Identifier is {} and conversation_ref is {} and flow_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, flow_state))
 		payload =response_payload.fb_payload(flow_state,'',self.user_id_on_platform,conversation_ref.get().id,'')
-		print(response_payload)
+		print(payload)
+		if payload['platform']:
+			platform_action = payload['platform'].get('action')
+			payload = getattr(self, platform_action)(payload,conversation_ref)
 		return payload
 		'''
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state(flow_state)
@@ -47,6 +50,9 @@ class Exchange(object):
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':recipient = self.user_id_on_platform 
 		return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
 		'''
+
+	def substitute_argument(self, payload, conversation_ref):
+		print("We are going to substitute_argument")
 
 	def add_expertise(self,platform_response,conversation_ref):
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)

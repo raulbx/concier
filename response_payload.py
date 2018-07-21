@@ -63,8 +63,11 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
     elif conversation_state == 'record_category_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'I can connect you to an expert, who is knows about $arg1. Please share what are you looking for?  More descriptive the better!',
+        'text' : 'I can connect you to an $arg1 expert. Please share what are you looking for?  More descriptive the better!',
         'metadata':'record_need_ask_time_frame'
+        }
+        payload['platform'] = {
+        'action':'substitute_argument'
         }
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {
