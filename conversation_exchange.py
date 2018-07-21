@@ -16,7 +16,7 @@ class Exchange(object):
 		print("Member Identifier is {} and conversation_ref is {} and flow_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, flow_state))
 		payload =response_payload.fb_payload(flow_state,'',self.user_id_on_platform,conversation_ref.get().id,'')
 		print(payload)
-		if payload['platform']:
+		if 'platform' in payload:
 			platform_action = payload['platform'].get('action')
 			payload = getattr(self, platform_action)(payload,conversation_ref)
 		return payload
