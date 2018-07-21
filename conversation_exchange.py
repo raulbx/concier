@@ -1,7 +1,7 @@
 import core_engine
 import message_payloads
 import response_payload
-
+from string import Template
 
 
 class Exchange(object):
@@ -52,7 +52,8 @@ class Exchange(object):
 		'''
 
 	def substitute_argument(self, payload, conversation_ref):
-		print("We are going to substitute_argument")
+		new_response = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response = user_response)
+		print('new_response')
 
 	def add_expertise(self,platform_response,conversation_ref):
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
