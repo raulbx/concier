@@ -1,14 +1,13 @@
 payload = {}
 
-def fb_payload(response_payload,response,recipient_id,conversation_id,flow_state):
+def fb_payload(response_payload,response,recipient_id,conversation_id):
     payload['recipient'] = {
     'id': recipient_id
     }
     if response_payload =='plain_message':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : response,
-        'metadata':flow_state
+        'text' : response
         }
     elif response_payload =='welcome_user':
         payload['message'] = {
