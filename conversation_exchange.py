@@ -14,9 +14,9 @@ class Exchange(object):
 
 	def get_action(self, conversation_ref,flow_state):
 		print("Member Identifier is {} and conversation_ref is {} and flow_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, flow_state))
-		response_payload =response_payload.fb_payload(flow_state,'',self.user_id_on_platform,conversation_ref.get().id,'')
+		payload =response_payload.fb_payload(flow_state,'',self.user_id_on_platform,conversation_ref.get().id,'')
 		print(response_payload)
-		return response_payload
+		return payload
 		'''
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state(flow_state)
 		response_payload = flow_state_ref.get().to_dict().get('response_payload')
