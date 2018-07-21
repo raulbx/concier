@@ -29,6 +29,7 @@ class Exchange(object):
 		return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
 
 	def start_conversation(self,member_ref):
+		conversation_ref = member_ref.add_conversation(member_ref.get_member())
 		print("Starting the conversation")
 		return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
 		'''
