@@ -52,7 +52,7 @@ class Exchange(object):
 		'''
 
 	def substitute_argument(self, payload, conversation_ref):
-		new_response = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response = user_response)
+		new_response = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
 		print('new_response')
 
 	def add_expertise(self,platform_response,conversation_ref):
