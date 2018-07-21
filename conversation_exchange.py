@@ -19,6 +19,8 @@ class Exchange(object):
 		if 'platform' in payload:
 			platform_action = payload['platform'].get('action')
 			payload = getattr(self, platform_action)(payload,conversation_ref)
+		if payload is None:
+			payload =response_payload.fb_payload('default_message','...',self.user_id_on_platform,conversation_ref.get().id,'')
 		return payload
 		'''
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state(flow_state)
@@ -52,8 +54,9 @@ class Exchange(object):
 		'''
 
 	def substitute_argument(self, payload, conversation_ref):
-		new_response = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
-		print(new_response)
+		payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
+		print(payload)
+		return payload
 
 	def add_expertise(self,platform_response,conversation_ref):
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
