@@ -1,6 +1,6 @@
 payload = {}
 
-def fb_payload(response_payload,response,recipient_id,conversation_id):
+def fb_payload(response_payload,response,recipient_id,conversation_id,flow_state):
     payload['recipient'] = {
     'id': recipient_id
     }
@@ -8,7 +8,7 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : response,
-        'metadata':"Flow_State:"+conversation_id
+        'metadata':flow_state
         }
     elif response_payload =='welcome_user':
         payload['message'] = {
@@ -36,7 +36,7 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
     elif response_payload =='shopping_category_quick_replies':
         payload['message'] = {
         'text' : response,
-        "metadata":"record_category_ask_time_frame",
+        "metadata":"record_category_understand_need",
         "quick_replies":[
             {
             "content_type":"text",
@@ -63,6 +63,7 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
     elif response_payload =='shopping_timeframe_quick_replies':
         payload['message'] = {
         'text' : response,
+        "metadata":"record_time_frame_ask_price",
         "quick_replies":[
             {
             "content_type":"text",
@@ -89,6 +90,7 @@ def fb_payload(response_payload,response,recipient_id,conversation_id):
     elif response_payload =='shopping_price_quick_replies':
         payload['message'] = {
         'text' : response,
+         "metadata":"record_price_thank_user",
         "quick_replies":[
             {
             "content_type":"text",

@@ -1,5 +1,6 @@
 import core_engine
 import message_payloads
+import response_payload
 
 
 
@@ -28,6 +29,9 @@ class Exchange(object):
 		return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
 
 	def start_conversation(self,member_ref):
+		print("Starting new conversation")
+		return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
+		'''
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state("start_here")
 		response_payload = flow_state_ref.get().to_dict().get('response_payload')
@@ -36,6 +40,7 @@ class Exchange(object):
 		print("Starting new conversation")
 		if flow_state_ref.get().to_dict().get('recipient')== 'sender':recipient = self.user_id_on_platform 
 		return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
+		'''
 
 	def add_expertise(self,platform_response,conversation_ref):
 		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
@@ -47,7 +52,7 @@ class Exchange(object):
 
 	def record_question():
 		conversation_ref.update({'user_need':user_response})
-		print("Saving users need")
+		print("Saving users need-question")
 		return platform_response
 
 	def record_time_frame(self,platform_response,conversation_ref):
