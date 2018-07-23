@@ -7,8 +7,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     if conversation_state =='default_state':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : response,
-        'messaging_type':'RESPONSE'
+        'text' : response
         }
     elif conversation_state =='welcome_user':
         payload['message'] = {

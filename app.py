@@ -34,7 +34,7 @@ def receive_message():
             core_engine_obj=core_engine.Members(sender_id) #This sets the facebook ID
             member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj
             conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the conversation object
-            conversation_state=None
+            conversation_state = None
             if message.get('message'):
                 user_response = message['message'].get('text')
                 quick_reply_response = message['message'].get('quick_reply')
@@ -59,10 +59,10 @@ def receive_message():
                 #start the conversation
                 payload = exchange_obj.start_conversation(core_engine_obj)
             else:
-                print("Conversation Flow State is:{}".format(conversation_state))
                 #Get the conversation flow state, form the payload and send it
                 if conversation_state is None:
                     conversation_state = conversation_ref.get().to_dict().get('conversation_state')
+                print("Conversation Flow State is:{}".format(conversation_state))
                 payload = exchange_obj.get_action(conversation_ref,conversation_state)
                 print(payload)
                 print('---------above  is the payload created by the platform -----')
