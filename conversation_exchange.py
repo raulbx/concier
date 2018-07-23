@@ -19,6 +19,7 @@ class Exchange(object):
 		if 'platform' in payload:
 			platform_action = payload['platform'].get('action')
 			payload = getattr(self, platform_action)(payload,conversation_ref)
+			del payload['platform']
 		if payload is None:
 			payload =response_payload.fb_payload('default_message','...',self.user_id_on_platform,conversation_ref.get().id,'')
 		return payload
@@ -55,7 +56,6 @@ class Exchange(object):
 
 	def substitute_argument(self, payload, conversation_ref):
 		payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
-		print(payload)
 		return payload
 
 	def add_expertise(self,platform_response,conversation_ref):
