@@ -59,9 +59,6 @@ class Exchange(object):
 		payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
 		return payload
 
-	def add_expertise(self,platform_response,conversation_ref):
-		return self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,platform_response)
-
 	def record_product_category(self,platform_response,conversation_ref):
 		conversation_ref.update({'product_category':self.user_response})
 		print("Setting product category")
@@ -83,4 +80,7 @@ class Exchange(object):
 		self.core_engine_obj.get_experts(conversation.to_dict().get('product_category'))
 		return platform_response
 
-
+	def add_expertise(self,payload,conversation_ref):
+		self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,payload['message'].get('text'))
+		payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
+		return payload

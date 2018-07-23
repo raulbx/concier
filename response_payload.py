@@ -196,7 +196,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
         'metadata':'expert_confirmed'
         }
         payload['platform'] = {
-        'action':'substitute_argument'
+        'action':'add_expertise'
         }
     elif conversation_state == 'manage_account':
         payload['notification_type'] = 'REGULAR'
