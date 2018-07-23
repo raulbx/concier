@@ -8,7 +8,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : response,
-        'metadata':next_state
+        'metadata':'call_back_state'
         }
     elif conversation_state =='welcome_user':
         payload['message'] = {
