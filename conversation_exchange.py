@@ -42,8 +42,8 @@ class Exchange(object):
 
 	def start_conversation(self,member_ref):
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
-		print("Starting the conversation")
 		return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id,'')
+		
 		'''
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state("start_here")

@@ -53,7 +53,8 @@ class Members(object):
 	
 	def add_conversation(self,member_ref):
 		conversation_data = {
-    	'helpee_ref':member_ref, # this is reference to the member obj
+    	'helpee_ref':None, # this is reference to the member obj
+    	'helpee_ref':None,
     	#'helpee_id':helpee_id,
     	'active':False,
     	'conversation_state':'start_here',
