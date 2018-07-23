@@ -40,7 +40,7 @@ class Members(object):
 		'fb_id': self.fb_id,
 		'source': self.source,
 		'is_helper':False,
-		'is_helpee':True,
+		'is_helpee':False,
 		'token_balance':0,
 		'conversations':[], # Good idea is to store references in this array
 		#'expertise':['electronics','health'], # This is now stored in a different collection
@@ -145,5 +145,6 @@ class Members(object):
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
 			expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
+		member_ref.update({'is_helper':True})
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		return platform_response
