@@ -27,7 +27,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
                     {
                     "type":"postback",
                     "title":"Other?",
-                    "payload":"welcomeOtherOption:"+conversation_id
+                    "payload":"other_buttons:"+conversation_id
                     }
                     ]
                 }
@@ -140,22 +140,22 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":response,
+                    "text":'Other things you can do?',
                     "buttons":[
                     {
                     "type":"postback",
                     "title":"Register as expert",
-                    "payload":"registerExpert:"+conversation_id
+                    "payload":"choose_expertise_category:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"Manage Account",
-                    "payload":"manageAccount:"+conversation_id
+                    "payload":"manage_account:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"Something else",
-                    "payload":"somethingElse:"+conversation_id
+                    "payload":"something_else:"+conversation_id
                     }
                     ]
                 }
@@ -168,25 +168,52 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":response,
+                    "text":'What kind of products you know well?',
                     "buttons":[
                     {
                     "type":"postback",
                     "title":"Phone",
-                    "payload":"confirmExpert:"+conversation_id
+                    "payload":"register_expert:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"Electronics",
-                    "payload":"confirmExpert:"+conversation_id
+                    "payload":"register_expert:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"Computers",
-                    "payload":"confirmExpert:"+conversation_id
+                    "payload":"register_expert:"+conversation_id
                     }
                     ]
                 }
             }
+        }
+    elif conversation_state == 'register_expert':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Great I have added you as an expert for $arg1.',
+        'metadata':'expert_confirmed'
+        }
+        payload['platform'] = {
+        'action':''
+        }
+    elif conversation_state == 'manage_account':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Manage your account at http://concier.org/account',
+        'metadata':'expert_confirmed'
+        }
+        payload['platform'] = {
+        'action':''
+        }
+    elif conversation_state == 'something_else':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Please type your message below. We will need to get our human to answer this.',
+        'metadata':'expert_confirmed'
+        }
+        payload['platform'] = {
+        'action':''
         }
     return payload
