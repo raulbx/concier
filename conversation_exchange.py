@@ -21,7 +21,7 @@ class Exchange(object):
 			del payload['platform']
 		if payload is None:
 			payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id)
-			
+
 		print(payload)
 		print('-------Above is the raw payload -----')
 		return payload
@@ -59,31 +59,32 @@ class Exchange(object):
 	def substitute_argument(self, payload, conversation_ref):
 		payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
 		return payload
-
-	def record_product_category(self,platform_response,conversation_ref):
+'''
+	def record_product_category(self,payload,conversation_ref):
 		conversation_ref.update({'product_category':self.user_response})
 		print("Setting product category")
 		return platform_response
-
+'''
 	def set_future_state(self,payload,conversation_ref):
-		conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+		conversation_ref.update({'conversation_state':payload['platform'].get('future_state'),'product_category':self.user_response})
+		payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
 		return payload
 
-	def record_question():
+	def record_need(self,payload,conversation_ref):
 		conversation_ref.update({'user_need':user_response})
 		print("Saving users need-question")
-		return platform_response
+		return payload
 
-	def record_time_frame(self,platform_response,conversation_ref):
+	def record_time_frame(self,payload,conversation_ref):
 		conversation_ref.update({'time_frame':self.user_response})
 		print("Setting time frame")
-		return platform_response
+		return payload
 
-	def record_price_and_broadcast_request(self,platform_response,conversation_ref):
-		conversation_ref.update({'max_price':self.user_response})
+	def record_price_and_broadcast_request(self,payload,conversation_ref):
+		conversation_ref.update({'max_price':self.user_response,'is_helpee':true, 'helper_ref':None})
 		print("Broadcasting message")
-		self.core_engine_obj.get_experts(conversation.to_dict().get('product_category'))
-		return platform_response
+		print(self.core_engine_obj.get_experts(conversation.to_dict().get('product_category')))
+		return payload
 
 	def add_expertise(self,payload,conversation_ref):
 		self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,payload['message'].get('text'))

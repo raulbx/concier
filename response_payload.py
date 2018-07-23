@@ -96,6 +96,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             }
             ]
         }
+        payload['platform'] = {
+        'action':'record_need
+        }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
         'text' : 'What price range do you have in mind?',
@@ -128,11 +131,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             }
             ]
         }
+        payload['platform'] = {
+        'action':'record_time_frame'
+        }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Thanks. Let me find an expert, who can help you make a decision.',
         'metadata':''
+        }
+        payload['platform'] = {
+        'action':'record_price_and_broadcast_request'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
@@ -192,8 +201,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'register_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Great I have added you as an expert for $arg1.',
-        'metadata':'expert_confirmed'
+        'text' : 'Great I have added you as an expert for $arg1.'
         }
         payload['platform'] = {
         'action':'add_expertise'
@@ -201,8 +209,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'manage_account':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Manage your account at http://concier.org/account',
-        'metadata':''
+        'text' : 'Manage your account at http://concier.org/account'
         }
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
