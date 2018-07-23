@@ -34,20 +34,23 @@ def receive_message():
             core_engine_obj=core_engine.Members(sender_id) #This sets the facebook ID
             member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj
             conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the conversation object
-            flow_state="default_message"
+            conversation_state=None
             if message.get('message'):
                 user_response = message['message'].get('text')
                 quick_reply_response = message['message'].get('quick_reply')
                 if quick_reply_response:
                     payload = quick_reply_response['payload'].split(':')
-                    flow_state = payload[0]
+                    conversation_state = payload[0]
                     msg_conversation_id = payload[-1]
             elif message.get('postback'):
                 user_response = message['postback'].get('title')
                 conversation = message['postback'].get('payload').split(':')
-                flow_state = conversation[0]
+                conversation_state = conversation[0]
                 #user_response = message['postback'].get('title')
                 msg_conversation_id = conversation[-1]
+            if conversation_state is None:
+                conversation_state = conversation_ref.get().to_dict().get('conversation_state')
+
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
@@ -58,9 +61,9 @@ def receive_message():
                 #start the conversation
                 payload = exchange_obj.start_conversation(core_engine_obj)
             else:
-                print("Conversation Flow State is:{}".format(flow_state))
+                print("Conversation Flow State is:{}".format(conversation_state))
                 #Get the conversation flow state, form the payload and send it
-                payload = exchange_obj.get_action(conversation_ref,flow_state)
+                payload = exchange_obj.get_action(conversation_ref,conversation_state)
                 print(payload)
                 print('---------above  is the payload created by the platform -----')
     send_message(payload)

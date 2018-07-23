@@ -12,9 +12,9 @@ class Exchange(object):
 		self.core_engine_obj=core_engine_obj
 		self.user_response = user_response
 
-	def get_action(self, conversation_ref,flow_state):
-		print("Member Identifier is {} and conversation_ref is {} and flow_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, flow_state))
-		payload =response_payload.fb_payload(flow_state,'...',self.user_id_on_platform,conversation_ref.get().id,'')
+	def get_action(self, conversation_ref,conversation_state):
+		print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
+		payload =response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,'')
 		print(payload)
 		print('-------Above is the raw payload -----')
 		if 'platform' in payload:
@@ -43,7 +43,7 @@ class Exchange(object):
 	def start_conversation(self,member_ref):
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
 		return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id,'')
-		
+
 		'''
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state("start_here")
@@ -63,6 +63,10 @@ class Exchange(object):
 		conversation_ref.update({'product_category':self.user_response})
 		print("Setting product category")
 		return platform_response
+
+	def set_future_state(self,payload,conversation_ref):
+		conversation_ref.update('conversation_state':payload['platform'].get('future_state'))
+		return payload
 
 	def record_question():
 		conversation_ref.update({'user_need':user_response})

@@ -1,14 +1,14 @@
 payload = {}
 
-def fb_payload(conversation_state,response,recipient_id,conversation_id,next_state):
+def fb_payload(conversation_state,response,recipient_id,conversation_id):
     payload['recipient'] = {
     'id': recipient_id
     }
-    if conversation_state =='default_message':
+    if conversation_state =='default_state':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : response,
-        'metadata':'call_back_state'
+        'messaging_type':'RESPONSE'
         }
     elif conversation_state =='welcome_user':
         payload['message'] = {
@@ -67,7 +67,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
         'metadata':'record_need_ask_time_frame'
         }
         payload['platform'] = {
-        'action':'substitute_argument'
+        'action':'set_future_state',
+        'future_state':'record_need_ask_time_frame'
         }
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {

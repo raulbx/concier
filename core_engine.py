@@ -57,7 +57,7 @@ class Members(object):
     	'helpee_ref':None,
     	#'helpee_id':helpee_id,
     	'active':False,
-    	'conversation_state':'start_here',
+    	'conversation_state':'default_state',
     	'current_chat_seq':0,
     	'startdate':datetime.datetime.now(),
     	'lastactivedate':datetime.datetime.now()
