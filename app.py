@@ -26,7 +26,7 @@ def receive_message():
         # get whatever message a user sent the bot
        output = request.get_json()
        print(output)
-       print ('Above is the message from FB----')
+       print ('-------------Above is the message from FB--------------')
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
@@ -61,7 +61,8 @@ def receive_message():
                 print("Conversation Flow State is:{}".format(flow_state))
                 #Get the conversation flow state, form the payload and send it
                 payload = exchange_obj.get_action(conversation_ref,flow_state)
-                print('This is the payload created by the platform ----'.format(payload))
+                print(payload)
+                print('---------above  is the payload created by the platform -----')
     send_message(payload)
     return "Message Processed"
 
