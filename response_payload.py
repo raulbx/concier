@@ -196,7 +196,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
         'metadata':'expert_confirmed'
         }
         payload['platform'] = {
-        'action':''
+        'action':'substitute_argument'
         }
     elif conversation_state == 'manage_account':
         payload['notification_type'] = 'REGULAR'
@@ -204,16 +204,10 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,next_sta
         'text' : 'Manage your account at http://concier.org/account',
         'metadata':'expert_confirmed'
         }
-        payload['platform'] = {
-        'action':''
-        }
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Please type your message below. We will need to get our human to answer this.',
         'metadata':'expert_confirmed'
-        }
-        payload['platform'] = {
-        'action':''
         }
     return payload
