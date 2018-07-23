@@ -65,7 +65,7 @@ class Exchange(object):
 		return platform_response
 
 	def set_future_state(self,payload,conversation_ref):
-		conversation_ref.update('conversation_state':payload['platform'].get('future_state'))
+		conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
 		return payload
 
 	def record_question():
