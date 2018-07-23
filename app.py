@@ -48,8 +48,6 @@ def receive_message():
                 conversation_state = conversation[0]
                 #user_response = message['postback'].get('title')
                 msg_conversation_id = conversation[-1]
-            if conversation_state is None:
-                conversation_state = conversation_ref.get().to_dict().get('conversation_state')
 
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
             #Store the reference to the state in the conversation
@@ -63,6 +61,8 @@ def receive_message():
             else:
                 print("Conversation Flow State is:{}".format(conversation_state))
                 #Get the conversation flow state, form the payload and send it
+                if conversation_state is None:
+                    conversation_state = conversation_ref.get().to_dict().get('conversation_state')
                 payload = exchange_obj.get_action(conversation_ref,conversation_state)
                 print(payload)
                 print('---------above  is the payload created by the platform -----')
