@@ -263,7 +263,7 @@ def send_message(payload):
     auth = {
     'access_token':ACCESS_TOKEN
     }
-    request_endpoint = 'https://graph.facebook.com/v2.6/me/messages'
+    request_endpoint = 'https://graph.facebook.com/v3.0/me/messages'
     response = requests.post(
         request_endpoint,
         params=auth,
