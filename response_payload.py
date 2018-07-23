@@ -97,7 +97,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             ]
         }
         payload['platform'] = {
-        'action':'record_need
+        'action':'record_need'
         }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
@@ -214,7 +214,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Please type your message below. We will need to get our human to answer this.',
-        'metadata':''
+        'text' : 'Please type your message below. We will need to get our human to answer this.'
         }
     return payload
