@@ -14,7 +14,7 @@ class Exchange(object):
 
 	def get_action(self, conversation_ref,conversation_state):
 		print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
-		payload =response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,'')
+		payload =response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
 		print(payload)
 		print('-------Above is the raw payload -----')
 		if 'platform' in payload:
@@ -22,7 +22,7 @@ class Exchange(object):
 			payload = getattr(self, platform_action)(payload,conversation_ref)
 			del payload['platform']
 		if payload is None:
-			payload =response_payload.fb_payload('default_message','...',self.user_id_on_platform,conversation_ref.get().id,'')
+			payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id)
 		return payload
 		'''
 		flow_state_ref = self.core_engine_obj.get_conv_flow_state(flow_state)
@@ -42,7 +42,7 @@ class Exchange(object):
 
 	def start_conversation(self,member_ref):
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
-		return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id,'')
+		return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
 
 		'''
 		conversation_ref = member_ref.add_conversation(member_ref.get_member())
