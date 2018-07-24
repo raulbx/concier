@@ -76,7 +76,7 @@ class Exchange(object):
         return payload
 
     def record_price_and_broadcast_request(self,payload,conversation_ref):
-        conversation_ref.update({'max_price':self.user_response,'is_helpee':true, 'helper_ref':None,'conversation_state':'onboard_complete_waiting_for_expert'})
+        conversation_ref.update({'max_price':self.user_response,'is_helpee':True, 'helper_ref':None,'conversation_state':'onboard_complete_waiting_for_expert'})
         print("Broadcasting message")
         print(self.core_engine_obj.get_experts(conversation.to_dict().get('product_category')))
         return payload
