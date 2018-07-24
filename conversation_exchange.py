@@ -59,15 +59,15 @@ class Exchange(object):
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         return payload
 
+     def set_future_state(self,payload,conversation_ref):
+        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
+        return payload
+
     def record_category_set_future_state(self,payload,conversation_ref):
         conversation_ref.update({'product_category':self.user_response})
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         payload = set_future_state(self,payload,conversation_ref)
-        return payload
-
-    def set_future_state(self,payload,conversation_ref):
-        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
-        #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         return payload
 
     def record_need(self,payload,conversation_ref):
