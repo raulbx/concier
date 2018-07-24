@@ -66,7 +66,7 @@ class Exchange(object):
         return payload
 
     def record_need(self,payload,conversation_ref):
-        conversation_ref.update({'user_need':user_response})
+        conversation_ref.update({'user_need':self.user_response})
         print("Saving users need-question")
         return payload
 
