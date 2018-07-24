@@ -66,7 +66,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         'metadata':'record_need_ask_time_frame'
         }
         payload['platform'] = {
-        'action':'set_future_state',
+        'action':'record_category_set_future_state',
         'future_state':'record_need_ask_time_frame'
         }
     elif conversation_state =='record_need_ask_time_frame':
@@ -151,6 +151,15 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'set_future_state',
         'future_state':'onboard_complete_user_followed_up_once'
+        }
+    elif conversation_state == 'onboard_complete_user_followed_up_once':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'We are better than this. We are still looking. We will be back soon with an expert to help you out.'
+        }
+        payload['platform'] = {
+        'action':'set_future_state',
+        'future_state':'onboard_complete_user_followed_up_twice'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
