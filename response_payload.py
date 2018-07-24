@@ -145,7 +145,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Our expert search is on. Soon we will be back soon with an expert to help you out.'
+        'text' : 'Our expert search is on. We will be back soon with an expert to help you out.'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
