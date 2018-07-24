@@ -41,7 +41,7 @@ class Members(object):
 		'source': self.source,
 		'is_helper':False,
 		'is_helpee':False,
-		'token_balance':0,
+		'reward_balance':0,
 		'conversations':[], # Good idea is to store references in this array
 		#'expertise':['electronics','health'], # This is now stored in a different collection
 		'signupdate':datetime.datetime.now(),
