@@ -21,7 +21,6 @@ class Exchange(object):
             del payload['platform']
         if payload is None:
             payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id)
-
         print(payload)
         print('-------Above is the raw payload -----')
         return payload
@@ -76,7 +75,7 @@ class Exchange(object):
         return payload
 
     def record_price_and_broadcast_request(self,payload,conversation_ref):
-        conversation_ref.update({'active':True,'max_price':self.user_response,'is_helpee':True, 'helper_ref':None,'conversation_state':'onboard_complete_waiting_for_expert'})
+        conversation_ref.update({'active':True,'max_price':self.user_response,'is_helpee':True, 'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
         print("Broadcasting message")
         print(self.core_engine_obj.get_experts(conversation_ref.get().to_dict().get('product_category')))
         return payload

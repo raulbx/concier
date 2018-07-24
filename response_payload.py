@@ -140,12 +140,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         'text' : 'Thanks. Let me find an expert, who can help you make a decision.'
         }
         payload['platform'] = {
-        'action':'record_price_and_broadcast_request'
+        'action':'record_price_and_broadcast_request',
+        'future_state':'onboard_complete_waiting_for_expert'
         }
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Our expert search is on. We will be back soon with an expert to help you out.'
+        }
+        payload['platform'] = {
+        'action':'set_future_state',
+        'future_state':'onboard_complete_user_followed_up_once'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
