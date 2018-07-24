@@ -59,7 +59,7 @@ class Exchange(object):
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         return payload
 
-     def set_future_state(self,payload,conversation_ref):
+    def set_future_state(self,payload,conversation_ref):
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
         #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         return payload
