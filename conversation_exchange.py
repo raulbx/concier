@@ -69,7 +69,7 @@ class Exchange(object):
         payloads = []
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
         print("Broadcasting message")
-        del payload['platform']
+        #del payload['platform']
         product_category = conversation_ref.get().to_dict().get('product_category')
         print(product_category)
         experts_list = self.core_engine_obj.get_experts(product_category)
@@ -78,7 +78,7 @@ class Exchange(object):
         for expert in experts_list:
             #expert_id=expert_member.get().to_dict().get('fb_id')
             payload = response_payload.fb_payload(payload['platform'].get('future_state'),'...',expert.get().to_dict().get('fb_id'),conversation_ref.get().id)
-            payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
+            payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=conversation_ref.get().to_dict().get('product_category'),arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(payload)
         print('Number of experts is {}'.format(len(experts_list)))
         return payloads
