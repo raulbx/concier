@@ -11,8 +11,8 @@ ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8
 VERIFY_TOKEN = 'EROS_TOKEN'
 #bot = Bot(ACCESS_TOKEN)
 
-payload = {}
-
+#payload = {} #We might not even need it
+payloads = []
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])
 def receive_message():
@@ -57,17 +57,17 @@ def receive_message():
           #  exchange_obj.get_action()
             if not conversation_ref:
                 #start the conversation
-                payload = exchange_obj.start_conversation(core_engine_obj)
+                payloads = exchange_obj.start_conversation(core_engine_obj)
             else:
                 #Get the conversation flow state, form the payload and send it
                 if conversation_state is None:
                     conversation_state = conversation_ref.get().to_dict().get('conversation_state')
                 print("Conversation Flow State is:{}".format(conversation_state))
-                payload = exchange_obj.get_action(conversation_ref,conversation_state)
-                print(payload)
+                payloads = exchange_obj.get_action(conversation_ref,conversation_state)
+                print(payloads)
                 print('---------above  is the payload created by the platform -----')
     i = 0
-    for message_payload in payload:
+    for payload in payloads:
         send_message(payload)
         print ("this is running for {} time".format(i))
         i = i+1
