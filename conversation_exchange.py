@@ -5,7 +5,7 @@ from string import Template
 
 
 class Exchange(object):
-    payloads = []
+    
 
     def __init__(self, member_identifier, source_platform,core_engine_obj,user_response):
         self.user_id_on_platform = member_identifier
@@ -14,7 +14,7 @@ class Exchange(object):
         self.user_response = user_response
 
     def get_action(self, conversation_ref,conversation_state):
-        
+        payloads = []
         print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
         if 'platform' in payload:
@@ -28,6 +28,7 @@ class Exchange(object):
         return payloads
 
     def start_conversation(self,member_ref):
+        payloads = []
         conversation_ref = member_ref.add_conversation(member_ref.get_member())
         payload = response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
         payloads.append(payload)
