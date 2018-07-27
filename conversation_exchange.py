@@ -5,7 +5,6 @@ from string import Template
 
 
 class Exchange(object):
-    
 
     def __init__(self, member_identifier, source_platform,core_engine_obj,user_response):
         self.user_id_on_platform = member_identifier
@@ -24,7 +23,12 @@ class Exchange(object):
             payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id)
         print(payload)
         print('-------Above is the raw payload -----')
-        payloads.append(payload)
+        
+        if isinstance(payload,(list,)):
+            #this takes care of broadcast messages
+            payloads = payload
+        else:
+            payloads.append(payload)
         return payloads
 
     def start_conversation(self,member_ref):
