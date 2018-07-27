@@ -240,7 +240,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'We have a member, who is looking for an $arg1 item within price $arg2. Members question is : --$arg3--. Do you want to help?',
+                    "text":response,
                     "buttons":[
                     {
                     "type":"postback",
