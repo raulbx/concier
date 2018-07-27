@@ -70,7 +70,7 @@ def receive_message():
     for message_payload in payload:
         send_message(payload)
         print ("this is running for {} time".format(i))
-        i++
+        i = i+1
     return "Message Processed"
 
 def receive_message_old():
