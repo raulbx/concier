@@ -66,8 +66,10 @@ def receive_message():
                 payload = exchange_obj.get_action(conversation_ref,conversation_state)
                 print(payload)
                 print('---------above  is the payload created by the platform -----')
+    int i = 0
     for message_payload in payload:
         send_message(payload)
+        print ("this is running for {} time".format(i))
     return "Message Processed"
 
 def receive_message_old():

@@ -256,5 +256,5 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 }
             }
         }
-    print(payload)
+    
     return payload
