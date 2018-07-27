@@ -67,7 +67,7 @@ class Exchange(object):
         return payload
 
     def record_price_and_broadcast_request(self,payload,conversation_ref):
-        payloads[]
+        payloads = []
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
         print("Broadcasting message")
         del payload['platform']
@@ -79,9 +79,8 @@ class Exchange(object):
             payload = response_payload.fb_payload(payload['platform'].get('future_state'),'...',expert.get().to_dict().get('fb_id'),conversation_ref.get().id)
             payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=conversation_ref.get().to_dict().get('product_category'),arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(payload)
-            print('Number of experts is {}'.format(experts_list.len())
+        print('Number of experts is {}'.format(len(experts_list)))
         return payloads
-
     def add_expertise(self,payload,conversation_ref):
         self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,payload['message'].get('text'))
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
