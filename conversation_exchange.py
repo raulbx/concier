@@ -24,36 +24,10 @@ class Exchange(object):
         print(payload)
         print('-------Above is the raw payload -----')
         return payload
-        '''
-        flow_state_ref = self.core_engine_obj.get_conv_flow_state(flow_state)
-        response_payload = flow_state_ref.get().to_dict().get('response_payload')
-        platformResponse = flow_state_ref.get().to_dict().get('response')
-        platformAction = flow_state_ref.get().to_dict().get('platform_action')
-        if platformAction:
-            platformResponse = getattr(self, platformAction)(platformResponse,conversation_ref)
-        print("Contnuing a conversation. Flow state is {}".format(flow_state))
-
-        if flow_state_ref.get().to_dict().get('recipient')== 'sender':
-            recipient = self.user_id_on_platform
-        else:
-            recipient = None
-        return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
-        '''
 
     def start_conversation(self,member_ref):
         conversation_ref = member_ref.add_conversation(member_ref.get_member())
         return response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
-
-        '''
-        conversation_ref = member_ref.add_conversation(member_ref.get_member())
-        flow_state_ref = self.core_engine_obj.get_conv_flow_state("start_here")
-        response_payload = flow_state_ref.get().to_dict().get('response_payload')
-        platformResponse = flow_state_ref.get().to_dict().get('response')
-        recipient = None
-        print("Starting new conversation")
-        if flow_state_ref.get().to_dict().get('recipient')== 'sender':recipient = self.user_id_on_platform 
-        return message_payloads.fb_payload(response_payload,platformResponse,recipient,conversation_ref.get().id)
-        '''
 
     def substitute_argument(self, payload, conversation_ref):
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
@@ -84,7 +58,11 @@ class Exchange(object):
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         conversation_ref.update({'active':True,'max_price':self.user_response,'is_helpee':True, 'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
         print("Broadcasting message")
-        print(self.core_engine_obj.get_experts(conversation_ref.get().to_dict().get('product_category')))
+        experts_list = self.core_engine_obj.get_experts(conversation_ref.get().to_dict().get('product_category'))
+        #print()
+        for expert in experts_list:
+            #expert_id=expert_member.get().to_dict().get('fb_id')
+            payload = response_payload.fb_payload(conversation_state,'...',expert.get().to_dict().get('fb_id'),conversation_ref.get().id)
         return payload
 
     def add_expertise(self,payload,conversation_ref):

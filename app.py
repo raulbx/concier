@@ -11,7 +11,7 @@ ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8
 VERIFY_TOKEN = 'EROS_TOKEN'
 #bot = Bot(ACCESS_TOKEN)
 
-payload = {}
+payload[] = {}
 
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])
@@ -39,9 +39,9 @@ def receive_message():
                 user_response = message['message'].get('text')
                 quick_reply_response = message['message'].get('quick_reply')
                 if quick_reply_response:
-                    payload = quick_reply_response['payload'].split(':')
-                    conversation_state = payload[0]
-                    msg_conversation_id = payload[-1]
+                    conversation = quick_reply_response['payload'].split(':')
+                    conversation_state = conversation[0]
+                    msg_conversation_id = conversation[-1]
             elif message.get('postback'):
                 user_response = message['postback'].get('title')
                 conversation = message['postback'].get('payload').split(':')
@@ -66,7 +66,8 @@ def receive_message():
                 payload = exchange_obj.get_action(conversation_ref,conversation_state)
                 print(payload)
                 print('---------above  is the payload created by the platform -----')
-    send_message(payload)
+    for message_payload in payload:
+        send_message(payload)
     return "Message Processed"
 
 def receive_message_old():

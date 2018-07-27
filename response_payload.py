@@ -1,4 +1,4 @@
-payload = {}
+payload[] = {}
 
 def fb_payload(conversation_state,response,recipient_id,conversation_id):
     payload['recipient'] = {
@@ -233,5 +233,27 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Please type your message below. We will need to get our human to answer this.'
+        }
+    elif conversation_state =='broadcast_message':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":'We have a member, who is looking for an $arg1 item within $arg2. Members question is : $arg3. Do you want to help?',
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"YES",
+                    "payload":"acceptAssignment:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"NO",
+                    "payload":"declineAssignment:"+conversation_id
+                    }
+                    ]
+                }
+            }
         }
     return payload
