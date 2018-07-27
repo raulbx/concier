@@ -125,7 +125,7 @@ class Members(object):
 		#return db.collection("expertise").where("expertise_category", "==", expertise)
 		expertise_ref = db.collection("expertise").document(expertise)
 		print(expertise_ref)
-		expert_list = expertise_ref.get().to_dict.get('member')
+		expert_list = expertise_ref.get().to_dict().get('member')
 		return expert_list
 
 	def add_expert(self,member_ref,member_expertise,platform_response):
