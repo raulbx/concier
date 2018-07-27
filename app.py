@@ -11,7 +11,6 @@ ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8
 VERIFY_TOKEN = 'EROS_TOKEN'
 #bot = Bot(ACCESS_TOKEN)
 
-#payload = {} #We might not even need it
 payloads = []
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])
