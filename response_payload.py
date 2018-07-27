@@ -146,7 +146,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Our expert search is on. We will be back soon with an expert to help you out.'
+        'text' : 'Our expert search is on. We will be back soon with an expert to help you.'
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -245,16 +245,25 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     {
                     "type":"postback",
                     "title":"YES",
-                    "payload":"acceptAssignment:"+conversation_id
+                    "payload":"agree_to_help:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"NO",
-                    "payload":"declineAssignment:"+conversation_id
+                    "payload":"decline_to_help:"+conversation_id
                     }
                     ]
                 }
             }
         }
-    
+    elif conversation_state =='agree_to_help':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Great. I am going to connect you to $arg1'
+        }
+    elif conversation_state =='decline_to_help':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Thanks for the quick response.'
+        } 
     return payload
