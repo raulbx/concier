@@ -63,8 +63,8 @@ def receive_message():
                     conversation_state = conversation_ref.get().to_dict().get('conversation_state')
                 print("Conversation Flow State is:{}".format(conversation_state))
                 payloads = exchange_obj.get_action(conversation_ref,conversation_state)
-                print(payloads)
-                print('---------above  is the payload created by the platform -----')
+               # print(payloads)
+              #  print('---------above  is the payload created by the platform -----')
     i = 0
     for payload in payloads:
         send_message(payload)
