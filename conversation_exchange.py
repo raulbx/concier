@@ -76,7 +76,7 @@ class Exchange(object):
         #print()
         #Need to refine this code
         payloads.append(payload) #This creates the response payload for the person needing help
-        response_template = 'We have a member, who is looking for an $arg1 item within price $arg2. Members question is : --$arg3--. Do you want to help?
+        response_template = 'We have a member, who is looking for an $arg1 item within price $arg2. Members question is : --$arg3--. Do you want to help?'
         response = Template(response_template).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
         for expert in experts_list:
             #expert_id=expert_member.get().to_dict().get('fb_id')
