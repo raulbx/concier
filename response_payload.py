@@ -1,4 +1,4 @@
-payload[] = {}
+payload = [{}]
 
 def fb_payload(conversation_state,response,recipient_id,conversation_id):
     payload['recipient'] = {
