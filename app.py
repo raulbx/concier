@@ -34,6 +34,7 @@ def receive_message():
             member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj
             conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
             conversation_state = None
+            msg_conversation_id = None
             if message.get('message'):
                 user_response = message['message'].get('text')
                 quick_reply_response = message['message'].get('quick_reply')
