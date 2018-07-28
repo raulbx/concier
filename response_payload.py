@@ -269,5 +269,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Thanks for the quick response.'
-        } 
+        }
+    elif conversation_state =='helper_helpee_matched':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' :response
+        }
+        payload['platform'] = {
+        'action':'exchange_conversations'
+        }
     return payload

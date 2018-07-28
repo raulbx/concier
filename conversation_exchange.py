@@ -89,11 +89,30 @@ class Exchange(object):
     def connect_expert_to_user(self,payload,conversation_ref):
         ''' Get the correct conversation ref. 
         '''
-
+        #TODO: Add the conversation reference in Experts Profile.
         member_ref = self.core_engine_obj.get_member()
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=member_ref.get().to_dict().get('Rahul'))
         #member_ref.append_conversation()
         conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        return payload
+
+    def exchange_conversations(self,payload,conversation_ref):
+        # set the recipient ID for the counter party
+        helpee_id = conversation.to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+        helper_id = conversation.to_dict().get('helper_ref').get().to_dict().get('fb_id')
+        #Deternine if this helper or helpee
+        if self.user_id_on_platform == helper_id:
+            recipient_id = helpee_id
+            partyName = conversation.to_dict().get('helpee_ref').get().to_dict().get('Name')
+            #send message to helpee
+        else:
+            recipient_id = helper_id
+            partyName = conversation.to_dict().get('helper_ref').get().to_dict().get('Name')
+            #send message to helper
+        #response =partyName+': '+message['message'].get('text')
+        payload['message']['text'] = partyName+': '+payload['message'].get('text')
+        payload['recipient']['id'] = recipient_id
+        print(payload)
         return payload
 
     def add_expertise(self,payload,conversation_ref):
