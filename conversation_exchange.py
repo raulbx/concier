@@ -98,8 +98,8 @@ class Exchange(object):
 
     def exchange_conversations(self,payload,conversation_ref):
         # set the recipient ID for the counter party
-        helpee_id = conversation_ref.to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-        helper_id = conversation_ref.to_dict().get('helper_ref').get().to_dict().get('fb_id')
+        helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+        helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             recipient_id = helpee_id
