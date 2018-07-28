@@ -32,7 +32,7 @@ def receive_message():
             sender_id = message['sender']['id']
             core_engine_obj=core_engine.Members(sender_id) #This sets the facebook ID
             member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj
-            conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the conversation object
+            conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
             conversation_state = None
             if message.get('message'):
                 user_response = message['message'].get('text')
@@ -48,6 +48,10 @@ def receive_message():
                 #user_response = message['postback'].get('title')
                 msg_conversation_id = conversation[-1]
 
+            #Make sure we have correct conversation_ref
+            if msg_conversation_id:
+                conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
+
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
             #Store the reference to the state in the conversation
             # Make the change here to make this code generic
@@ -58,18 +62,15 @@ def receive_message():
                 #start the conversation
                 payloads = exchange_obj.start_conversation(core_engine_obj)
             else:
-                #Get the conversation flow state, form the payload and send it
+                #Get the conversation flow state, from the payload and send it
                 if conversation_state is None:
                     conversation_state = conversation_ref.get().to_dict().get('conversation_state')
                 print("Conversation Flow State is:{}".format(conversation_state))
                 payloads = exchange_obj.get_action(conversation_ref,conversation_state)
                # print(payloads)
               #  print('---------above  is the payload created by the platform -----')
-    i = 0
     for payload in payloads:
         send_message(payload)
-        print ("this is running for {} time".format(i))
-        i = i+1
     return "Message Processed"
 
 def receive_message_old():

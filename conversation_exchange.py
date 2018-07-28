@@ -85,6 +85,15 @@ class Exchange(object):
             payloads.append(payload)
         print('Number of experts is {}'.format(len(experts_list)))
         return payloads
+
+    def connect_expert_to_user(self,payload,conversation_ref):
+        ''' Get the correct conversation ref. 
+        '''
+        member_ref = self.core_engine_obj.get_member()
+        #member_ref.append_conversation()
+        conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        return payload
+
     def add_expertise(self,payload,conversation_ref):
         self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,payload['message'].get('text'))
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)

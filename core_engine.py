@@ -92,7 +92,7 @@ class Members(object):
 		else:
 			conversation_ref = None
 		# THERE IS SOME BUG IN PYTHON. This print statement doesn't return values from the call 
-		print ('We are  getting active conversation ref----Donot remove. Added because of python bug.')
+		print ('We are  getting conversation ref associated with this user----Donot remove. Added because of python bug.')
 		return conversation_ref
 
 	def get_active_conversation_ref_byID(self,conversation_id):

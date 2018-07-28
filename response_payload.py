@@ -261,6 +261,10 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['message'] = {
         'text' : 'Great. I am going to connect you to $arg1'
         }
+        payload['platform'] = {
+        'action':'connect_expert_to_user',
+        'future_state':'helper_helpee_matched'
+        }
     elif conversation_state =='decline_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
