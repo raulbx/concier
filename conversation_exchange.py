@@ -111,6 +111,7 @@ class Exchange(object):
             partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('Name')
             #send message to helper
         #response =partyName+': '+message['message'].get('text')
+        print("Party Name is {} and response is {}".format(partyName, self.user_response))
         payload['message']['text'] = partyName+': '+self.user_response
         payload['recipient']['id'] = recipient_id
         print(payload)
