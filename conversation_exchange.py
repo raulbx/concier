@@ -100,7 +100,7 @@ class Exchange(object):
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
-        partyName = '@'
+        
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             recipient_id = helpee_id
@@ -112,7 +112,10 @@ class Exchange(object):
             #send message to helper
         #response =partyName+': '+message['message'].get('text')
         print("Party Name is {} and response is {}".format(partyName, self.user_response))
-        payload['message']['text'] = partyName+': '+self.user_response
+        if self.user_response and partyName:
+            payload['message']['text'] = partyName+': '+self.user_response
+        else:
+            payload['message']['text'] = 'Concier Error'
         payload['recipient']['id'] = recipient_id
         print(payload)
         return payload
