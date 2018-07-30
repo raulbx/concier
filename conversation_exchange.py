@@ -115,7 +115,7 @@ class Exchange(object):
         if self.user_response and partyName:
             payload['message']['text'] = partyName+': '+self.user_response
         else:
-            payload['message']['text'] = 'Concier Error'
+            payload['message']['text'] = '...'
         payload['recipient']['id'] = recipient_id
         print(payload)
         return payload

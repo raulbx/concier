@@ -227,7 +227,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'manage_account':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Manage your account at http://concier.org/account'
+        'text' : 'What do you want to manage in your account?'
         }
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
@@ -271,7 +271,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         'text' : 'Thanks for the quick response.'
         }
     elif conversation_state =='helper_helpee_matched':
-        payload['notification_type'] = 'REGULAR'
+        #payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' :response
         }
