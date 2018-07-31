@@ -52,8 +52,8 @@ def receive_message():
                 msg_conversation_id = conversation[-1]
 
             #Make sure we have correct conversation_ref
-           # if msg_conversation_id:
-            #    conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
+            if msg_conversation_id:
+                conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
             print("Conversation Ref is: ".format(conversation_ref))
             #TODO: Fix the expert conversation references
 
