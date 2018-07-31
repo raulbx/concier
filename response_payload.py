@@ -16,7 +16,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Hi I am Dave. Your personal shopping Concier. How can I help you?',
+                    "text":'Hi, I am your personal shopping Concier. How can I help you?',
                     "buttons":[
                     {
                     "type":"postback",

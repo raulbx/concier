@@ -91,7 +91,7 @@ class Exchange(object):
         '''
         #TODO: Add the conversation reference in Experts Profile.
         member_ref = self.core_engine_obj.get_member()
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=member_ref.get().to_dict().get('Rahul'))
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=member_ref.get().to_dict().get('Name'))
         #member_ref.append_conversation()
         conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
         return payload
