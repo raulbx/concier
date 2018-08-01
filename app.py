@@ -33,8 +33,7 @@ def receive_message():
             #check if an attachment was sent
             
             core_engine_obj=core_engine.Members(sender_id) #This sets the facebook ID
-            member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj
-            conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
+            member_ref = core_engine_obj.get_member() #This is getting the firebase reference to the member obj. It will create member, if one doesn't exist.
             conversation_state = None
             msg_conversation_id = None
             if message.get('message'):
@@ -51,9 +50,16 @@ def receive_message():
                 #user_response = message['postback'].get('title')
                 msg_conversation_id = conversation[-1]
 
+            '''
+            first check if there is msg_conversation_id in the message. If there is a message conversation ID. 
+            Use it to direct the user to the  appropriate conversation object.
+            '''
             #Make sure we have correct conversation_ref
             if msg_conversation_id:
                 conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
+            else:
+                conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
+            
             print("Conversation Ref is: ".format(conversation_ref))
             #TODO: Fix the expert conversation references
 
