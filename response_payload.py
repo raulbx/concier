@@ -14,6 +14,10 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['message'] = {
         'text' : 'Please choose an option above or for other queries leave a message and we will respond to it in few hours.'
         }
+        payload['platform'] = {
+        'action':'set_future_state',
+        'future_state':'default_state'
+        }
     elif conversation_state =='welcome_user':
         payload['message'] = {
         "metadata":"ask_product_category",
