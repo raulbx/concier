@@ -9,6 +9,11 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['message'] = {
         'text' : response
         }
+    if conversation_state =='conversation_initiated':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Please choose an option above or for other queries leave a message and we will respond to it in few hours.'
+        }
     elif conversation_state =='welcome_user':
         payload['message'] = {
         "metadata":"ask_product_category",
