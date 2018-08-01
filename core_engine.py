@@ -79,9 +79,9 @@ class Members(object):
 			conversation = None
 		return conversation
 
-	def get_active_conversation_ref(self,member):
+	def get_active_conversation_ref(self,member_ref):
 		# Get the latest conversation. If no convers
-		conversations_array = member.get().get('conversations')
+		conversations_array = member_ref.get().get('conversations')
 		#active_conv = len(conversations_array)
 		if len(conversations_array) > 0:
 			# TODO: Need to fix this to get the right conversation
