@@ -176,7 +176,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Other things you can do?',
+                    "text":'You want to ',
                     "buttons":[
                     {
                     "type":"postback",
@@ -228,7 +228,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'register_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Great I have added you as an expert for $arg1.'
+        'text' : 'Great!! I have added you as an expert for $arg1.'
         }
         payload['platform'] = {
         'action':'add_expertise'
@@ -236,7 +236,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'manage_account':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'What do you want to manage in your account?'
+        'text' : 'Please visit concier.org to manage your account.'
         }
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
