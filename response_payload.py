@@ -12,7 +12,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     if conversation_state =='conversation_initiated':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Please choose an option above or for other queries leave a message and we will respond to it in few hours.'
+        'text' : 'Please choose an option above. For other queries leave a message and we will respond in few hours.'
         }
         payload['platform'] = {
         'action':'set_future_state',
