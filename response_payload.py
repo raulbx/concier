@@ -198,7 +198,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             }
         }
     elif conversation_state =='choose_expertise_category':
-        #payload['notification_type'] = 'REGULAR'
         payload['message'] = {
             "attachment":{
                 "type":"template",
@@ -223,7 +222,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     },
                     {
                     "type":"postback",
-                    "title":"Household Items",
+                    "title":"Household_Items",
                     "payload":"register_expert:"+conversation_id
                     }
                     ]
