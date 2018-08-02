@@ -220,6 +220,11 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "type":"postback",
                     "title":"Computers",
                     "payload":"register_expert:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Household Items",
+                    "payload":"register_expert:"+conversation_id
                     }
                     ]
                 }
