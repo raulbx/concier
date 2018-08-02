@@ -55,6 +55,7 @@ def receive_message():
             Use it to direct the user to the  appropriate conversation object.
             '''
             #Make sure we have correct conversation_ref
+            print (msg_conversation_id)
             if msg_conversation_id:
                 conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
             else:
