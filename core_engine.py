@@ -100,6 +100,13 @@ class Members(object):
 		conversation_ref = db.collection("conversations").document(conversation_id)
 		return conversation_ref
 
+	def append_conversation_ref(self,member_ref,conversation_ref):
+		conversations_array = member_ref.get().get('conversations')
+        conversations_array.append(conversation_ref)
+        member_ref.update({'conversations':conversations_array}, firestore.CreateIfMissingOption(True))
+        print('Appended Conversation')
+        return True
+
 	def log_message(self,member,conversation_ref,message):
 		#conversations_array = member.get().get('conversations')
 		#conversation_ref = conversations_array[-1]

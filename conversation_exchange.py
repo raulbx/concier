@@ -102,10 +102,8 @@ class Exchange(object):
         payloads.append(helpeePayload)
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
-        
-        conversations_array = member_ref.get().get('conversations')
-        conversations_array.append(conversation_ref)
-        member_ref.update({'conversations':conversations_array}, firestore.CreateIfMissingOption(True))
+
+        self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
         
         return payloads
