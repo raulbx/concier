@@ -88,14 +88,27 @@ class Exchange(object):
         return payloads
 
     def connect_expert_to_user(self,payload,conversation_ref):
+        payloads = []
         ''' Get the correct conversation ref. 
+        Send two messages. One to the expert and the other to the helpee
         '''
         #TODO: Add the conversation reference in Experts Profile.
         member_ref = self.core_engine_obj.get_member()
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=member_ref.get().to_dict().get('Name'))
-        #member_ref.append_conversation()
+        helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
+        helper_Name = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('Name')
+        
+        helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
+        helpeePayload['message']['text'] = Template(helpeePayload['message'].get('text')).safe_substitute(arg1=helper_Name)
+        payloads.append(helpeePayload)
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
+        payloads.append(payload)
+        
+        conversations_array = member_ref.get().get('conversations')
+        conversations_array.append(conversation_ref)
+        member_ref.update({'conversations':conversations_array}, firestore.CreateIfMissingOption(True))
         conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
-        return payload
+        
+        return payloads
 
     def exchange_conversations(self,payload,conversation_ref):
         # set the recipient ID for the counter party
