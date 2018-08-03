@@ -1,6 +1,7 @@
 import core_engine
 import message_payloads
 import response_payload
+import copy
 from string import Template
 
 
@@ -98,11 +99,16 @@ class Exchange(object):
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
         helper_Name = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('Name')
         
-        helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
-        helpeePayload['message']['text'] = Template(helpeePayload['message'].get('text')).safe_substitute(arg1=helper_Name)
-        payloads.append(helpeePayload)
+    #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
+        
+
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
+
+        helpeePayload = copy.deepcopy(payload)
+        helpeePayload['message']['text'] = Template(helpeePayload['message'].get('text')).safe_substitute(arg1=helper_Name)
+        helpeePayload['recipient']['id'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+        payloads.append(helpeePayload)
 
         self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
