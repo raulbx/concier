@@ -29,6 +29,7 @@ class Exchange(object):
             payloads = payload
         else:
             payloads.append(payload)
+        print(payloads)
         return payloads
 
     def start_conversation(self,member_ref):

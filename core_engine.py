@@ -103,7 +103,7 @@ class Members(object):
 	def append_conversation_ref(self,member_ref,conversation_ref):
 		conversations_array = member_ref.get().get('conversations')
 		conversations_array.append(conversation_ref)
-		member_ref.update({'conversations':conversations_array}, firestore.CreateIfMissingOption(True))
+		member_ref.update({'conversations':conversations_array,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
 		print('Appended Conversation')
 		return True
 
