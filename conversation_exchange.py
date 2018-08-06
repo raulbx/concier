@@ -98,9 +98,7 @@ class Exchange(object):
         member_ref = self.core_engine_obj.get_member()
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
         helper_Name = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('Name')
-        
-    #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
-        
+        #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
 
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
