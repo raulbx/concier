@@ -103,7 +103,7 @@ class Members(object):
 	def append_conversation_ref(self,member_ref,conversation_ref):
 		conversations_array = member_ref.get().get('conversations')
 
-		if member_ref in conversations_array:
+		if conversation_ref in conversations_array:
 			#Don't do anything.Member is already added to the conversation
 			print('Member already added to the conversation')
 		else:
