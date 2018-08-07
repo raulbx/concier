@@ -64,7 +64,7 @@ def receive_message():
                 if conversation_ref:
                     print('Retrieved it from the conversation state'.format(conversation_ref.get().id))
             
-            print('Conversation Ref is: '.format(conversation_ref.get().id))
+           #print('Conversation Ref is: '.format(conversation_ref.get().id))
             #TODO: Fix the expert conversation references
 
             #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
