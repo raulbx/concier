@@ -140,4 +140,5 @@ class Exchange(object):
     def add_expertise(self,payload,conversation_ref):
         self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,payload['message'].get('text'))
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
+        del payload['platform']
         return payload
