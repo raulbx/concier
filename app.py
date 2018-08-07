@@ -61,7 +61,8 @@ def receive_message():
                 print('MSG Conversation ID is in chat message'.format(conversation_ref.get().id))
             else:
                 conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
-                print('Retrieved it from the conversation state'.format(conversation_ref.get().id))
+                if conversation_ref:
+                    print('Retrieved it from the conversation state'.format(conversation_ref.get().id))
             
             print('Conversation Ref is: '.format(conversation_ref.get().id))
             #TODO: Fix the expert conversation references
