@@ -101,11 +101,11 @@ class Exchange(object):
         #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
 
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
+        helpeePayload = copy.deepcopy(payload)
 
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
-
-        helpeePayload = copy.deepcopy(payload)
+        
         helpeePayload['message']['text'] = Template(helpeePayload['message'].get('text')).safe_substitute(arg1=helper_Name)
         helpeePayload['recipient']['id'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         payloads.append(helpeePayload)
