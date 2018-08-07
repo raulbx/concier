@@ -50,7 +50,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             "content_type":"text",
             "title":"Personal Gadgets",
             "payload":"record_category_understand_need:"+conversation_id
-            }
+            },
             {
             "content_type":"text",
             "title":"Computers",
