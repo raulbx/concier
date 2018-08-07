@@ -48,17 +48,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         "quick_replies":[
             {
             "content_type":"text",
-            "title":"Personal Gadgets",
+            "title":"Personal Gadget",
             "payload":"record_category_understand_need:"+conversation_id
             },
             {
             "content_type":"text",
-            "title":"Computers",
+            "title":"Computer",
             "payload":"record_category_understand_need:"+conversation_id
             },
             {
             "content_type":"text",
-            "title":"Household Items",
+            "title":"Household Item",
             "payload":"record_category_understand_need:"+conversation_id
             }
             ]
@@ -202,7 +202,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Personal Gadgets",
+                    "title":"Personal Gadget",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
@@ -212,7 +212,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     },
                     {
                     "type":"postback",
-                    "title":"Household Items",
+                    "title":"Household Item",
                     "payload":"register_expert:"+conversation_id
                     }
                     ]
