@@ -48,14 +48,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         "quick_replies":[
             {
             "content_type":"text",
-            "title":"Phone",
+            "title":"Personal Gadgets",
             "payload":"record_category_understand_need:"+conversation_id
-            },
-            {
-            "content_type":"text",
-            "title":"Gadgets",
-            "payload":"record_category_understand_need:"+conversation_id
-            },
+            }
             {
             "content_type":"text",
             "title":"Computers",
@@ -207,12 +202,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Gadgets",
+                    "title":"Personal Gadgets",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
                     "type":"postback",
-                    "title":"TV",
+                    "title":"Computer",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
