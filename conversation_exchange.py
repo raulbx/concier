@@ -97,7 +97,7 @@ class Exchange(object):
         #TODO: Add the conversation reference in Experts Profile.
         member_ref = self.core_engine_obj.get_member()
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
-        helper_Name = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('Name')
+        helper_Name = member_ref.get().to_dict().get('Name')
         #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
 
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
