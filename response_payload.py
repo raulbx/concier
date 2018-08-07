@@ -53,7 +53,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             },
             {
             "content_type":"text",
-            "title":"Electronics",
+            "title":"Gadgets",
             "payload":"record_category_understand_need:"+conversation_id
             },
             {
@@ -207,12 +207,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Phone",
+                    "title":"Gadgets",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
                     "type":"postback",
-                    "title":"Electronics",
+                    "title":"Gadgets",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
