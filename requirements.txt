@@ -9,4 +9,4 @@ requests
 psycopg2-binary==2.7.4
 firebase_admin
 datetime
-apscheduler-3.5.1
+apscheduler
