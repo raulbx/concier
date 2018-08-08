@@ -12,6 +12,11 @@ VERIFY_TOKEN = 'EROS_TOKEN'
 #bot = Bot(ACCESS_TOKEN)
 
 payloads = []
+
+@app.route("/sendReminders",methods=['GET'])
+def send_reminders():
+    return 'Send Reminders'
+
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])
 def receive_message():
