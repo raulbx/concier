@@ -13,6 +13,10 @@ VERIFY_TOKEN = 'EROS_TOKEN'
 
 payloads = []
 
+def check_shopper_communicating():
+    print('Check if shopper wants to continue the message')
+    #send_message(payload)
+
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])
 def receive_message():
