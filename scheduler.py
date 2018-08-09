@@ -1,7 +1,6 @@
-#This piece sends scheduled messages
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 
-scheduler = BackgroundScheduler()
+scheduler = BlockingScheduler()
 
 @scheduler.scheduled_job('interval', seconds=30)
 def timed_job():
