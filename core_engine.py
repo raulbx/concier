@@ -165,8 +165,8 @@ class Members(object):
 		return platform_response
 
 class Platform(object):
-	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
-	firebase_admin.initialize_app(cred)
+	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+	#firebase_admin.initialize_app(cred)
 
 	def get_all_active_conversations(self):
 		query_refs = db.collection("conversations").where(u'active', u'==', True).get()
