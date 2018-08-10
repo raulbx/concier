@@ -14,7 +14,7 @@ VERIFY_TOKEN = 'EROS_TOKEN'
 
 payloads = []
 
-def check_active_conversations():
+def check_active_conversations(self):
     print('Check if shopper wants to continue the message')
     active_conversations= Platform.get_all_active_conversations()
     print(active_conversations)
