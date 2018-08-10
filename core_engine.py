@@ -174,10 +174,11 @@ class Platform(object):
 	def get_all_active_conversations(self):
 		db = firestore.client()
 		query_refs = db.collection("conversations").where(u'active', u'==', True).get()
+		print (query_refs)
 		conversation_refs = None
 		try:
-			conversation_refs = query_refs.get()
-			#for conversation in query_refs:
+			for conversation_ref in query_refs:
+				print (conversation_ref)
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
