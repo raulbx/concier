@@ -3,6 +3,7 @@ import requests
 import core_engine
 import conversation_exchange
 from core_engine import Members
+from core_engine import Platform
 from flask import Flask, request
 
  
@@ -13,9 +14,15 @@ VERIFY_TOKEN = 'EROS_TOKEN'
 
 payloads = []
 
-def check_shopper_communicating():
+def check_active_conversations():
     print('Check if shopper wants to continue the message')
-    #send_message(payload)
+    active_conversations= Platform.get_all_active_conversations()
+    print(active_conversations)
+    '''
+    for payload in payloads:
+        send_message(payload)
+    return "Message Processed"
+    '''
 
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])

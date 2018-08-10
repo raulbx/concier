@@ -163,3 +163,18 @@ class Members(object):
 		member_ref.update({'is_helper':True})
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		return platform_response
+
+class Platform(object):
+	cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
+	firebase_admin.initialize_app(cred)
+
+	def get_all_active_conversations(self):
+		query_refs = db.collection("conversations").where(u'active', u'==', True).get()
+		try:
+			conversation_refs = query_ref.get()
+			#for conversation in query_refs:
+		except ValueError:
+			print(u'Value Error.....!')
+		except:
+			print(u'This is an Exception situation')
+		return conversation_refs
