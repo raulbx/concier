@@ -181,5 +181,5 @@ class Platform(object):
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
-			print(u'This is an Exception situation:'.format(str(e)))
+			print(str(e))
 		return conversation_refs
