@@ -176,7 +176,7 @@ class Platform(object):
 		query_refs = db.collection("conversations").where(u'active', u'==', True).get()
 		conversation_refs = None
 		try:
-			conversation_refs = query_ref.get()
+			conversation_refs = query_refs.get()
 			#for conversation in query_refs:
 		except ValueError:
 			print(u'Value Error.....!')
