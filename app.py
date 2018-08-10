@@ -18,7 +18,7 @@ def check_active_conversations():
     print('Check if shopper wants to continue the message')
     active_conversation_refs= Platform.get_all_active_conversations('FB')
     print(active_conversation_refs)
-    payloads = conversation_exchange.message_active_conversation(self,active_conversation_refs)
+    payloads = conversation_exchange.message_active_conversation(active_conversation_refs)
     for payload in payloads:
         send_message(payload)
     return "Message Processed"
