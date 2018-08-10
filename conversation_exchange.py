@@ -146,7 +146,7 @@ class Exchange(object):
         del payload['platform']
         return payload
 
-def message_active_conversation(self,conversation_refs):
+def message_active_conversation(conversation_refs):
     payloads = []
     for conversation_ref in conversation_refs:
         payload=response_payload.fb_payload('message_if_conversation_active','...',conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
