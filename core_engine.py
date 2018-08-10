@@ -178,8 +178,7 @@ class Platform(object):
 		try:
 			for conversation_snapshot in query_refs:
 				print (conversation_snapshot.id)
-				print (conversation_snapshot.data())
-				print (conversation_snapshot.ref)
+				print (conversation_snapshot.reference)
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
