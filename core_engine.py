@@ -180,6 +180,6 @@ class Platform(object):
 			#for conversation in query_refs:
 		except ValueError:
 			print(u'Value Error.....!')
-		except:
-			print(u'This is an Exception situation')
+		except Exception as e:
+			print(u'This is an Exception situation:'.format(str(e)))
 		return conversation_refs
