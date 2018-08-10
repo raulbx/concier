@@ -178,7 +178,7 @@ class Platform(object):
 		conversation_refs = None
 		try:
 			for conversation_snapshot in query_refs:
-				print (conversation_snapshot.ref)
+				print (conversation_snapshot.id)
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
