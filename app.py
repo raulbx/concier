@@ -16,7 +16,7 @@ payloads = []
 
 def check_active_conversations(self):
     print('Check if shopper wants to continue the message')
-    active_conversations= Platform.get_all_active_conversations()
+    active_conversations= Platform.get_all_active_conversations('FB')
     print(active_conversations)
     '''
     for payload in payloads:
