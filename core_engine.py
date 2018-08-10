@@ -168,7 +168,11 @@ class Platform(object):
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))
 	#firebase_admin.initialize_app(cred)
 
+	def __init__(self):
+		print('Initializing Platform')
+
 	def get_all_active_conversations(self):
+		db = firestore.client()
 		query_refs = db.collection("conversations").where(u'active', u'==', True).get()
 		try:
 			conversation_refs = query_ref.get()
