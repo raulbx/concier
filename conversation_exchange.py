@@ -145,3 +145,10 @@ class Exchange(object):
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
         return payload
+
+def message_active_conversation(self,conversation_refs):
+    payloads = []
+    for conversation_ref in conversation_refs:
+        payload=response_payload.fb_payload('message_if_conversation_active','...',conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
+        payloads.append(payload)
+    return payloads

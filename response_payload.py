@@ -291,4 +291,26 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'exchange_conversations'
         }
+    elif conversation_state =='message_if_conversation_active':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":'Shopper is waiting for your answer.  Do you',
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Need more time (30 more minutes)",
+                    "payload":"NEWSS:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"End conversation",
+                    "payload":"NEWSS:"+conversation_id
+                    }
+                    ]
+                }
+            }
+        }
     return payload
