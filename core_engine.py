@@ -174,6 +174,7 @@ class Platform(object):
 	def get_all_active_conversations(self):
 		db = firestore.client()
 		query_refs = db.collection("conversations").where(u'active', u'==', True).get()
+		conversation_refs = None
 		try:
 			conversation_refs = query_ref.get()
 			#for conversation in query_refs:
