@@ -74,7 +74,7 @@ class Exchange(object):
         print("Broadcasting message")
         #del payload['platform']
         product_category = conversation_ref.get().to_dict().get('product_category')
-        print(product_category)
+        print(product_category)d
         experts_list = self.core_engine_obj.get_experts(product_category)
         #print()
         #Need to refine this code
@@ -88,6 +88,15 @@ class Exchange(object):
             payloads.append(payload)
         print('Number of experts is {}'.format(len(experts_list)))
         return payloads
+
+    def assign_helper(self,payload,conversation_ref):
+        #Assign this conversation to this expert.
+        member_ref = self.core_engine_obj.get_member()
+        member_ref.append_conversation_ref(member_ref,conversation_ref)
+        helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
+        conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        return payload
 
     def connect_expert_to_user(self,payload,conversation_ref):
         payloads = []
@@ -103,10 +112,11 @@ class Exchange(object):
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
         helpeePayload = copy.deepcopy(payload)
 
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
+        #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
+        payload['message']['text'] = Template('Thanks. Next messages will be from $arg1').safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
         
-        helpeePayload['message']['text'] = Template(helpeePayload['message'].get('text')).safe_substitute(arg1=helper_Name)
+        #helpeePayload['message']['text'] = Template(helpeePayload['message'].get('text')).safe_substitute(arg1=helper_Name)
         helpeePayload['recipient']['id'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         payloads.append(helpeePayload)
         print('Helpee message is {}'.format(helpeePayload['message']['text']))

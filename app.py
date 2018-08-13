@@ -20,7 +20,8 @@ def check_active_conversations():
     print(active_conversation_refs)
     payloads = conversation_exchange.message_active_conversation(active_conversation_refs)
     for payload in payloads:
-        send_message(payload)
+    #    send_message(payload)
+    #Send it only once and disable if the user doesn't respond.
     return "Message Processed"
     
 #We will receive messages that Facebook sends our bot at this endpoint 

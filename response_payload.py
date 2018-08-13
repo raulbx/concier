@@ -272,7 +272,16 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state =='agree_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Great. I am going to connect you to $arg1'
+        'text' : 'Great. I am going to connect you to $arg1. \n Can you share for this need, what are the major products in the market, their price range, and how they differ?'
+        }
+        payload['platform'] = {
+        'action':'assign_helper',
+        'future_state':'connect_expert_to_user'
+        }
+    elif conversation_state =='connect_expert_to_user':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : response
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
