@@ -18,7 +18,10 @@ class Exchange(object):
         payloads = []
         print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
-        print(abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days)
+        conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).hours
+        print(conversation_duration_hours)
+        if conversation_duration_days >24:
+            print('this conversation has been active for more than 24 hours')
         print(payload)
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
