@@ -60,7 +60,7 @@ class Exchange(object):
         del payload['platform']
        # payload = set_future_state(self,payload,conversation_ref)
         return payload
-'''
+
     def record_need(self,payload,conversation_ref):
         conversation_ref.update({'user_need':self.user_response})
         print("Saving users need-question")
@@ -70,14 +70,14 @@ class Exchange(object):
         conversation_ref.update({'time_frame':self.user_response})
         print("Setting time frame")
         return payload
-'''
+
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         payloads = []
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
         print("Broadcasting message")
         #del payload['platform']
         product_category = conversation_ref.get().to_dict().get('product_category')
-        print(product_category)d
+        print(product_category)
         experts_list = self.core_engine_obj.get_experts(product_category)
         #print()
         #Need to refine this code
