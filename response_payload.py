@@ -73,15 +73,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         'field':'product_category',
         'future_state':'record_need_ask_time_frame'
         }
-    '''elif conversation_state == 'record_need_understand_need':
-        payload['notification_type'] = 'REGULAR'
-        payload['message'] = {
-        'text' : 'What do you need it',
-        }
-        payload['platform'] = {
-        'action':'record_category_set_future_state',
-        'future_state':'record_need_ask_time_frame'
-        }'''
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {
         'text' : 'How soon do you want to buy this product?',
@@ -111,7 +102,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'user_need',
-        'future_state':'record_time_frame_ask_price
+        'future_state':'record_time_frame_ask_price'
         }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
@@ -148,7 +139,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'time_frame',
-        'future_state':'record_time_frame_ask_price
+        'future_state':'record_time_frame_ask_price'
         }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
