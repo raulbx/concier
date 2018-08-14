@@ -18,8 +18,7 @@ class Exchange(object):
         payloads = []
         print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
-        now = datetime.now(timezone.utc)
-        print(abs(now-conversation_ref.get().to_dict().get('lastactivedate')))
+        print(abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days)
         print(payload)
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
