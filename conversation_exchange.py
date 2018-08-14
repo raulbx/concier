@@ -2,7 +2,7 @@ import core_engine
 import message_payloads
 import response_payload
 import copy
-import datetime
+from datetime import datetime, timezone
 from string import Template
 
 
@@ -18,7 +18,7 @@ class Exchange(object):
         payloads = []
         print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
-        now = datetime.datetime.now(timezone.utc)
+        now = datetime.now(timezone.utc)
         print(abs(now-conversation_ref.get().to_dict().get('lastactivedate')))
         print(payload)
         if 'platform' in payload:
