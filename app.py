@@ -20,6 +20,7 @@ def check_active_conversations():
     print(active_conversation_refs)
     payloads = conversation_exchange.message_active_conversation(active_conversation_refs)
     for payload in payloads:
+        print('Do nothing for now')
     #    send_message(payload)
     #Send it only once and disable if the user doesn't respond.
     return "Message Processed"
