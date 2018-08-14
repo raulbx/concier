@@ -2,6 +2,7 @@ import core_engine
 import message_payloads
 import response_payload
 import copy
+import datetime
 from string import Template
 
 
@@ -17,6 +18,7 @@ class Exchange(object):
         payloads = []
         print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
+        print(abs(datetime.datetime.now()-dataconversation_ref.get.to_dict().get('lastactivedate'))
         print(payload)
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
@@ -50,14 +52,15 @@ class Exchange(object):
         del payload['platform']
         return payload
 
-    def record_category_set_future_state(self,payload,conversation_ref):
-        conversation_ref.update({'product_category':self.user_response})
+    def record_value_set_future_state(self,payload,conversation_ref):
+        conversation_ref.update({payload['platform'].get('product_category'):self.user_response})
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        conversation_ref.update({'lastactivedate':datetime.datetime.now()})
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
        # payload = set_future_state(self,payload,conversation_ref)
         return payload
-
+'''
     def record_need(self,payload,conversation_ref):
         conversation_ref.update({'user_need':self.user_response})
         print("Saving users need-question")
@@ -67,7 +70,7 @@ class Exchange(object):
         conversation_ref.update({'time_frame':self.user_response})
         print("Setting time frame")
         return payload
-
+'''
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         payloads = []
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
@@ -148,6 +151,15 @@ class Exchange(object):
             payload['message']['text'] = '...'
         payload['recipient']['id'] = recipient_id
         print(payload)
+
+        return payload
+
+    def request_review_from_both_parties(self,payload,conversation_ref):
+
+        return payload
+
+    def end_conversation(self,payload,conversation_ref):
+
         return payload
 
     def add_expertise(self,payload,conversation_ref):

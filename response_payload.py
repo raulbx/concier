@@ -66,27 +66,25 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'record_category_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'I can connect you to $arg1 expert. Please share what kind of $arg1, you are looking for?',
-        'metadata':'record_need_ask_time_frame'
+        'text' : 'I can connect you to community members, who knows about $arg1. \n To help you better, could you please share, why you need $arg1?'
         }
         payload['platform'] = {
-        'action':'record_category_set_future_state',
+        'action':'record_value_set_future_state',
+        'field':'product_category',
         'future_state':'record_need_ask_time_frame'
         }
-    elif conversation_state == 'record_category_understand_need':
+    '''elif conversation_state == 'record_need_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'What do you need it',
-        'metadata':'record_need_ask_time_frame'
         }
         payload['platform'] = {
         'action':'record_category_set_future_state',
         'future_state':'record_need_ask_time_frame'
-        }
+        }'''
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {
         'text' : 'How soon do you want to buy this product?',
-        "metadata":"record_time_frame_ask_price",
         "quick_replies":[
             {
             "content_type":"text",
@@ -111,7 +109,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             ]
         }
         payload['platform'] = {
-        'action':'record_need'
+        'action':'record_value_set_future_state',
+        'field':'user_need',
+        'future_state':'record_time_frame_ask_price
         }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
@@ -146,12 +146,14 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             ]
         }
         payload['platform'] = {
-        'action':'record_time_frame'
+        'action':'record_value_set_future_state',
+        'field':'time_frame',
+        'future_state':'record_time_frame_ask_price
         }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thanks. Let me find an expert, who can help you make a decision.'
+        'text' : 'Thanks. Let me find a community member, who can help you make a decision.'
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
@@ -169,7 +171,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'We are better than this. We are still looking. We will be back soon with an expert to help you out.'
+        'text' : 'We are still looking. We will be back soon with an expert to help you out. We are usually better than this. '
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -185,7 +187,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Register as expert",
+                    "title":"Register to help others",
                     "payload":"choose_expertise_category:"+conversation_id
                     },
                     {
@@ -321,5 +323,30 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     ]
                 }
             }
+        }
+    elif conversation_state =='conversation_ended_request_review':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":'This conversation has ended. Was this experience helpful?',
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"👍",
+                    "payload":"YES:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"👎",
+                    "payload":"NO:"+conversation_id
+                    }
+                    ]
+                }
+            }
+        }
+        payload['platform'] = {
+        'action':'exchange_conversations'
         }
     return payload
