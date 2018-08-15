@@ -41,9 +41,9 @@ class Exchange(object):
 
     def start_conversation(self,member_ref):
         payloads = []
-        conversation_ref = member_ref.add_conversation(member_ref.get_member())
-        payload = response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
-        payloads.append(payload)
+        #conversation_ref = member_ref.add_conversation(member_ref.get_member())
+        #payload = response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
+        #payloads.append(payload)
         return payloads
 
     def substitute_argument(self, payload, conversation_ref):

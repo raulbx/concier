@@ -90,7 +90,7 @@ def receive_message():
                 # Get the users 
                 user_details=get_user_details(sender_id)
                 print(user_details)
-                #payloads = exchange_obj.start_conversation(core_engine_obj)
+                payloads = exchange_obj.start_conversation(core_engine_obj)
             else:
                 #Get the conversation flow state, from the payload and send it
                 if conversation_state is None:
