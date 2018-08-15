@@ -46,65 +46,46 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 }
             }
         }
-    elif conversation_state =='conversation_closed':
-        payload['message'] = {
-        "metadata":"ask_product_category",
-            "attachment":{
-                "type":"template",
-                "payload":{
-                    "template_type":"button",
-                    "text":'How can I help you?',
-                    "buttons":[
-                    {
-                    "type":"postback",
-                    "title":"Get shopping help?",
-                    "payload":"ask_product_category:"+conversation_id
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Give shopping advise?",
-                    "payload":"choose_expertise_category:"+conversation_id
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Other?",
-                    "payload":"other_buttons:"+conversation_id
-                    }
-                    ]
-                }
-            }
-        }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
-        'text' : 'What are you shopping for?',
-        "metadata":"record_category_understand_need",
+        'text' : 'What are you shopping for?'
         "quick_replies":[
             {
             "content_type":"text",
             "title":"Gadgets",
-            "payload":"record_category_understand_need:"+conversation_id
+            "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Computers",
-            "payload":"record_category_understand_need:"+conversation_id
+            "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Household Items",
-            "payload":"record_category_understand_need:"+conversation_id
+            "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Other",
-            "payload":"record_category_understand_need:"+conversation_id
+            "payload":"record_category_ask_specfic_product:"+conversation_id
             }
             ]
         }
-    elif conversation_state == 'record_category_understand_need':
+    elif conversation_state == 'record_category_ask_specfic_product':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Could you please share, what kind of $arg1 you want and why you need it?\nThis will help us refine the request'
+        'text' : 'Which specific product under xxx, are you shopping for?'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'specific_product',
+        'future_state':'record_specific_product_understand_need'
+        }
+    elif conversation_state == 'record_specific_product_understand_need':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Can you describe why you need the product'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
@@ -382,5 +363,33 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'record_review_close_the_conversation',
         'future_state':'conversation_closed'
+        }
+    elif conversation_state =='conversation_closed':
+        payload['message'] = {
+        "metadata":"ask_product_category",
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":'How can I help you?',
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Get shopping help?",
+                    "payload":"ask_product_category:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Give shopping advise?",
+                    "payload":"choose_expertise_category:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Other?",
+                    "payload":"other_buttons:"+conversation_id
+                    }
+                    ]
+                }
+            }
         }
     return payload
