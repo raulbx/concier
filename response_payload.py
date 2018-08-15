@@ -18,7 +18,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         'action':'set_future_state',
         'future_state':'default_state'
         }
-    elif conversation_state =='welcome_user':
+    elif conversation_state =='welcome_user'|'conversation_closed':
         payload['message'] = {
         "metadata":"ask_product_category",
             "attachment":{
