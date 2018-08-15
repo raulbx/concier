@@ -16,12 +16,14 @@ class Exchange(object):
 
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
-        print("Member Identifier is {} and conversation_ref is {} and conversation_state is {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state))
-        payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
-        print(conversation_duration_hours)
-        if conversation_duration_hours >24:
-            print('this conversation has been active for more than 24 hours')
+        print("Member Identifier: {} \n conversation_ref: {}, \n conversation_state: {} \n Conversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
+        if conversation_duration_hours > 24:
+            print('this conversation has been active for less than 24 hours')
+            conversation_state = 'conversation_ended_request_review'
+        
+        payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)    
+
         print(payload)
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
