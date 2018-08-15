@@ -17,14 +17,14 @@ class Exchange(object):
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
-        print("Member Identifier: {} \n conversation_ref: {}, \n conversation_state: {} \n Conversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
+        print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
         if conversation_duration_hours > 24:
-            print('this conversation has been active for less than 24 hours')
+            print('this conversation has been active for more than 24 hours')
             conversation_state = 'conversation_ended_request_review'
         
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)    
 
-        print(payload)
+        print('Payload \n'.format(payload))
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
             payload = getattr(self, platform_action)(payload,conversation_ref)
@@ -160,7 +160,7 @@ class Exchange(object):
         return payload
 
     def request_review_from_both_parties(self,payload,conversation_ref):
-
+        print ('Noithing required right now.')
         return payload
 
     def end_conversation(self,payload,conversation_ref):
