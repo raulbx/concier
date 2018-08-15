@@ -158,7 +158,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'time_frame',
-        'future_state':'record_time_frame_ask_price'
+        'future_state':'record_price_thank_user'
         }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
