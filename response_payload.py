@@ -25,7 +25,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Hi, I am your personal shopping Concier. How can I help you?',
+                    "text":'Hi '+ response+', I am your personal shopping Concier. How can I help you?',
                     "buttons":[
                     {
                     "type":"postback",
@@ -40,6 +40,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     ]
                 }
             }
+        }
+        payload['platform'] = {
+        'action':'insert_name'
         }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
