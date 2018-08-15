@@ -85,7 +85,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Can you describe why you need the product'
+        'text' : 'Can you describe why you need the product?'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
