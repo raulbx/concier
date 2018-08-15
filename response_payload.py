@@ -75,7 +75,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'record_category_ask_specfic_product':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Which specific product under xxx, are you shopping for?'
+        'text' : 'Which specific product under '+response+', are you shopping for?'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
