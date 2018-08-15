@@ -325,12 +325,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"👍",
+                    "title":"👍 Good",
                     "payload":"conversation_review_requested:"+conversation_id
                     },
                     {
                     "type":"postback",
-                    "title":"👎",
+                    "title":"👎 Could have been better",
                     "payload":"conversation_review_requested:"+conversation_id
                     }
                     ]
