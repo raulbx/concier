@@ -29,7 +29,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Get shopping advice?",
+                    "title":"Need shopping advice?",
                     "payload":"ask_product_category:"+conversation_id
                     },
                     {
@@ -40,9 +40,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     ]
                 }
             }
-        }
-        payload['platform'] = {
-        'action':'insert_name'
         }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
@@ -69,7 +66,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'record_category_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'I can connect you to member, who knows about $arg1.\n Could you please share, why you need $arg1?\n This will help us refine the request'
+        'text' : 'Could you please share, what kind of $arg1 you want and why you need it?\nThis will help us refine the request'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
