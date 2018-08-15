@@ -128,9 +128,9 @@ def send_message(payload):
 
 def get_user_details(sender_id):
     temp_access_token='EAAFRHrTy7U0BAC1Ozb5LsKR7Wx6P4LlZBRktW09Ehn35sEGGPD6nrnlRQRiQDOns61X4IB2ACqZAWlIpDnG1dKWCincCzzaMmZA4PacDXpBjZBaYZB2WrHZCEGAQUvSiEHn0h0EZAy5WMoIhKIW8oEmKnaeMdO8cZBuMk78y43YMdc2hgfjCYNZBOZBCbTSJsZBn1UZD'
-    request_endpoint = 'https://graph.facebook.com/v3.1/{}?fields=first_name,last_name&access_token={}'.format(sender_id,temp_access_token)
+    request_endpoint = 'https://graph.facebook.com/v3.1/{}?fields=first_name,last_name&access_token={}'.format(sender_id,ACCESS_TOKEN)
     print (request_endpoint)
-    response = requests.post(request_endpoint)
+    response = requests.get(request_endpoint)
     user_profile_json = response.json()
 
     return user_profile_json
