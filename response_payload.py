@@ -29,8 +29,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Need shopping advice?",
+                    "title":"Get shopping help?",
                     "payload":"ask_product_category:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Give shopping advise?",
+                    "payload":"choose_expertise_category:"+conversation_id
                     },
                     {
                     "type":"postback",
@@ -176,11 +181,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     "template_type":"button",
                     "text":'You want to ',
                     "buttons":[
-                    {
-                    "type":"postback",
-                    "title":"Register to help others",
-                    "payload":"choose_expertise_category:"+conversation_id
-                    },
                     {
                     "type":"postback",
                     "title":"Manage Account",
