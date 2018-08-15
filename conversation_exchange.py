@@ -24,7 +24,7 @@ class Exchange(object):
         
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)    
 
-        print("Payload \n".format(payload))
+        print("Payload \n{}".format(payload))
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
             payload = getattr(self, platform_action)(payload,conversation_ref)
@@ -162,8 +162,8 @@ class Exchange(object):
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
         return payload
 
-    def end_conversation(self,payload,conversation_ref):
-
+    def record_review_close_the_conversation(self,payload,conversation_ref):
+        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
         return payload
 
     def add_expertise(self,payload,conversation_ref):

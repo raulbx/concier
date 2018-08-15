@@ -321,17 +321,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'This conversation has ended. Was this experience helpful?',
+                    "text":'This conversation has come to an end. Was this experience helpful?',
                     "buttons":[
                     {
                     "type":"postback",
                     "title":"👍",
-                    "payload":"YES:"+conversation_id
+                    "payload":"request_review_from_both_parties:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"👎",
-                    "payload":"NO:"+conversation_id
+                    "payload":"request_review_from_both_parties:"+conversation_id
                     }
                     ]
                 }
@@ -340,5 +340,14 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'request_review_from_both_parties',
         'future_state':'conversation_review_requested'
+        }
+    elif conversation_state =='conversation_review_requested':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : response
+        }
+        payload['platform'] = {
+        'action':'record_review_close_the_conversation',
+        'future_state':'conversation_closed'
         }
     return payload
