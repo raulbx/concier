@@ -18,7 +18,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         'action':'set_future_state',
         'future_state':'default_state'
         }
-    elif conversation_state =='welcome_user'|'conversation_closed':
+    elif conversation_state =='welcome_user':
         payload['message'] = {
         "metadata":"ask_product_category",
             "attachment":{
@@ -26,6 +26,34 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "payload":{
                     "template_type":"button",
                     "text":'Hi '+ response+', I am your personal shopping Concier. How can I help you?',
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"Get shopping help?",
+                    "payload":"ask_product_category:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Give shopping advise?",
+                    "payload":"choose_expertise_category:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Other?",
+                    "payload":"other_buttons:"+conversation_id
+                    }
+                    ]
+                }
+            }
+        }
+    elif conversation_state =='conversation_closed':
+        payload['message'] = {
+        "metadata":"ask_product_category",
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":'Hi '+ response+', How can I help you?',
                     "buttons":[
                     {
                     "type":"postback",
