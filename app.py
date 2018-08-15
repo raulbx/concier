@@ -90,7 +90,7 @@ def receive_message():
                 # Get the users 
                 user_details=get_user_details(sender_id)
                 print(user_details)
-                payloads = exchange_obj.start_conversation(core_engine_obj)
+                #payloads = exchange_obj.start_conversation(core_engine_obj)
             else:
                 #Get the conversation flow state, from the payload and send it
                 if conversation_state is None:
@@ -129,6 +129,7 @@ def send_message(payload):
 def get_user_details(sender_id):
 
     request_endpoint = 'https://graph.facebook.com/{}?fields=first_name,last_name,profile_pic&access_token={}'.format(sender_id,ACCESS_TOKEN)
+    print (request_endpoint)
     response = requests.post(request_endpoint)
     user_profile_json = response.json()
 
