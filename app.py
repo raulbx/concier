@@ -89,8 +89,7 @@ def receive_message():
                 #start the conversation
                 # Get the users 
                 user_details=get_user_details(sender_id)
-                print(user_details)
-                payloads = exchange_obj.start_conversation(core_engine_obj)
+                payloads = exchange_obj.start_conversation(core_engine_obj,user_details)
             else:
                 #Get the conversation flow state, from the payload and send it
                 if conversation_state is None:
@@ -127,12 +126,9 @@ def send_message(payload):
     return result
 
 def get_user_details(sender_id):
-    temp_access_token='EAAFRHrTy7U0BAC1Ozb5LsKR7Wx6P4LlZBRktW09Ehn35sEGGPD6nrnlRQRiQDOns61X4IB2ACqZAWlIpDnG1dKWCincCzzaMmZA4PacDXpBjZBaYZB2WrHZCEGAQUvSiEHn0h0EZAy5WMoIhKIW8oEmKnaeMdO8cZBuMk78y43YMdc2hgfjCYNZBOZBCbTSJsZBn1UZD'
     request_endpoint = 'https://graph.facebook.com/v3.1/{}?fields=first_name,last_name&access_token={}'.format(sender_id,ACCESS_TOKEN)
-    print (request_endpoint)
     response = requests.get(request_endpoint)
     user_profile_json = response.json()
-
     return user_profile_json
 
 if __name__ == "__main__":

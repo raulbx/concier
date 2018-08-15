@@ -50,6 +50,10 @@ class Members(object):
 		print("Added Member")
 		db = firestore.client()
 		return db.collection(u'members').add(member_data)
+
+	def update_member_details(member_ref,user_details):
+		member_ref.update({'first_name':user_details['first_name'],'last_name':user_details['last_name']})
+		return True
 	
 	def add_conversation(self,member_ref):
 		conversation_data = {
