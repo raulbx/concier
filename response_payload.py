@@ -69,7 +69,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'record_category_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'I can connect you to community members, who knows about $arg1. \n To help you better, could you please share, why you need $arg1?'
+        'text' : 'I can connect you to member, who knows about $arg1.\n Could you please share, why you need $arg1?\n This will help us refine the request'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
