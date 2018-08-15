@@ -24,7 +24,7 @@ class Exchange(object):
         
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)    
 
-        print('Payload \n'.format(payload))
+        print("Payload \n".format(payload))
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
             payload = getattr(self, platform_action)(payload,conversation_ref)
@@ -37,7 +37,6 @@ class Exchange(object):
             payloads = payload
         else:
             payloads.append(payload)
-        print(payloads)
         return payloads
 
     def start_conversation(self,member_ref):
@@ -160,7 +159,7 @@ class Exchange(object):
         return payload
 
     def request_review_from_both_parties(self,payload,conversation_ref):
-        print ('Noithing required right now.')
+        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
         return payload
 
     def end_conversation(self,payload,conversation_ref):

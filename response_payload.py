@@ -338,6 +338,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
             }
         }
         payload['platform'] = {
-        'action':'request_review_from_both_parties'
+        'action':'request_review_from_both_parties',
+        'future_state':'conversation_review_requested'
         }
     return payload
