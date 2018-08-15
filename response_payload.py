@@ -75,11 +75,11 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state == 'record_category_ask_specfic_product':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Which specific product under '+response+', are you shopping for?'
+        'text' : 'Which specific product under $arg1, are you shopping for?'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
-        'field':'specific_product',
+        'field':'product_category',
         'future_state':'record_specific_product_understand_need'
         }
     elif conversation_state == 'record_specific_product_understand_need':
@@ -89,7 +89,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
-        'field':'product_category',
+        'field':'specific_product',
         'future_state':'record_need_ask_time_frame'
         }
     elif conversation_state =='record_need_ask_time_frame':
