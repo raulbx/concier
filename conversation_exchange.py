@@ -160,11 +160,34 @@ class Exchange(object):
         return payload
 
     def request_review_from_both_parties(self,payload,conversation_ref):
+
+        payloads = []
+        helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+        helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
+
+        payload['recipient']['id'] = helpee_id
+        helpeePayload = copy.deepcopy(payload)
+        helpeePayload['recipient']['id'] = helper_id
+
+        payloads.append(helpeePayload)
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
-        return payload
+
+        return payloads
 
     def record_review_close_the_conversation(self,payload,conversation_ref):
+
+        helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+        helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
+        
+        #Deternine if this helper or helpee
+        if self.user_id_on_platform == helper_id:
+            # This is helper save the review for helper
+            conversation_ref.update({'helper_review':self.user_response})
+        else:
+            conversation_ref.update({'helpee_review':self.user_response})
+
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        
         return payload
 
     def add_expertise(self,payload,conversation_ref):

@@ -326,12 +326,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                     {
                     "type":"postback",
                     "title":"👍",
-                    "payload":"request_review_from_both_parties:"+conversation_id
+                    "payload":"conversation_review_requested:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"👎",
-                    "payload":"request_review_from_both_parties:"+conversation_id
+                    "payload":"conversation_review_requested:"+conversation_id
                     }
                     ]
                 }
@@ -344,7 +344,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state =='conversation_review_requested':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : response
+        'text' : 'Thank you for your valuable feedback. If at any time, you want to provide further feedback, please let us know!'
         }
         payload['platform'] = {
         'action':'record_review_close_the_conversation',
