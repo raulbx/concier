@@ -59,7 +59,7 @@ class Exchange(object):
 
     def record_value_set_future_state(self,payload,conversation_ref):
         conversation_ref.update({payload['platform'].get('field'):self.user_response})
-        #conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
         conversation_ref.update({'lastactivedate':datetime.now()})
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
