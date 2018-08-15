@@ -42,10 +42,9 @@ class Exchange(object):
     def start_conversation(self,core_engine_obj,user_details):
         payloads = []
         core_engine_obj.update_member_details(core_engine_obj.get_member(),user_details)
-        '''
         conversation_ref = core_engine_obj.add_conversation(core_engine_obj.get_member())
         payload = response_payload.fb_payload('welcome_user','',self.user_id_on_platform,conversation_ref.get().id)
-        payloads.append(payload)'''
+        payloads.append(payload)
         return payloads
 
     def substitute_argument(self, payload, conversation_ref):
@@ -102,7 +101,7 @@ class Exchange(object):
         #Assign this conversation to this expert.
         member_ref = self.core_engine_obj.get_member()
         member_ref.append_conversation_ref(member_ref,conversation_ref)
-        helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
+        helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
         return payload
@@ -114,8 +113,8 @@ class Exchange(object):
         '''
         #TODO: Add the conversation reference in Experts Profile.
         member_ref = self.core_engine_obj.get_member()
-        helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name')
-        helper_Name = member_ref.get().to_dict().get('Name')
+        helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
+        helper_Name = member_ref.get().to_dict().get('first_name')
         #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
 
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
@@ -143,14 +142,14 @@ class Exchange(object):
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             recipient_id = helpee_id
-            partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('Name')#This should be the name of the sender so it will be the counter party name
+            partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')#This should be the first_name of the sender so it will be the counter party first_name
             #send message to helpee
         else:
             recipient_id = helper_id
-            partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('Name') # this should be the name of the sender
+            partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
             #send message to helper
         #response =partyName+': '+message['message'].get('text')
-        print("Party Name is {} and response is {}".format(partyName, self.user_response))
+        print("Party first_name is {} and response is {}".format(partyName, self.user_response))
         if self.user_response and partyName:
             payload['message']['text'] = partyName+': '+self.user_response
         else:
