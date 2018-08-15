@@ -53,7 +53,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Hi '+ response+', How can I help you?',
+                    "text":'How can I help you?',
                     "buttons":[
                     {
                     "type":"postback",
