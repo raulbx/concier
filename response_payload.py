@@ -48,7 +48,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
-        'text' : 'What are you shopping for?'
+        'text' : 'What are you shopping for?',
         "quick_replies":[
             {
             "content_type":"text",
