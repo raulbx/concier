@@ -68,7 +68,8 @@ class Members(object):
     	}
 		db = firestore.client()
 		conversation_ref=db.collection(u'conversations').add(conversation_data)[1]
-		member_ref.update({'conversations':[conversation_ref]})
+		append_conversation_ref(member_ref,conversation_ref)
+		#member_ref.update({'conversations':[conversation_ref]})
 		return conversation_ref
 
 	def get_active_conversation(self,member):
