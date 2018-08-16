@@ -401,4 +401,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
                 }
             }
         }
+        payload['platform'] = {
+        'action':'start_new_conversation'
+        }
     return payload

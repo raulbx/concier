@@ -197,6 +197,12 @@ class Exchange(object):
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
         return payload
 
+    def start_new_conversation(self,payload,conversation_ref):
+        new_conversation_ref = self.core_engine_obj.add_conversation(self.core_engine_obj.get_member())
+        #do this to get the right conversation id in the conversation
+        payload = response_payload.fb_payload('conversation_closed','...',self.user_id_on_platform,new_conversation_ref.get().id)
+        return payload
+
     def add_expertise(self,payload,conversation_ref):
         self.core_engine_obj.add_expert(self.core_engine_obj.get_member(),self.user_response,payload['message'].get('text'))
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
