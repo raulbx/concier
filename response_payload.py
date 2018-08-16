@@ -121,6 +121,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'user_need',
+        'validate':'input_length_more_than_20',
+        'validation__failure_message':'Please share your product need in more than 20 characters',
         'future_state':'record_time_frame_ask_price'
         }
     elif conversation_state =='record_time_frame_ask_price':
@@ -403,5 +405,10 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
         }
         payload['platform'] = {
         'action':'start_new_conversation'
+        }
+    elif conversation_state =='validation_failure_response':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : response
         }
     return payload

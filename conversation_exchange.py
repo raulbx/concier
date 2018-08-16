@@ -58,12 +58,16 @@ class Exchange(object):
         return payload
 
     def record_value_set_future_state(self,payload,conversation_ref):
-        conversation_ref.update({payload['platform'].get('field'):self.user_response})
-        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
-        conversation_ref.update({'lastactivedate':datetime.now()})
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
+        #run validation first
+        if payload['platform'].get('validate'):
+            if payload['platform'].get('validate')=='input_length_more_than_20' and len(self.user_response)<20:
+                payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id)
+        else:
+            conversation_ref.update({payload['platform'].get('field'):self.user_response})
+            conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+            conversation_ref.update({'lastactivedate':datetime.now()})
+            payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
-       # payload = set_future_state(self,payload,conversation_ref)
         return payload
 
     def record_need(self,payload,conversation_ref):
