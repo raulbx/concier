@@ -193,9 +193,7 @@ class Exchange(object):
             review = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('helpee_review')
             review +=self.user_response
             conversation_ref.update({'helpee_review':review})
-
         conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
-
         return payload
 
     def add_expertise(self,payload,conversation_ref):
