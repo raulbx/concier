@@ -84,8 +84,9 @@ class Exchange(object):
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         payloads = []
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
-        print (payload)
+        
         print("Broadcasting message")
+        print (payload)
         #del payload['platform']
         product_category = conversation_ref.get().to_dict().get('product_category')
         print(product_category)
@@ -93,6 +94,7 @@ class Exchange(object):
         #print()
         #Need to refine this code
         payloads.append(payload) #This creates the response payload for the person needing help
+        print(payloads)
         response_template = 'Buyer is interested in making a decision on below purchase.  Can you help? \nNeed:$arg1\nProduct Category:$arg2\nSpecific Product:$arg3\nPrice Range:$arg4\nTimeline:$arg5'
         response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=product_category,arg3=conversation_ref.get().to_dict().get('specific_product'),arg4=conversation_ref.get().to_dict().get('max_price'),arg5=conversation_ref.get().to_dict().get('time_frame'))
         for expert in experts_list:

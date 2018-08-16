@@ -140,7 +140,6 @@ class Members(object):
 		db = firestore.client()
 		#return db.collection("expertise").where("expertise_category", "==", expertise)
 		expertise_ref = db.collection("expertise").document(expertise)
-		print(expertise_ref)
 		expert_list = expertise_ref.get().to_dict().get('member')
 		return expert_list
 
