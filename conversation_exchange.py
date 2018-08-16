@@ -84,6 +84,7 @@ class Exchange(object):
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         payloads = []
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
+        print (payload)
         print("Broadcasting message")
         #del payload['platform']
         product_category = conversation_ref.get().to_dict().get('product_category')
@@ -96,7 +97,7 @@ class Exchange(object):
         response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=product_category,arg3=conversation_ref.get().to_dict().get('specific_product'),arg4=conversation_ref.get().to_dict().get('max_price'),arg5=conversation_ref.get().to_dict().get('time_frame'))
         for expert in experts_list:
             #expert_id=expert_member.get().to_dict().get('fb_id')
-            expertPayload = copy.deepcopy(payload)
+            #expertPayload = copy.deepcopy(payload) No need to make a copy of the payload
             expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id)
             #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(expertPayload)
