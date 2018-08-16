@@ -18,10 +18,11 @@ class Exchange(object):
         payloads = []
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
         print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
+
         if conversation_duration_hours > 24:
             print('this conversation has been active for more than 24 hours')
             conversation_state = 'conversation_ended_request_review'
-        
+        payload = None # Flush the payload
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)    
 
         print("Payload \n{}".format(payload))
