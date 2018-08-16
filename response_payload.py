@@ -358,10 +358,19 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id):
     elif conversation_state =='conversation_review_requested':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
+        'text' : 'Can you elaborate?'
+        }
+        payload['platform'] = {
+        'action':'record_review',
+        'future_state':'thank_user'
+        }
+    elif conversation_state =='thank_user':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
         'text' : 'Thank you for your valuable feedback. If at any time, you want to provide further feedback, please let us know!'
         }
         payload['platform'] = {
-        'action':'record_review_close_the_conversation',
+        'action':'record_review',
         'future_state':'conversation_closed'
         }
     elif conversation_state =='conversation_closed':
