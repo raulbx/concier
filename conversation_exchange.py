@@ -95,11 +95,12 @@ class Exchange(object):
         #Need to refine this code
         #payloads.append(payload) #This creates the response payload for the person needing help
         print(payloads)
-        expertPayload = copy.deepcopy(payload)
+        
         response_template = 'Buyer is interested in making a decision on below purchase.  Can you help? \nNeed: $arg1\nProduct Category: $arg2\nSpecific Product: $arg3\nPrice Range: $arg4\nTimeline: $arg5'
         response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=product_category,arg3=conversation_ref.get().to_dict().get('specific_product'),arg4=conversation_ref.get().to_dict().get('max_price'),arg5=conversation_ref.get().to_dict().get('time_frame'))
         for expert in experts_list:
             #expert_id=expert_member.get().to_dict().get('fb_id')
+            expertPayload = copy.deepcopy(payload)
             expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id)
             #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(expertPayload)
