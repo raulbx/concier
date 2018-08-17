@@ -1,6 +1,6 @@
 
 
-def fb_payload(conversation_state,response,recipient_id,conversation_id):
+def fb_payload(conversation_state,response,recipient_id,conversation_id,payload):
     payload['recipient'] = {
     'id': recipient_id
     }
