@@ -22,15 +22,15 @@ class Exchange(object):
         if conversation_duration_hours > 24:
             print('this conversation has been active for more than 24 hours')
             conversation_state = 'conversation_ended_request_review'
-        payload = None # Flush the payload
-        payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id)    
+        payload = {} # Flush the payload
+        payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
 
         print("Payload \n{}".format(payload))
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
             payload = getattr(self, platform_action)(payload,conversation_ref)
         if payload is None:
-            payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id)
+            payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         #print(payload)
         #print('-------Above is the raw payload -----')
         if isinstance(payload,(list,)):
@@ -43,8 +43,9 @@ class Exchange(object):
     def start_conversation(self,core_engine_obj,user_details):
         payloads = []
         core_engine_obj.update_member_details(core_engine_obj.get_member(),user_details)
+        payload = {}
         conversation_ref = core_engine_obj.add_conversation(core_engine_obj.get_member())
-        payload = response_payload.fb_payload('welcome_user',user_details['first_name'],self.user_id_on_platform,conversation_ref.get().id)
+        payload = response_payload.fb_payload('welcome_user',user_details['first_name'],self.user_id_on_platform,conversation_ref.get().id,payload)
         payloads.append(payload)
         return payloads
 
@@ -62,7 +63,7 @@ class Exchange(object):
         #run validation first
         if payload['platform'].get('validate'):
             if payload['platform'].get('validate')=='input_length_more_than_20' and len(self.user_response)<20:
-                payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id)
+                payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id,payload)
         else:
             conversation_ref.update({payload['platform'].get('field'):self.user_response})
             conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
@@ -102,8 +103,8 @@ class Exchange(object):
             #expert_id=expert_member.get().to_dict().get('fb_id')
             print(payload)
             print('\nPayload after assignment\n')
-            expertPayload = copy.deepcopy(payload)
-            expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id)
+            expertPayload = {}
+            expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
             #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(expertPayload)
         payloads.append(payload)
@@ -212,7 +213,8 @@ class Exchange(object):
     def start_new_conversation(self,payload,conversation_ref):
         new_conversation_ref = self.core_engine_obj.add_conversation(self.core_engine_obj.get_member())
         #do this to get the right conversation id in the conversation
-        payload = response_payload.fb_payload('conversation_closed','...',self.user_id_on_platform,new_conversation_ref.get().id)
+        payload = {}
+        payload = response_payload.fb_payload('conversation_closed','...',self.user_id_on_platform,new_conversation_ref.get().id,payload)
         return payload
 
     def add_expertise(self,payload,conversation_ref):
