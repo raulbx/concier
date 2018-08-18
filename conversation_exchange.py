@@ -2,6 +2,7 @@ import core_engine
 import message_payloads
 import response_payload
 import copy
+from firebase_admin import firestore
 from datetime import datetime, timezone
 from string import Template
 
