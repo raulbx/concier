@@ -52,11 +52,11 @@ class Exchange(object):
         return payloads
 
     def remove_helper_ref_from_current_conversation(self, payload, conversation_ref):
-        conversation_ref.update({'helper_ref':firestore.DELETE_FIELD)})
+        conversation_ref.update({'helper_ref':firestore.DELETE_FIELD})
         return payload
 
     def remove_helpee_ref_from_current_conversation(self, payload, conversation_ref):
-        conversation_ref.update({'helpee_ref':firestore.DELETE_FIELD)})
+        conversation_ref.update({'helpee_ref':firestore.DELETE_FIELD})
         return payload
 
     def substitute_argument(self, payload, conversation_ref):
