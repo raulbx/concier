@@ -17,15 +17,17 @@ class Exchange(object):
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
+
         print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
 
         if conversation_duration_hours > 24:
             print('this conversation has been active for more than 24 hours')
             conversation_state = 'conversation_ended_request_review'
+
         payload = {} # Flush the payload
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
 
-        print("Payload \n{}".format(payload))
+        print("----------------------------Pay------------------------ \n{}------------Load-----------------".format(payload))
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
             payload = getattr(self, platform_action)(payload,conversation_ref)
@@ -54,7 +56,12 @@ class Exchange(object):
         return payload
 
     def set_future_state(self,payload,conversation_ref):
-        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        ####conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        if payload['platform'].get('helper_next_state'):
+            conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+        if payload['platform'].get('helpee_next_state'):
+            conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
+
         #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
         return payload
@@ -66,7 +73,13 @@ class Exchange(object):
                 payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id,payload)
         else:
             conversation_ref.update({payload['platform'].get('field'):self.user_response})
-            conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+
+            #setting the states for helper and helpee
+            if payload['platform'].get('helper_next_state'):
+                conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+            if payload['platform'].get('helpee_next_state'):
+                conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
+
             conversation_ref.update({'lastactivedate':datetime.now()})
             payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
@@ -84,13 +97,16 @@ class Exchange(object):
 
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         payloads = []
-        conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
+        ####conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
+        if payload['platform'].get('helper_next_state'):
+            conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+        if payload['platform'].get('helpee_next_state'):
+            conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
         
-        print("Broadcasting message")
-        print (payload)
-        #del payload['platform']
+        #print("Broadcasting message")
+        #print (payload)
         product_category = conversation_ref.get().to_dict().get('product_category')
-        print(product_category)
+        #print(product_category)
         experts_list = self.core_engine_obj.get_experts(product_category)
         #print()
         #Need to refine this code
@@ -100,17 +116,15 @@ class Exchange(object):
         response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=product_category,arg3=conversation_ref.get().to_dict().get('specific_product'),arg4=conversation_ref.get().to_dict().get('max_price'),arg5=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
         for expert in experts_list:
-            #expert_id=expert_member.get().to_dict().get('fb_id')
-            print(payload)
-            print('\nPayload after assignment\n')
             expertPayload = {}
             expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
             #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(expertPayload)
+        del payload['platform']
         payloads.append(payload)
         print('Number of experts is {}'.format(len(experts_list)))
+
         #print(payloads)
-        #TODO =============FIND why the message is not going to expert
         return payloads
 
     def assign_helper(self,payload,conversation_ref):
@@ -119,7 +133,12 @@ class Exchange(object):
         self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
-        conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        #####conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        if payload['platform'].get('helper_next_state'):
+            conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+        if payload['platform'].get('helpee_next_state'):
+            conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
+        del payload['platform']
         return payload
 
     def connect_expert_to_user(self,payload,conversation_ref):
@@ -127,7 +146,6 @@ class Exchange(object):
         ''' Get the correct conversation ref. 
         Send two messages. One to the expert and the other to the helpee
         '''
-        #TODO: Add the conversation reference in Experts Profile.
         member_ref = self.core_engine_obj.get_member()
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         helper_Name = member_ref.get().to_dict().get('first_name')
@@ -146,7 +164,11 @@ class Exchange(object):
         print('Helpee message is {}'.format(helpeePayload['message']['text']))
         self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         
-        conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        #######conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        if payload['platform'].get('helper_next_state'):
+            conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+        if payload['platform'].get('helpee_next_state'):
+            conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
         
         return payloads
 
@@ -183,12 +205,12 @@ class Exchange(object):
 
         payload['recipient']['id'] = helpee_id
         payloads.append(payload)
-
+        helpeePayload = {}
         helpeePayload = copy.deepcopy(payload)
         helpeePayload['recipient']['id'] = helper_id
         payloads.append(helpeePayload)
         
-        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        ####conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
 
         return payloads
 
@@ -202,12 +224,15 @@ class Exchange(object):
             review = conversation_ref.get().to_dict().get('helper_review')
             review +=self.user_response
             conversation_ref.update({'helper_review':review})
+            conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         else:
             review = conversation_ref.get().to_dict().get('helpee_review')
             review +=self.user_response
             conversation_ref.update({'helpee_review':review})
+            conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
 
-        conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        ########conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+                
         return payload
 
     def start_new_conversation(self,payload,conversation_ref):

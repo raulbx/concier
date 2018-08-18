@@ -61,7 +61,8 @@ class Members(object):
     	'helper_ref':member_ref,
     	#'helpee_id':helpee_id,
     	'active':False,
-    	'conversation_state':'conversation_initiated',
+    	'helper_state':'welcome_user',
+    	'helpee_state':'welcome_user',
     	'current_chat_seq':0,
     	'startdate':datetime.datetime.now(),
     	'lastactivedate':datetime.datetime.now()

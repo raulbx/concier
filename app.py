@@ -91,7 +91,18 @@ def receive_message():
             else:
                 #Get the conversation flow state, from the payload and send it
                 if conversation_state is None:
-                    conversation_state = conversation_ref.get().to_dict().get('conversation_state')
+                    # First check if the request is coming from expert or person needing help. Based on this retrieving the state from the conversation
+                    #helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+                    helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
+                    #Deternine if this helper or helpee
+                    state_to_get = ''
+                    if sender_id == helper_id:
+                        # this is helper
+                        state_to_get='helper_state'
+                    else:
+                        # this is helpee
+                        state_to_get='helpee_state'
+                    conversation_state = conversation_ref.get().to_dict().get(state_to_get) 
                 print("Conversation Flow State is:{}".format(conversation_state))
                 payloads = exchange_obj.get_action(conversation_ref,conversation_state)
                # print(payloads)

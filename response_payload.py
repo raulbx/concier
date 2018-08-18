@@ -1,5 +1,3 @@
-
-
 def fb_payload(conversation_state,response,recipient_id,conversation_id,payload):
     payload['recipient'] = {
     'id': recipient_id
@@ -281,12 +279,64 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='agree_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Great. I am going to connect you to $arg1. \nCould you share for this need, what are the major products in the market, their price range, and how they differ?'
+        'text' : 'Thank you for agreeing to help out $arg1. \nLets begin...\nWhat are the key products in the market?'
         }
         payload['platform'] = {
-        'action':'assign_helper',
-        'future_state':'connect_expert_to_user'
+        'action':'set_future_state',
+        'helper_state':'record_key_products_ask_price_range'
         }
+    ### 5 Questions Begin
+    elif conversation_state =='record_key_products_ask_price_range':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'What is the price range of these products?'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'expert_key_products_in_the_market',
+        'helper_state':'record_price_range_ask_differences'
+        }
+    elif conversation_state =='record_price_range_ask_differences':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'What are the differences between these products?'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'expert_product_price_ranges',
+        'helper_state':'record_product_differences_product_bought'
+        }
+    elif conversation_state =='record_product_differences_product_bought':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'What product did you buy'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'expert_product_differences',
+        'helper_state':'record_product_bought_ask_why_product_bought'
+        }
+    elif conversation_state =='record_product_bought_ask_why_product_bought':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Why did you buy this product'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'expert_what_product_bought',
+        'helper_state':'record_why_product_bought_connect_expert_to_user'
+        }
+    elif conversation_state =='record_why_product_bought_connect_expert_to_user':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Thanks. I am going to connect you to $arg1.'#--------------------------------------------------------------------CHECK THE next state
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'expert_why_product_bought',
+        'helper_state':'connect_expert_to_user'
+        }
+### End of five questions
     elif conversation_state =='connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
