@@ -71,6 +71,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
             }
             ]
         }
+        payload['platform'] = {
+        'action':'remove_helper_ref_from_current_conversation'
+        }
     elif conversation_state == 'record_category_ask_specfic_product':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
@@ -236,6 +239,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     ]
                 }
             }
+        }
+        payload['platform'] = {
+        'action':'remove_helpee_ref_from_current_conversation'
         }
     elif conversation_state == 'register_expert':
         payload['notification_type'] = 'REGULAR'

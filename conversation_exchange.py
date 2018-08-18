@@ -51,6 +51,14 @@ class Exchange(object):
         payloads.append(payload)
         return payloads
 
+    def remove_helper_ref_from_current_conversation(self, payload, conversation_ref):
+        conversation_ref.update({'helper_ref':firestore.DELETE_FIELD)})
+        return payload
+
+    def remove_helpee_ref_from_current_conversation(self, payload, conversation_ref):
+        conversation_ref.update({'helpee_ref':firestore.DELETE_FIELD)})
+        return payload
+
     def substitute_argument(self, payload, conversation_ref):
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         return payload
