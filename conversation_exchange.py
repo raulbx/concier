@@ -179,27 +179,10 @@ class Exchange(object):
 
 
         helpeePayload= {}
-        helpeeResponse = 'We have found a shopper, who bought a {}.{} looked at {}, which were in the price range of {}. {} bought {} because {}'.format(product_bought,helper_Name,products_in_the_market,product_price_ranges,helper_Name,why_bought_product)
+        helpeeResponse = 'We have found a shopper, who bought a {}.{} looked at {}, which were in the price range of {}. {} bought {} because {}'.format(product_bought,helper_Name,products_in_the_market,product_price_ranges,helper_Name,product_bought,why_bought_product)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
-
-
-        '''
-        helpeePayload = copy.deepcopy(payload)
-
-        #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
-        payload['message']['text'] = Template('Thanks. Next messages will be from $arg1').safe_substitute(arg1=helpee_Name)
-        payloads.append(payload)
-        
-        helpeePayload['message']['text'] = helper_Name+' will help you with this product. Next message will be from '+helper_Name+'\n'+helper_Name+': '+self.user_response
-        helpeePayload['recipient']['id'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-        payloads.append(helpeePayload)
-        print('Helpee message is {}'.format(helpeePayload['message']['text']))
-        #self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref) No need this is already done in assign helper
-        
-        #######conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
-        '''
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
