@@ -93,7 +93,9 @@ def receive_message():
                 if conversation_state is None:
                     # First check if the request is coming from expert or person needing help. Based on this retrieving the state from the conversation
                     #helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+
                     helper_ref = conversation_ref.get().to_dict().get('helper_ref')
+                    helper_id = None
                     if helper_ref:
                         helper_id=helper_ref.get().to_dict().get('fb_id')
                     #Deternine if this helper or helpee
