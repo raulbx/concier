@@ -17,30 +17,34 @@ class Exchange(object):
 
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
-        conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
+        try:
+            conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
-        print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
+            print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
 
-        if conversation_duration_hours > 24:
-            print('this conversation has been active for more than 24 hours')
-            conversation_state = 'conversation_ended_request_review'
+            if conversation_duration_hours > 24:
+                print('this conversation has been active for more than 24 hours')
+                conversation_state = 'conversation_ended_request_review'
 
-        payload = {} # Flush the payload
-        payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
+            payload = {} # Flush the payload
+            payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
 
-        print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
-        if 'platform' in payload:
-            platform_action = payload['platform'].get('action')
-            payload = getattr(self, platform_action)(payload,conversation_ref)
-        if payload is None:
-            payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-        #print(payload)
-        #print('-------Above is the raw payload -----')
-        if isinstance(payload,(list,)):
-            #this takes care of broadcast messages
-            payloads = payload
-        else:
-            payloads.append(payload)
+            print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
+            if 'platform' in payload:
+                platform_action = payload['platform'].get('action')
+                payload = getattr(self, platform_action)(payload,conversation_ref)
+            if payload is None:
+                payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            #print(payload)
+            #print('-------Above is the raw payload -----')
+            if isinstance(payload,(list,)):
+                #this takes care of broadcast messages
+                payloads = payload
+            else:
+                payloads.append(payload)
+        except Exception as e:
+            print('Exception Occured. {}'.format(str(e)))
+            payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload) 
         return payloads
 
     def start_conversation(self,core_engine_obj,user_details):
