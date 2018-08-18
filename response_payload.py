@@ -78,7 +78,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'product_category',
-        'future_state':'record_specific_product_understand_need'
+        'helper_state':'record_specific_product_understand_need'
         }
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
@@ -88,7 +88,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'specific_product',
-        'future_state':'record_need_ask_time_frame'
+        'helper_state':'record_need_ask_time_frame'
         }
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {
@@ -121,7 +121,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'field':'user_need',
         'validate':'input_length_more_than_20',
         'validation__failure_message':'Please share your product need in more than 20 characters',
-        'future_state':'record_time_frame_ask_price'
+        'helper_state':'record_time_frame_ask_price'
         }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
@@ -158,7 +158,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'time_frame',
-        'future_state':'record_price_thank_user'
+        'helper_state':'record_price_thank_user'
         }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
@@ -167,7 +167,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
-        'future_state':'onboard_complete_waiting_for_expert'
+        'helper_state':'onboard_complete_waiting_for_expert'
         }
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
@@ -176,7 +176,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'future_state':'onboard_complete_user_followed_up_once'
+        'helper_state':'onboard_complete_user_followed_up_once'
         }
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
@@ -185,7 +185,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'future_state':'onboard_complete_user_followed_up_twice'
+        'helper_state':'onboard_complete_user_followed_up_twice'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
@@ -405,7 +405,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'request_review_from_both_parties',
-        'future_state':'conversation_review_requested'
+        'helper_state':'conversation_review_requested'
         }
     elif conversation_state =='conversation_review_requested':
         payload['notification_type'] = 'REGULAR'
@@ -414,7 +414,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
-        'future_state':'thank_user'
+        'helper_state':'thank_user'
         }
     elif conversation_state =='thank_user':
         payload['notification_type'] = 'REGULAR'
@@ -423,7 +423,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
-        'future_state':'conversation_closed'
+        'helper_state':'conversation_closed'
         }
     elif conversation_state =='conversation_closed':
         payload['message'] = {
