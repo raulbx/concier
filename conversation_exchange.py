@@ -28,7 +28,7 @@ class Exchange(object):
         payload = {} # Flush the payload
         payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
 
-        print("----------------------------Pay------------------------ \n{}\n------------Load-----------------\n".format(payload))
+        print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
         if 'platform' in payload:
             platform_action = payload['platform'].get('action')
             payload = getattr(self, platform_action)(payload,conversation_ref)
