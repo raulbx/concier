@@ -215,22 +215,17 @@ class Exchange(object):
 
         return payload
 
-    def request_review_from_both_parties(self,payload,conversation_ref):
-
-        payloads = []
+    def request_review(self,payload,conversation_ref):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
 
-        payload['recipient']['id'] = helpee_id
-        payloads.append(payload)
-        helpeePayload = {}
-        helpeePayload = copy.deepcopy(payload)
-        helpeePayload['recipient']['id'] = helper_id
-        payloads.append(helpeePayload)
         
-        ####conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
-
-        return payloads
+        if self.user_id_on_platform == helper_id:
+            conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
+        else:
+            conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
+    
+        return payload
 
     def record_review(self,payload,conversation_ref):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
@@ -242,12 +237,12 @@ class Exchange(object):
             review = conversation_ref.get().to_dict().get('helper_review')
             review +=self.user_response
             conversation_ref.update({'helper_review':review})
-            conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+            conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
             review = conversation_ref.get().to_dict().get('helpee_review')
             review +=self.user_response
             conversation_ref.update({'helpee_review':review})
-            conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
+            conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
 
         ########conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
                 

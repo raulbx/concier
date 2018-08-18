@@ -414,8 +414,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
             }
         }
         payload['platform'] = {
-        'action':'request_review_from_both_parties',
-        'helper_next_state':'conversation_review_requested'
+        'action':'request_review',
+        'next_state':'conversation_review_requested'
         }
     elif conversation_state =='conversation_review_requested':
         payload['notification_type'] = 'REGULAR'
@@ -424,7 +424,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
-        'helper_next_state':'thank_user'
+        'next_state':'thank_user'
         }
     elif conversation_state =='thank_user':
         payload['notification_type'] = 'REGULAR'
@@ -433,7 +433,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
-        'helper_next_state':'conversation_closed'
+        'next_state':'conversation_closed'
         }
     elif conversation_state =='conversation_closed':
         payload['message'] = {
