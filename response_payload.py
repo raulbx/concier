@@ -14,7 +14,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'future_state':'default_state'
+        'helper_state':'default_state',
+        'helpee_state':'default_state',
         }
     elif conversation_state =='welcome_user':
         payload['message'] = {
@@ -78,7 +79,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'product_category',
-        'helper_state':'record_specific_product_understand_need'
+        'helpee_state':'record_specific_product_understand_need'
         }
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
@@ -88,7 +89,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'specific_product',
-        'helper_state':'record_need_ask_time_frame'
+        'helpee_state':'record_need_ask_time_frame'
         }
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {
@@ -121,7 +122,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'field':'user_need',
         'validate':'input_length_more_than_20',
         'validation__failure_message':'Please share your product need in more than 20 characters',
-        'helper_state':'record_time_frame_ask_price'
+        'helpee_state':'record_time_frame_ask_price'
         }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
@@ -158,7 +159,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'time_frame',
-        'helper_state':'record_price_thank_user'
+        'helpee_state':'record_price_thank_user'
         }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
@@ -167,7 +168,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
-        'helper_state':'onboard_complete_waiting_for_expert'
+        'helpee_state':'onboard_complete_waiting_for_expert'
         }
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
@@ -176,7 +177,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helper_state':'onboard_complete_user_followed_up_once'
+        'helpee_state':'onboard_complete_user_followed_up_once'
         }
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
@@ -185,7 +186,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helper_state':'onboard_complete_user_followed_up_twice'
+        'helpee_state':'onboard_complete_user_followed_up_twice'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
