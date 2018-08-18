@@ -17,6 +17,7 @@ class Exchange(object):
 
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
+        payload = {}
         try:
             conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
@@ -26,7 +27,7 @@ class Exchange(object):
                 print('this conversation has been active for more than 24 hours')
                 conversation_state = 'conversation_ended_request_review'
 
-            payload = {} # Flush the payload
+            # Flush the payload
             payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
 
             print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
@@ -45,7 +46,6 @@ class Exchange(object):
         except Exception as e:
             print('Exception Occured. {}'.format(str(e)))
             payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,'',payload)
-
         return payloads
 
     def start_conversation(self,core_engine_obj,user_details):
