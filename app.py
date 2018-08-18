@@ -72,7 +72,7 @@ def receive_message():
             if msg_conversation_id:
                 conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
                 if conversation_ref:
-                    print('MSG Conversation ID is in chat message'.format(conversation_ref.get().id))
+                    print('MSG Conversation ID is in chat message')
                 else:
                     print('There is no conversation with the ID{}: '.format(msg_conversation_id))
             else:
