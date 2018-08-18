@@ -286,10 +286,10 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='agree_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you for agreeing to help out. Lets begin...\nWhat are the key products in the market?'
+        'text' : 'Thank you for agreeing to help out $arg1. Lets begin...\nWhat are the key products in the market?'
         }
         payload['platform'] = {
-        'action':'set_future_state',
+        'action':'assign_helper',
         'helper_next_state':'record_key_products_ask_price_range'
         }
     ### 5 Questions Begin

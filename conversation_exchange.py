@@ -178,7 +178,7 @@ class Exchange(object):
         helpeePayload['recipient']['id'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         payloads.append(helpeePayload)
         print('Helpee message is {}'.format(helpeePayload['message']['text']))
-        self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
+        #self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref) No need this is already done in assign helper
         
         #######conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
         if payload['platform'].get('helper_next_state'):
