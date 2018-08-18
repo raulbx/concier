@@ -163,12 +163,29 @@ class Exchange(object):
         ''' Get the correct conversation ref. 
         Send two messages. One to the expert and the other to the helpee
         '''
+        conversation_ref.update({'expert_why_product_bought':self.user_response})
         member_ref = self.core_engine_obj.get_member()
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         helper_Name = member_ref.get().to_dict().get('first_name')
-        #helpeePayload = response_payload.fb_payload('agree_to_help','...',conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
 
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
+        payloads.append(payload)
+
+        product_bought = conversation_ref.get().to_dict().get('expert_what_product_bought')
+        products_in_the_market = conversation_ref.get().to_dict().get('expert_key_products_in_the_market')
+        product_price_ranges = conversation_ref.get().to_dict().get('expert_product_price_ranges')
+        product_differences = conversation_ref.get().to_dict().get('expert_product_differences')
+        why_bought_product = conversation_ref.get().to_dict().get('expert_why_product_bought')
+
+
+        helpeePayload= {}
+        helpeeResponse = 'We have found a shopper, who bought a {}.{} looked at {}, which were in the price range of {}. {} bought {} because {}'.format(product_bought,helper_Name,products_in_the_market,product_price_ranges,helper_Name,why_bought_product)
+        helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
+        payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
+
+
+        '''
         helpeePayload = copy.deepcopy(payload)
 
         #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
@@ -182,11 +199,12 @@ class Exchange(object):
         #self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref) No need this is already done in assign helper
         
         #######conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
+        '''
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
-        
+
         return payloads
 
     def exchange_conversations(self,payload,conversation_ref):

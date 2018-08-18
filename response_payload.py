@@ -336,12 +336,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thanks. I am going to connect you to $arg1.'#--------------------------------------------------------------------CHECK THE next state
+        'text' : 'Thanks. I am going to connect you to $arg1. Messages moving forward will be from $arg1'#--------------------------------------------------------------------CHECK THE next state
         }
         payload['platform'] = {
-        'action':'record_value_set_future_state',
+        'action':'connect_expert_to_user',
         'field':'expert_why_product_bought',
-        'helper_next_state':'connect_expert_to_user'
+        'helper_next_state':'helper_helpee_matched',
+        'helpee_next_state':'helper_helpee_matched'
         }
 ### End of five questions
     elif conversation_state =='connect_expert_to_user':
@@ -351,8 +352,10 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
-        'future_state':'helper_helpee_matched'
+        'helper_next_state':'helper_helpee_matched',
+        'helpee_next_state':'helper_helpee_matched'
         }
+####this state is not required
     elif conversation_state =='decline_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
