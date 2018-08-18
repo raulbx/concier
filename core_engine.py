@@ -69,7 +69,7 @@ class Members(object):
     	}
 		db = firestore.client()
 		conversation_ref=db.collection(u'conversations').add(conversation_data)[1]
-		append_conversation_ref(member_ref,conversation_ref)
+		self.append_conversation_ref(member_ref,conversation_ref)
 		#member_ref.update({'conversations':[conversation_ref]})
 		return conversation_ref
 
