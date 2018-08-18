@@ -147,6 +147,7 @@ class Exchange(object):
         #Assign this conversation to this expert.
         member_ref = self.core_engine_obj.get_member()
         self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
+        conversation_ref.update({'helper_ref':member_ref})
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         #####conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
