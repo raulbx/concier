@@ -14,8 +14,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helper_state':'default_state',
-        'helpee_state':'default_state',
+        'helper_next_state':'default_state',
+        'helpee_next_state':'default_state',
         }
     elif conversation_state =='welcome_user':
         payload['message'] = {
@@ -79,7 +79,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'product_category',
-        'helpee_state':'record_specific_product_understand_need'
+        'helpee_next_state':'record_specific_product_understand_need'
         }
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
@@ -89,7 +89,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'specific_product',
-        'helpee_state':'record_need_ask_time_frame'
+        'helpee_next_state':'record_need_ask_time_frame'
         }
     elif conversation_state =='record_need_ask_time_frame':
         payload['message'] = {
@@ -122,7 +122,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'field':'user_need',
         'validate':'input_length_more_than_20',
         'validation__failure_message':'Please share your product need in more than 20 characters',
-        'helpee_state':'record_time_frame_ask_price'
+        'helpee_next_state':'record_time_frame_ask_price'
         }
     elif conversation_state =='record_time_frame_ask_price':
         payload['message'] = {
@@ -159,7 +159,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'time_frame',
-        'helpee_state':'record_price_thank_user'
+        'helpee_next_state':'record_price_thank_user'
         }
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
@@ -168,7 +168,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
-        'helpee_state':'onboard_complete_waiting_for_expert'
+        'helpee_next_state':'onboard_complete_waiting_for_expert'
         }
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
@@ -177,7 +177,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helpee_state':'onboard_complete_user_followed_up_once'
+        'helpee_next_state':'onboard_complete_user_followed_up_once'
         }
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
@@ -186,7 +186,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helpee_state':'onboard_complete_user_followed_up_twice'
+        'helpee_next_state':'onboard_complete_user_followed_up_twice'
         }
     elif conversation_state =='other_buttons':
         payload['message'] = {
@@ -284,7 +284,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helper_state':'record_key_products_ask_price_range'
+        'helper_next_state':'record_key_products_ask_price_range'
         }
     ### 5 Questions Begin
     elif conversation_state =='record_key_products_ask_price_range':
@@ -295,7 +295,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'expert_key_products_in_the_market',
-        'helper_state':'record_price_range_ask_differences'
+        'helper_next_state':'record_price_range_ask_differences'
         }
     elif conversation_state =='record_price_range_ask_differences':
         payload['notification_type'] = 'REGULAR'
@@ -305,7 +305,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'expert_product_price_ranges',
-        'helper_state':'record_product_differences_product_bought'
+        'helper_next_state':'record_product_differences_product_bought'
         }
     elif conversation_state =='record_product_differences_product_bought':
         payload['notification_type'] = 'REGULAR'
@@ -315,7 +315,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'expert_product_differences',
-        'helper_state':'record_product_bought_ask_why_product_bought'
+        'helper_next_state':'record_product_bought_ask_why_product_bought'
         }
     elif conversation_state =='record_product_bought_ask_why_product_bought':
         payload['notification_type'] = 'REGULAR'
@@ -325,7 +325,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'expert_what_product_bought',
-        'helper_state':'record_why_product_bought_connect_expert_to_user'
+        'helper_next_state':'record_why_product_bought_connect_expert_to_user'
         }
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
@@ -335,7 +335,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'expert_why_product_bought',
-        'helper_state':'connect_expert_to_user'
+        'helper_next_state':'connect_expert_to_user'
         }
 ### End of five questions
     elif conversation_state =='connect_expert_to_user':
@@ -406,7 +406,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'request_review_from_both_parties',
-        'helper_state':'conversation_review_requested'
+        'helper_next_state':'conversation_review_requested'
         }
     elif conversation_state =='conversation_review_requested':
         payload['notification_type'] = 'REGULAR'
@@ -415,7 +415,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
-        'helper_state':'thank_user'
+        'helper_next_state':'thank_user'
         }
     elif conversation_state =='thank_user':
         payload['notification_type'] = 'REGULAR'
@@ -424,7 +424,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
-        'helper_state':'conversation_closed'
+        'helper_next_state':'conversation_closed'
         }
     elif conversation_state =='conversation_closed':
         payload['message'] = {
