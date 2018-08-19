@@ -87,17 +87,17 @@ class Exchange(object):
         if payload['platform'].get('validate'):
             if payload['platform'].get('validate')=='input_length_more_than_20' and len(self.user_response)<20:
                 payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id,payload)
-        else:
-            conversation_ref.update({payload['platform'].get('field'):self.user_response})
+            else:
+                conversation_ref.update({payload['platform'].get('field'):self.user_response})
 
-            #setting the states for helper and helpee
-            if payload['platform'].get('helper_next_state'):
-                conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
-            if payload['platform'].get('helpee_next_state'):
-                conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
+                #setting the states for helper and helpee
+                if payload['platform'].get('helper_next_state'):
+                    conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
+                if payload['platform'].get('helpee_next_state'):
+                    conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
 
-            conversation_ref.update({'lastactivedate':datetime.now()})
-            payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
+                conversation_ref.update({'lastactivedate':datetime.now()})
+                payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
         del payload['platform']
         return payload
 
