@@ -184,7 +184,7 @@ class Exchange(object):
 
 
         helpeePayload= {}
-        helpeeResponse = 'We have found a shopper, who bought a {}.{} looked at {}, which were in the price range of {}. {} bought {} because {}'.format(product_bought,helper_Name,products_in_the_market,product_price_ranges,helper_Name,product_bought,why_bought_product)
+        helpeeResponse = 'We found a member, who bought a {}. {} looked at {}, which were in the price range of {}. {} bought {} because {}.\n We will now connect you to {}. Please say hi!'.format(product_bought,helper_Name,products_in_the_market,product_price_ranges,helper_Name,product_bought,why_bought_product,helper_Name)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
