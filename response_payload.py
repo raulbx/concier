@@ -33,13 +33,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     },
                     {
                     "type":"postback",
-                    "title":"Give shopping advise?",
+                    "title":"Give shopping help?",
                     "payload":"choose_expertise_category:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"Other?",
-                    "payload":"other_buttons:"+conversation_id
+                    "payload":"something_else:"+conversation_id
                     }
                     ]
                 }
@@ -259,7 +259,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Please type your message below. We will need to get our human to answer this.'
+        'text' : 'How can I help you?'
         }
     elif conversation_state =='broadcast_message':
         payload['message'] = {
