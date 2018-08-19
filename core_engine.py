@@ -141,10 +141,13 @@ class Members(object):
 		db = firestore.client()
 		#return db.collection("expertise").where("expertise_category", "==", expertise)
 		expertise_ref = db.collection("expertise").document(expertise)
+		print('Getting the expertise ref: '.format(expertise_ref))
 		if expertise_ref:
 			expert_list = expertise_ref.get().to_dict().get('member')
+			print('Experts found')
 		else:
 			expert_list = []
+			print('No Experts found')
 		return expert_list
 
 	def add_expert(self,member_ref,member_expertise,platform_response):
