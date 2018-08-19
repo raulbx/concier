@@ -135,11 +135,12 @@ class Exchange(object):
         response_template = 'Buyer is interested in making a decision on below purchase.  Can you help? \nNeed: $arg1\nProduct Category: $arg2\nSpecific Product: $arg3\nPrice Range: $arg4\nTimeline: $arg5'
         response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=product_category,arg3=conversation_ref.get().to_dict().get('specific_product'),arg4=conversation_ref.get().to_dict().get('max_price'),arg5=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
-        for expert in experts_list:
-            expertPayload = {}
-            expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
-            #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
-            payloads.append(expertPayload)
+        if len(experts_list)>0:
+            for expert in experts_list:
+                expertPayload = {}
+                expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
+                #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
+                payloads.append(expertPayload)
         del payload['platform']
         
         print('Number of experts is {}'.format(len(experts_list)))
@@ -239,12 +240,12 @@ class Exchange(object):
         if self.user_id_on_platform == helper_id:
             # This is helper save the review for helper
             review = conversation_ref.get().to_dict().get('helper_review')
-            review +=self.user_response
+            review = review + self.user_response
             conversation_ref.update({'helper_review':review})
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
             review = conversation_ref.get().to_dict().get('helpee_review')
-            review +=self.user_response
+            review =review + self.user_response
             conversation_ref.update({'helpee_review':review})
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
 
