@@ -113,6 +113,8 @@ class Exchange(object):
 
     def record_price_and_broadcast_request(self,payload,conversation_ref):
         payloads = []
+        payloads.append(payload)
+        
         ####conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
@@ -137,7 +139,7 @@ class Exchange(object):
             #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
             payloads.append(expertPayload)
         del payload['platform']
-        payloads.append(payload)
+        
         print('Number of experts is {}'.format(len(experts_list)))
 
         #print(payloads)
