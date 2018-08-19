@@ -84,10 +84,13 @@ class Exchange(object):
 
     def record_value_set_future_state(self,payload,conversation_ref):
         #run validation first
+        validation_passed = True
         if payload['platform'].get('validate'):
             if payload['platform'].get('validate')=='input_length_more_than_20' and len(self.user_response)<20:
                 payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id,payload)
-        else:
+                validation_passed=False
+
+        if validation_passed:
             conversation_ref.update({payload['platform'].get('field'):self.user_response})
             #setting the states for helper and helpee
             if payload['platform'].get('helper_next_state'):
