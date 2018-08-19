@@ -142,10 +142,11 @@ class Members(object):
 		#return db.collection("expertise").where("expertise_category", "==", expertise)
 		expertise_ref = db.collection("expertise").document(expertise)
 		print('Getting the expertise ref: '.format(expertise_ref))
-		if expertise_ref:
+		try:
+			expertise_obj = expertise_ref.get() #This will throw error if the expertise doesn't exist.
 			expert_list = expertise_ref.get().to_dict().get('member')
-			print('Experts found')
-		else:
+			print('Experts found')	
+		except google.cloud.exceptions.NotFound:
 			expert_list = []
 			print('No Experts found')
 		return expert_list
