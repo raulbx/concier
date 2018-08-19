@@ -219,7 +219,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'What kind of products you know well?',
+                    "text":'Which product did you buy recently and want to share your experience?',
                     "buttons":[
                     {
                     "type":"postback",
