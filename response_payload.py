@@ -167,7 +167,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thanks. Let me find a community member, who can help you make a decision.'
+        'text' : 'Thank you. Let me find a community member, who can help you make a decision.'
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
@@ -286,7 +286,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='agree_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you for agreeing to help out $arg1. Lets begin...\nWhat are the key products in the market?'
+        'text' : 'Thank you for agreeing to help a community member.  Before we connect you to the member, please answer some basic questions about your shopping experience on $arg1.\nWhat are the major products in the market that you are aware of?
         }
         payload['platform'] = {
         'action':'assign_helper',
@@ -336,7 +336,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thanks. I am going to connect you to $arg1. Messages moving forward will be from $arg1'#--------------------------------------------------------------------CHECK THE next state
+        'text' : 'Thank you. I am going to connect you to $arg1. Messages moving forward will be from $arg1'#--------------------------------------------------------------------CHECK THE next state
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
