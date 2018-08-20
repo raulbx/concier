@@ -272,7 +272,7 @@ class Exchange(object):
         print('firstName is:{}'.format(first_name))
 
        # print('\n Message is {} \n'.format(payload['message'].get('text')))
-        payload = Template(payload).safe_substitute(arg1=first_name)
+        payload['message']['attachment']['payload']['text'] = Template(payload['message']['attachment']['payload'].get('text')).safe_substitute(arg1=first_name)
         return payload
 
     def add_expertise(self,payload,conversation_ref):
