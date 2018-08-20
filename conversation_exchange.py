@@ -45,7 +45,7 @@ class Exchange(object):
                 payloads.append(payload)
         except Exception as e:
             print('Exception Occured. {}'.format(str(e)))
-            payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,'',payload)
+            payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         return payloads
 
     def start_conversation(self,core_engine_obj):
