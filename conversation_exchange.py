@@ -18,34 +18,34 @@ class Exchange(object):
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
         payload = {}
-       # try:
-        conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
+        try:
+            conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
-        print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
+            print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
 
-        if conversation_duration_hours > 24:
-            print('this conversation has been active for more than 24 hours')
-            conversation_state = 'conversation_ended_request_review'
+            if conversation_duration_hours > 24:
+                print('this conversation has been active for more than 24 hours')
+                conversation_state = 'conversation_ended_request_review'
 
-        # Flush the payload
-        payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
+            # Flush the payload
+            payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)    
 
-        print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
-        if 'platform' in payload:
-            platform_action = payload['platform'].get('action')
-            payload = getattr(self, platform_action)(payload,conversation_ref)
-        if payload is None:
-            payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-        #print(payload)
-        #print('-------Above is the raw payload -----')
-        if isinstance(payload,(list,)):
-            #this takes care of broadcast messages
-            payloads = payload
-        else:
-            payloads.append(payload)
-        #except Exception as e:
-         #   print('Exception Occured. {}'.format(str(e)))
-          #  payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
+            if 'platform' in payload:
+                platform_action = payload['platform'].get('action')
+                payload = getattr(self, platform_action)(payload,conversation_ref)
+            if payload is None:
+                payload =response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            #print(payload)
+            #print('-------Above is the raw payload -----')
+            if isinstance(payload,(list,)):
+                #this takes care of broadcast messages
+                payloads = payload
+            else:
+                payloads.append(payload)
+        except Exception as e:
+            print('Exception Occured. {}'.format(str(e)))
+            payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         return payloads
 
     def start_conversation(self,core_engine_obj):
@@ -55,8 +55,8 @@ class Exchange(object):
         conversation_ref = core_engine_obj.add_conversation(core_engine_obj.get_member())
         first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
         payload = response_payload.fb_payload('welcome_user','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=first_name)
-        
+        payload['message']['attachment']['payload']['text'] = Template(payload['message']['attachment']['payload'].get('text')).safe_substitute(arg1=first_name)
+
         return payload
 
     def remove_helper_ref_from_current_conversation(self, payload, conversation_ref):
@@ -268,10 +268,6 @@ class Exchange(object):
         #This call is again made to populate the conversation ref in the payload.
         first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
         payload = response_payload.fb_payload('welcome_user','...',self.user_id_on_platform ,new_conversation_ref.get().id,payload)
-        print('this is the payload in new conversation {}'.format(payload))
-        print('firstName is:{}'.format(first_name))
-
-       # print('\n Message is {} \n'.format(payload['message'].get('text')))
         payload['message']['attachment']['payload']['text'] = Template(payload['message']['attachment']['payload'].get('text')).safe_substitute(arg1=first_name)
         return payload
 
