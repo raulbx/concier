@@ -379,13 +379,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     {
                     'title':'Pay Bill',
                     'type':'postback',
-                    'payload":"PAYBILL_PAYLOAD'
+                    'payload':'PAYBILL_PAYLOAD'
                     },
                     {
                     'type':'web_url',
                     'title':'Latest News',
                     'url':'https://www.messenger.com/',
-                    'webview_height_ratio":'full'
+                    'webview_height_ratio':'full'
                     }
                 ]
                 }
