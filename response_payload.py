@@ -370,7 +370,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['persistent_menu'] = {
             'locale':'default',
-            'composer_input_disabled': true,
+            'composer_input_disabled': True,
             'call_to_actions':[
                 {
                 'title':'My Account',
