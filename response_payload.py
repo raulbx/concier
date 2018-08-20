@@ -19,12 +19,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
     elif conversation_state =='welcome_user':
         payload['message'] = {
-            "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?',
+        "metadata":"ask_product_category",
             "attachment":{
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    
+                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?',
                     "buttons":[
                     {
                     "type":"postback",
