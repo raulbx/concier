@@ -436,33 +436,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'next_state':'conversation_closed'
         }
     elif conversation_state =='conversation_closed':
-        payload['message'] = {
-        "metadata":"ask_product_category",
-            "attachment":{
-                "type":"template",
-                "payload":{
-                    "template_type":"button",
-                    "text":'How can I help you?',
-                    "buttons":[
-                    {
-                    "type":"postback",
-                    "title":"Get shopping help?",
-                    "payload":"ask_product_category:"+conversation_id
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Give shopping advise?",
-                    "payload":"choose_expertise_category:"+conversation_id
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Other?",
-                    "payload":"other_buttons:"+conversation_id
-                    }
-                    ]
-                }
-            }
-        }
         payload['platform'] = {
         'action':'start_new_conversation'
         }

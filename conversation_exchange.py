@@ -257,15 +257,15 @@ class Exchange(object):
             print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
 
-        ########conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
-                
         return payload
 
     def start_new_conversation(self,payload,conversation_ref):
         new_conversation_ref = self.core_engine_obj.add_conversation(self.core_engine_obj.get_member())
         #do this to get the right conversation id in the conversation
         payload = {}
-        payload = response_payload.fb_payload('conversation_closed','...',self.user_id_on_platform,new_conversation_ref.get().id,payload)
+        #This call is again made to populate the conversation ref in the payload.
+        first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
+        payload = response_payload.fb_payload('welcome_user',first_name,self.user_id_on_platform,new_conversation_ref.get().id,payload)
         return payload
 
     def add_expertise(self,payload,conversation_ref):
