@@ -362,15 +362,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
     elif conversation_state =='helper_helpee_matched':
         #payload['notification_type'] = 'REGULAR'
-        payload['message'] = {
-        'text' :response
-        }
+        
         payload['platform'] = {
         'action':'exchange_conversations'
         }
         payload['persistent_menu'] = {
             'locale':'default',
-            'composer_input_disabled': True,
+            'composer_input_disabled': False,
             'call_to_actions':[
                 {
                 'title':'My Account',
