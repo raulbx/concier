@@ -153,7 +153,7 @@ class Exchange(object):
         member_ref = self.core_engine_obj.get_member()
         self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         conversation_ref.update({'helper_ref':member_ref})
-        product_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('specific_product')
+        product_Name = conversation_ref.get().to_dict().get('specific_product')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_Name)
         #####conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
         if payload['platform'].get('helper_next_state'):
@@ -224,7 +224,6 @@ class Exchange(object):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
 
-        
         if self.user_id_on_platform == helper_id:
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
@@ -240,12 +239,14 @@ class Exchange(object):
         if self.user_id_on_platform == helper_id:
             # This is helper save the review for helper
             review = conversation_ref.get().to_dict().get('helper_review')
-            review = review + self.user_response
+            if self.response:
+                review += self.user_response
             conversation_ref.update({'helper_review':review})
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
             review = conversation_ref.get().to_dict().get('helpee_review')
-            review =review + self.user_response
+            if self.response:
+                review += self.user_response
             conversation_ref.update({'helpee_review':review})
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
 

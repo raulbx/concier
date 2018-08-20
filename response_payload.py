@@ -176,7 +176,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Our expert search is on. We will be back soon with an expert to help you.'
+        'text' : 'Our search is on. We will be back soon with an community member to help you.'
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -185,7 +185,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'We are still looking. We will be back soon with an expert to help you out. We are usually better than this. '
+        'text' : 'We are still looking. We will be back soon with an community member to help you out.'
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -336,7 +336,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. I am going to connect you to $arg1. Messages moving forward will be from $arg1'#--------------------------------------------------------------------CHECK THE next state
+        'text' : 'Thank you. I am going to connect you to a community member, $arg1. Messages moving forward will be from $arg1'#--------------------------------------------------------------------CHECK THE next state
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
