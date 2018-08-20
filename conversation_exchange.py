@@ -217,6 +217,10 @@ class Exchange(object):
             payload['message']['text'] = partyName+': '+self.user_response
         else:
             payload['message']['text'] = '...'
+        #TEST CODE
+        recipient_id = helper_id
+        #END TEST CODE. Remove once done
+
         payload['recipient']['id'] = recipient_id
         print(payload)
 
