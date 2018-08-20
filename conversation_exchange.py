@@ -48,14 +48,16 @@ class Exchange(object):
             payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,'',payload)
         return payloads
 
-    def start_conversation(self,core_engine_obj,user_details):
-        payloads = []
-        core_engine_obj.update_member_details(core_engine_obj.get_member(),user_details)
+    def start_conversation(self,core_engine_obj):
+        
+        #core_engine_obj.update_member_details(core_engine_obj.get_member(),user_details)
         payload = {}
         conversation_ref = core_engine_obj.add_conversation(core_engine_obj.get_member())
-        payload = response_payload.fb_payload('welcome_user',user_details['first_name'],self.user_id_on_platform,conversation_ref.get().id,payload)
-        payloads.append(payload)
-        return payloads
+        first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
+        payload = response_payload.fb_payload('welcome_user','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=first_name)
+        
+        return payload
 
     def remove_helper_ref_from_current_conversation(self, payload, conversation_ref):
         conversation_ref.update({'helper_ref':firestore.DELETE_FIELD})
@@ -264,8 +266,8 @@ class Exchange(object):
         #do this to get the right conversation id in the conversation
         payload = {}
         #This call is again made to populate the conversation ref in the payload.
-        first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
-        payload = response_payload.fb_payload('welcome_user',first_name,self.user_id_on_platform,new_conversation_ref.get().id,payload)
+        #first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
+        payload = response_payload.fb_payload('welcome_user','...',new_conversation_ref.get().id,payload)
         return payload
 
     def add_expertise(self,payload,conversation_ref):
