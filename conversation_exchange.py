@@ -18,7 +18,7 @@ class Exchange(object):
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
         payload = {}
-        try:
+       # try:
             conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
             print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
@@ -43,10 +43,10 @@ class Exchange(object):
                 payloads = payload
             else:
                 payloads.append(payload)
-        except Exception as e:
-            print('Exception Occured. {}'.format(str(e)))
-            payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-        return payloads
+        #except Exception as e:
+         #   print('Exception Occured. {}'.format(str(e)))
+          #  payload = response_payload.fb_payload('default_state','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+        #return payloads
 
     def start_conversation(self,core_engine_obj):
         
