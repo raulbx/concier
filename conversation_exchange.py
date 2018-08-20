@@ -270,6 +270,7 @@ class Exchange(object):
         payload = response_payload.fb_payload('welcome_user','...',self.user_id_on_platform ,new_conversation_ref.get().id,payload)
         print('this is the payload in new conversation {}'.format(payload))
         print('firstName is:{}'.format(first_name))
+        print('\n Message is {} \n'.format(payload['message'].get('text')))
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=first_name)
         return payload
 
