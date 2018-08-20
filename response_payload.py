@@ -27,7 +27,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Get shopping help?",
+                    "title":"Give shopping help?",
                     "payload":"ask_product_category:"+conversation_id
                     },
                     {
@@ -37,7 +37,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     },
                     {
                     "type":"postback",
-                    "title":"Other?",
+                    "title":"How can I help you?",
                     "payload":"something_else:"+conversation_id
                     }
                     ]
@@ -218,7 +218,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Which product did you buy recently and want to share your experience?',
+                    "text":'Which product did you buy recently and want to share your experience on?',
                     "buttons":[
                     {
                     "type":"postback",
@@ -335,7 +335,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. I am going to connect you to a community member, $arg1. Messages moving forward will be from $arg1'#--------------------------------------------------------------------CHECK THE next state
+        'text' : 'Thank you. I am going to connect you to a community member, $arg1.'
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
@@ -367,6 +367,29 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'exchange_conversations'
+        }
+        payload['persistent_menu'] = {
+            'locale':'default',
+            'composer_input_disabled': true,
+            'call_to_actions':[
+                {
+                'title':'My Account',
+                'type':'nested',
+                'call_to_actions':[
+                    {
+                    'title':'Pay Bill',
+                    'type':'postback',
+                    'payload":"PAYBILL_PAYLOAD'
+                    },
+                    {
+                    'type':'web_url',
+                    'title':'Latest News',
+                    'url':'https://www.messenger.com/',
+                    'webview_height_ratio":'full'
+                    }
+                ]
+                }
+            ]
         }
     elif conversation_state =='message_if_conversation_active':
         payload['message'] = {
