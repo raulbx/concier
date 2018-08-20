@@ -239,13 +239,13 @@ class Exchange(object):
         if self.user_id_on_platform == helper_id:
             # This is helper save the review for helper
             review = conversation_ref.get().to_dict().get('helper_review')
-            if self.response:
+            if self.user_response:
                 review += self.user_response
             conversation_ref.update({'helper_review':review})
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
             review = conversation_ref.get().to_dict().get('helpee_review')
-            if self.response:
+            if self.user_response:
                 review += self.user_response
             conversation_ref.update({'helpee_review':review})
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
