@@ -1,6 +1,7 @@
 import core_engine
 import message_payloads
 import response_payload
+import fb_messanger_profile_payload
 import copy
 from firebase_admin import firestore
 from datetime import datetime, timezone
@@ -218,7 +219,7 @@ class Exchange(object):
         else:
             payload['message']['text'] = '...'
         #TEST CODE
-        recipient_id = helper_id
+        #recipient_id = helper_id
         #END TEST CODE. Remove once done
 
         payload['recipient']['id'] = recipient_id

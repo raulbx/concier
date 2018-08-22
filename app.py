@@ -10,6 +10,7 @@ from flask import Flask, request
 app = Flask(__name__)
 ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8ZASAXkaIaJEi7H7f5eEddYUC4ovdw3vlaY9UzAuBZAZBHr7mhKImfcu6smyrZBfuXUP8aQA7ZB0VoH9mfL0qJCXaVUX0KmC5LesJ7aPVDP1ABVAZDZD'
 VERIFY_TOKEN = 'EROS_TOKEN'
+
 #bot = Bot(ACCESS_TOKEN)
 
 payloads = []
@@ -147,6 +148,15 @@ def get_user_details(sender_id):
     response = requests.get(request_endpoint)
     user_profile_json = response.json()
     return user_profile_json
+
+def modify_fb_messanger_profile(profile_payload):
+    request_endpoint = 'https://graph.facebook.com/v3.1/me/messenger_profile?&access_token={}'.format(sender_id,ACCESS_TOKEN)
+    response = requests.post(
+        request_endpoint,
+        json=payload
+        )
+    result = response.json()
+    return result
 
 if __name__ == "__main__":
     app.run()

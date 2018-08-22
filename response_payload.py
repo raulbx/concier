@@ -27,7 +27,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Give shopping help?",
+                    "title":"Get shopping help?",
                     "payload":"ask_product_category:"+conversation_id
                     },
                     {
@@ -362,32 +362,11 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
     elif conversation_state =='helper_helpee_matched':
         #payload['notification_type'] = 'REGULAR'
-        
+        payload['message'] = {
+        'text' :response
+        }
         payload['platform'] = {
         'action':'exchange_conversations'
-        }
-        payload['persistent_menu'] = {
-            'locale':'default',
-            'composer_input_disabled': False,
-            'call_to_actions':[
-                {
-                'title':'My Account',
-                'type':'nested',
-                'call_to_actions':[
-                    {
-                    'title':'Pay Bill',
-                    'type':'postback',
-                    'payload':'PAYBILL_PAYLOAD'
-                    },
-                    {
-                    'type':'web_url',
-                    'title':'Latest News',
-                    'url':'https://www.messenger.com/',
-                    'webview_height_ratio':'full'
-                    }
-                ]
-                }
-            ]
         }
     elif conversation_state =='message_if_conversation_active':
         payload['message'] = {
