@@ -50,17 +50,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         "quick_replies":[
             {
             "content_type":"text",
-            "title":"Gadgets",
+            "title":"Mobile",
             "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
             "content_type":"text",
-            "title":"Computers",
+            "title":"Home",
             "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
             "content_type":"text",
-            "title":"Household Items",
+            "title":"Computer Related",
             "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
@@ -222,17 +222,22 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     "buttons":[
                     {
                     "type":"postback",
-                    "title":"Gadgets",
+                    "title":"Mobile",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
                     "type":"postback",
-                    "title":"Computers",
+                    "title":"Home",
                     "payload":"register_expert:"+conversation_id
                     },
                     {
                     "type":"postback",
-                    "title":"Household Items",
+                    "title":"Computer Related",
+                    "payload":"register_expert:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"Other",
                     "payload":"register_expert:"+conversation_id
                     }
                     ]
