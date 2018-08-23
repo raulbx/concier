@@ -31,7 +31,7 @@ class Exchange(object):
             # Flush the payload
             payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)
 
-            if '#end' in self.user_response.lower():
+            if 'end' in self.user_response.lower():
                 print 'Encountered #end'
 
             print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
