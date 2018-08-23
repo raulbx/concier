@@ -146,7 +146,7 @@ class Exchange(object):
                 payloads.append(expertPayload)
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'Unfortunately we don\'t have a community member, who has recently bought {}. We will reach out to you as soon as a we have a member, who know about {}'.format(product_category,product_category)
+            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We are regularly on boarding new members. We will get in touch once we have a member, who knows about {}'.format(product_category,product_category)
 
         del payload['platform']
         
