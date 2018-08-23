@@ -37,7 +37,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     },
                     {
                     "type":"postback",
-                    "title":"How can I help you?",
+                    "title":"How can I help?",
                     "payload":"something_else:"+conversation_id
                     }
                     ]

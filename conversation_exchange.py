@@ -144,6 +144,10 @@ class Exchange(object):
                 expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
                 #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
                 payloads.append(expertPayload)
+        else:
+            # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
+            payload['message']['text'] = 'Unfortunately we don\'t have a community member, who has recently bought {}. We will reach out to you as soon as a we have a member, who know about {}'.format(product_category,product_category)
+
         del payload['platform']
         
         print('Number of experts is {}'.format(len(experts_list)))
