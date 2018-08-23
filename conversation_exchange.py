@@ -19,6 +19,10 @@ class Exchange(object):
     def get_action(self, conversation_ref,conversation_state):
         payloads = []
         payload = {}
+
+         if '#end' in self.user_response.lower():
+            print('User has asked to end the conversation: ')
+
         try:
             conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
@@ -31,8 +35,8 @@ class Exchange(object):
             # Flush the payload
             payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)
 
-            if 'end' in self.user_response.lower():
-                print('Encountered #end')
+           
+
 
             print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
             if 'platform' in payload:
@@ -58,6 +62,7 @@ class Exchange(object):
         payload = {}
         conversation_ref = core_engine_obj.add_conversation(core_engine_obj.get_member())
         first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
+        print('First Name from DB is {}'.format(first_name))
         payload = response_payload.fb_payload('welcome_user','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         payload['message']['attachment']['payload']['text'] = Template(payload['message']['attachment']['payload'].get('text')).safe_substitute(arg1=first_name)
 
