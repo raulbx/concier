@@ -20,7 +20,7 @@ class Exchange(object):
         payloads = []
         payload = {}
 
-         if '#end' in self.user_response.lower():
+        if '#end' in self.user_response.lower():
             print('User has asked to end the conversation: ')
 
         try:
