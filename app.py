@@ -102,7 +102,7 @@ def receive_message():
                 if conversation_state is None:
                     # First check if the request is coming from expert or person needing help. Based on this retrieving the state from the conversation
                     #helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-                '''
+                    '''
 
                     helper_ref = conversation_ref.get().to_dict().get('helper_ref')
                     helper_id = None
@@ -119,6 +119,7 @@ def receive_message():
                     conversation_state = conversation_ref.get().to_dict().get(state_to_get) 
                 print("Conversation Flow State is:{}".format(conversation_state))
                 '''
+
                 payloads = exchange_obj.get_action(conversation_ref,conversation_state)
                # print(payloads)
               #  print('---------above  is the payload created by the platform -----')
