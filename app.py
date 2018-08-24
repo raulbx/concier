@@ -6,7 +6,6 @@ from core_engine import Members
 from core_engine import Platform
 from flask import Flask, request
 
- 
 app = Flask(__name__)
 ACCESS_TOKEN = 'EAAFRHrTy7U0BAJWebipgZAUCCMPggc8aV5RldgjpPZCD1IZACIwAmvkPfkYMQy8ZASAXkaIaJEi7H7f5eEddYUC4ovdw3vlaY9UzAuBZAZBHr7mhKImfcu6smyrZBfuXUP8aQA7ZB0VoH9mfL0qJCXaVUX0KmC5LesJ7aPVDP1ABVAZDZD'
 VERIFY_TOKEN = 'EROS_TOKEN'
@@ -80,7 +79,7 @@ def receive_message():
                 conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
                 #print('Conversation Ref is {}'.format(conversation_ref))
                 if conversation_ref:
-                    print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref.get().id, conversation_ref)
+                    print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref.get().id, conversation_ref))
                 else:
                     print('There is no actual object: {}'.format(conversation_ref))
            #print('Conversation Ref is: '.format(conversation_ref.get().id))
