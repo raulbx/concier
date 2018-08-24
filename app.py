@@ -78,9 +78,11 @@ def receive_message():
                     print('There is no conversation with the ID{}: '.format(msg_conversation_id))
             else:
                 conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
-                print('Conversation Ref is {}'.format(conversation_ref))
+                #print('Conversation Ref is {}'.format(conversation_ref))
                 if conversation_ref and conversation_ref.get():
-                    print('Retrieved it from the conversation state'.format(conversation_ref.get().id))
+                    print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref.get().id), conversation_ref)
+                else:
+                    print('There is no actual object: {}'.format(conversation_ref))
            #print('Conversation Ref is: '.format(conversation_ref.get().id))
             #TODO: Fix the expert conversation references
 
