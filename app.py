@@ -117,8 +117,8 @@ def receive_message():
                         conversation_state = conversation_ref.get().to_dict().get(state_to_get) 
                     print("Conversation Flow State is:{}".format(conversation_state))
                     payloads = exchange_obj.get_action(conversation_ref,conversation_state)
-        except Exception as e:
-            print('Exception Occured. {}'.format(str(e)))
+            except Exception as e:
+                print('Exception Occured. {}'.format(str(e)))
                    # print(payloads)
                   #  print('---------above  is the payload created by the platform -----')
     for payload in payloads:
