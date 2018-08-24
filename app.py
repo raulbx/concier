@@ -78,10 +78,12 @@ def receive_message():
             else:
                 conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
                 #print('Conversation Ref is {}'.format(conversation_ref))
+                '''
                 if conversation_ref.get().exists:
                     print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref.id, conversation_ref))
                 else:
                     print('There is no actual object: {}'.format(conversation_ref))
+                '''
            #print('Conversation Ref is: '.format(conversation_ref.get().id))
             #TODO: Fix the expert conversation references
 
@@ -100,6 +102,7 @@ def receive_message():
                 if conversation_state is None:
                     # First check if the request is coming from expert or person needing help. Based on this retrieving the state from the conversation
                     #helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+                '''
 
                     helper_ref = conversation_ref.get().to_dict().get('helper_ref')
                     helper_id = None
@@ -115,6 +118,7 @@ def receive_message():
                         state_to_get='helpee_state'
                     conversation_state = conversation_ref.get().to_dict().get(state_to_get) 
                 print("Conversation Flow State is:{}".format(conversation_state))
+                '''
                 payloads = exchange_obj.get_action(conversation_ref,conversation_state)
                # print(payloads)
               #  print('---------above  is the payload created by the platform -----')
