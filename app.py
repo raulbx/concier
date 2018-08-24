@@ -69,59 +69,61 @@ def receive_message():
             '''
             #Make sure we have correct conversation_ref
             print ('MSG Conversation ID IS: '.format(msg_conversation_id))
-            if msg_conversation_id:
-                conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
-                if conversation_ref:
-                    print('MSG Conversation ID is in chat message')
-                else:
-                    print('There is no conversation with the ID{}: '.format(msg_conversation_id))
-            else:
-                conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
-                #print('Conversation Ref is {}'.format(conversation_ref))
-                if conversation_ref:
-                    print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref, conversation_ref))
-                else:
-                    print('There is no actual object: {}'.format(conversation_ref))
-           #print('Conversation Ref is: '.format(conversation_ref.get().id))
-            #TODO: Fix the expert conversation references
-
-            #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
-            #Store the reference to the state in the conversation
-            # Make the change here to make this code generic
-            #print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
-            exchange_obj = conversation_exchange.Exchange(sender_id,'FB',core_engine_obj,user_response)
-          #  exchange_obj.get_action()
-            if not conversation_ref:
-                #start the conversation
-                core_engine_obj.update_member_details(member_ref,get_user_details(sender_id))
-                payloads = exchange_obj.start_conversation(core_engine_obj)
-            else:
-                #Get the conversation flow state, from the payload and send it
-                if conversation_state is None:
-                    # First check if the request is coming from expert or person needing help. Based on this retrieving the state from the conversation
-                    #helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-
-                    helper_ref = conversation_ref.get().to_dict().get('helper_ref')
-                    helper_id = None
-                    if helper_ref:
-                        helper_id=helper_ref.get().to_dict().get('fb_id')
-                    #Deternine if this helper or helpee
-                    state_to_get = ''
-                    if sender_id == helper_id:
-                        # this is helper
-                        state_to_get='helper_state'
+            try:
+                if msg_conversation_id:
+                    conversation_ref=core_engine_obj.get_active_conversation_ref_byID(msg_conversation_id)
+                    if conversation_ref:
+                        print('MSG Conversation ID is in chat message')
                     else:
-                        # this is helpee
-                        state_to_get='helpee_state'
-                    conversation_state = conversation_ref.get().to_dict().get(state_to_get) 
-                print("Conversation Flow State is:{}".format(conversation_state))
-                payloads = exchange_obj.get_action(conversation_ref,conversation_state)
-               # print(payloads)
-              #  print('---------above  is the payload created by the platform -----')
+                        print('There is no conversation with the ID{}: '.format(msg_conversation_id))
+                else:
+                    conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
+                    #print('Conversation Ref is {}'.format(conversation_ref))
+                    if conversation_ref:
+                        print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref, conversation_ref))
+                    else:
+                        print('There is no actual object: {}'.format(conversation_ref))
+               #print('Conversation Ref is: '.format(conversation_ref.get().id))
+                #TODO: Fix the expert conversation references
+
+                #You have got everything from the user_message. Now get the flow state from conversation. Per the conversation state respond to the message
+                #Store the reference to the state in the conversation
+                # Make the change here to make this code generic
+                #print("User response is {} and conversation ref {}".format(user_response, conversation_ref))
+                exchange_obj = conversation_exchange.Exchange(sender_id,'FB',core_engine_obj,user_response)
+              #  exchange_obj.get_action()
+                if not conversation_ref:
+                    #start the conversation
+                    core_engine_obj.update_member_details(member_ref,get_user_details(sender_id))
+                    payloads = exchange_obj.start_conversation(core_engine_obj)
+                else:
+                    #Get the conversation flow state, from the payload and send it
+                    if conversation_state is None:
+                        # First check if the request is coming from expert or person needing help. Based on this retrieving the state from the conversation
+                        #helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+
+                        helper_ref = conversation_ref.get().to_dict().get('helper_ref')
+                        helper_id = None
+                        if helper_ref:
+                            helper_id=helper_ref.get().to_dict().get('fb_id')
+                        #Deternine if this helper or helpee
+                        state_to_get = ''
+                        if sender_id == helper_id:
+                            # this is helper
+                            state_to_get='helper_state'
+                        else:
+                            # this is helpee
+                            state_to_get='helpee_state'
+                        conversation_state = conversation_ref.get().to_dict().get(state_to_get) 
+                    print("Conversation Flow State is:{}".format(conversation_state))
+                    payloads = exchange_obj.get_action(conversation_ref,conversation_state)
+        except Exception as e:
+            print('Exception Occured. {}'.format(str(e)))
+                   # print(payloads)
+                  #  print('---------above  is the payload created by the platform -----')
     for payload in payloads:
         send_message(payload)
     return "Message Processed"
-
  
 def verify_fb_token(token_sent):
     #take token sent by facebook and verify it matches the verify token you sent
