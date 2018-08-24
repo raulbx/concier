@@ -78,7 +78,7 @@ def receive_message():
             else:
                 conversation_ref = core_engine_obj.get_active_conversation_ref(member_ref) #This gets the reference to the associated conversation object
                 #print('Conversation Ref is {}'.format(conversation_ref))
-                if conversation_ref.exists:
+                if conversation_ref..get().exists:
                     print('Retrieved Conversation ID: {} from the conversation ref {}'.format(conversation_ref.id, conversation_ref))
                 else:
                     print('There is no actual object: {}'.format(conversation_ref))
