@@ -124,6 +124,7 @@ def receive_message():
                 payload['message'] = {
                 'text' : 'Error Happened'
                 }
+                payloads = []
                 payloads.append(payload)
                    # print(payloads)
                   #  print('---------above  is the payload created by the platform -----')
