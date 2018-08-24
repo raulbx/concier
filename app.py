@@ -119,6 +119,11 @@ def receive_message():
                     payloads = exchange_obj.get_action(conversation_ref,conversation_state)
             except Exception as e:
                 print('Exception Occured. {}'.format(str(e)))
+                payload['notification_type'] = 'REGULAR'
+                payload['message'] = {
+                'text' : 'Error Happened'
+                }
+                payloads.append(payload)
                    # print(payloads)
                   #  print('---------above  is the payload created by the platform -----')
     for payload in payloads:
