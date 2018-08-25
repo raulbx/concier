@@ -275,7 +275,7 @@ class Exchange(object):
             conversation_ref.update({'helpee_review':review})
             print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
-            conversation_ref.update({'lastactivedate':datetime.now()})
+        conversation_ref.update({'lastactivedate':datetime.now()})
 
         return payload
 
