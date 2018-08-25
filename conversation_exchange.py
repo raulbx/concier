@@ -247,7 +247,8 @@ class Exchange(object):
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
-    
+
+        conversation_ref.update({'lastactivedate':datetime.now()})
         return payload
 
     def record_review(self,payload,conversation_ref):
