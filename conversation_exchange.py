@@ -122,6 +122,7 @@ class Exchange(object):
                 print(product)
         else:
             print('Nothing in the product list')
+        payload = response_payload.fb_payload('ask_product_category','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         return payload
 
     def record_need(self,payload,conversation_ref):

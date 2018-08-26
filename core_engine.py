@@ -139,6 +139,7 @@ class Members(object):
 
 	def get_specific_products(self, product_category):
 		#The list to be shown is always document. So we return the list of document ID's
+		db = firestore.client()
 		product_list = []
 		expertise_hierarchy = db.collection("expertise").document(product_category)
 		try:
