@@ -137,6 +137,20 @@ class Members(object):
 		flow_state_ref = db.collection("conversation_flow_states").document(flow_state)
 		return flow_state_ref
 
+	def get_specific_products(self, product_category):
+		#The list to be shown is always document. So we return the list of document ID's
+		product_list = []
+		expertise_hierarchy = db.collection("expertise").document(product_category)
+		try:
+			expertise_hierarchy_contents = expertise_ref.get().to_dict()
+			for product_name_key, product_name_value in expertise_hierarchy_contents.items():
+				product_list.append(product_name_key)
+			print('Product List is:'.format(product_list))
+		except google.cloud.exceptions.NotFound:
+			print('Exception occured')
+
+		return product_list
+
 	def get_experts(self,expertise):
 		db = firestore.client()
 		#return db.collection("expertise").where("expertise_category", "==", expertise)

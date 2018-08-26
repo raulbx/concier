@@ -115,6 +115,15 @@ class Exchange(object):
         del payload['platform']
         return payload
 
+    def get_specific_products(self,payload,conversation_ref):
+        product_list=self.core_engine_obj.get_specific_products(self.user_response)
+        if len(product_list)>0:
+            for product in product_list:
+                print(product)
+        else:
+            print('Nothing in the product list')
+        return payload
+
     def record_need(self,payload,conversation_ref):
         conversation_ref.update({'user_need':self.user_response})
         print("Saving users need-question")

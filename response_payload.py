@@ -79,7 +79,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'text' : 'Which specific product under $arg1, are you shopping for?'
         }
         payload['platform'] = {
-        'action':'record_value_set_future_state',
+        #'action':'record_value_set_future_state',
+        'action':'get_specific_products',
         'field':'product_category',
         'helpee_next_state':'record_specific_product_understand_need'
         }
