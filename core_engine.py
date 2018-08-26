@@ -147,7 +147,7 @@ class Members(object):
 			for product_name_key, product_name_value in expertise_hierarchy_contents.items():
 				product_list.append(product_name_key)
 			print('Product List is:'.format(product_list))
-		except google.cloud.exceptions.NotFound:
+		except Exception as e:
 			print('Exception occured in get specific product')
 			print(str(e))
 		return product_list
