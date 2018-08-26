@@ -146,6 +146,7 @@ class Members(object):
 			expertise_hierarchy_contents = expertise_hierarchy.get().to_dict()
 			for product_name_key, product_name_value in expertise_hierarchy_contents.items():
 				product_list.append(product_name_key)
+				print(product_name_value.type())
 			print('Product List is:'.format(product_list))
 		except Exception as e:
 			print('Exception occured in get specific product')
