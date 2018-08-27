@@ -170,7 +170,7 @@ class Members(object):
 					product_values = product_dict.get(product_category)
 					print('Product is one level down. Product is {}'.format(product_values))
 				else:
-
+					print('Else side. This is the end.')
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
 		except Exception as e:
