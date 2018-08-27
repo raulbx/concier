@@ -146,7 +146,7 @@ class Members(object):
 		'''
 		#expertise_hierarchy = db.collection("expertise").document(product_category)
 		expertise_hierarchy = db.collection("expertise").get()
-		print(expertise_hierarchy)
+		print(expertise_hierarchy.get())
 
 		try:
 			#expertise_hierarchy_contents = expertise_hierarchy.get().to_dict().get(sub_product)
