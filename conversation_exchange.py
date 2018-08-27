@@ -123,11 +123,9 @@ class Exchange(object):
         if len(product_list)>0:
             for product in product_list:
                 print(product)
-
-        payload['message']['quick_replies']=reply_options
         else:
-            print('Nothing in the product list')
-        
+            payload['message']['quick_replies']=reply_options
+            print('Nothing in the product list. Original Options are {}'.format(reply_options))
         return payload
 
     def record_need(self,payload,conversation_ref):
