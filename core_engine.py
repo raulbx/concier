@@ -159,8 +159,7 @@ class Members(object):
 			'''
 			for product in expertise_hierarchy:
 				#product_name = product
-				print(product.to_dict())
-				print(product.id)
+				print('Product is {} and Product contains {}'.format(product.id,product.to_dict())
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
 		except Exception as e:
