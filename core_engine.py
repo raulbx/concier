@@ -159,10 +159,9 @@ class Members(object):
 			'''
 			for products in expertise_hierarchy:
 				#product_name = product
-				print('Product is {} and Product contains {}'.format(product.id,product.to_dict()))
+				print('Product is {} and Product contains {}'.format(products.id,products.to_dict()))
 				if products.id == product_category:
-					#product_list.append(product.id)
-					# This is the product match. Iterate the fields and send them as product list
+					# This is the level one product match. Iterate the fields and send them as product list
 					for product_name_key, product_name_value in products.to_dict():
 						product_list.append(product_name_key)
 					break
