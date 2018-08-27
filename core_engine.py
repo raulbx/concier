@@ -137,13 +137,20 @@ class Members(object):
 		flow_state_ref = db.collection("conversation_flow_states").document(flow_state)
 		return flow_state_ref
 
-	def get_specific_products(self, product_category,sub_product):
+	def get_specific_products(self, product_category):
 		#The list to be shown is always document. So we return the list of document ID's
 		db = firestore.client()
 		product_list = []
-		expertise_hierarchy = db.collection("expertise").document(product_category)
+		'''
+		Get the expertise collection. Iterate through the collection to see if this product exists. If there are only experts, then let the caller know and we shall save it.
+		'''
+		#expertise_hierarchy = db.collection("expertise").document(product_category)
+		expertise_hierarchy = db.collection("expertise").get()
+		print(expertise_hierarchy)
+
 		try:
-			expertise_hierarchy_contents = expertise_hierarchy.get().to_dict().get(sub_product)
+			#expertise_hierarchy_contents = expertise_hierarchy.get().to_dict().get(sub_product)
+			expertise_hierarchy_contents = expertise_hierarchy
 			for product_name_key, product_name_value in expertise_hierarchy_contents.items():
 				product_list.append(product_name_key)
 				print(product_name_value)
