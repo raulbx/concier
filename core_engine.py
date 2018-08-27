@@ -169,7 +169,9 @@ class Members(object):
 						product_list.append(product_name_key)
 					break
 				elif product_category in product_dict:
-					print('Product is one level down in the ')
+					print('Product is one level down. Product is {}'.format(len(product_dict)))
+
+
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
 		except Exception as e:
