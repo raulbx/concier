@@ -157,8 +157,8 @@ class Members(object):
 			print('Product List is: {}'.format(product_list))
 			'''
 			for product in expertise_hierarchy:
-				product_name = product.get()
-				print(product_name.to_dict())
+				#product_name = product
+				print(product.to_dict())
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
 		except Exception as e:
