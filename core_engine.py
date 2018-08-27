@@ -146,12 +146,12 @@ class Members(object):
 		'''
 		#expertise_hierarchy = db.collection("expertise").document(product_category)
 		expertise_hierarchy = db.collection("expertise").get()
-		print(expertise_hierarchy.get())
+		print(expertise_hierarchy)
 
 		try:
 			#expertise_hierarchy_contents = expertise_hierarchy.get().to_dict().get(sub_product)
 			expertise_hierarchy_contents = expertise_hierarchy
-			for product_name_key, product_name_value in expertise_hierarchy_contents.items():
+			for product_name_key, product_name_value in expertise_hierarchy_contents:
 				product_list.append(product_name_key)
 				print(product_name_value)
 			print('Product List is: {}'.format(product_list))
