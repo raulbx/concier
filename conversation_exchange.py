@@ -118,7 +118,8 @@ class Exchange(object):
     def get_specific_products(self,payload,conversation_ref):
         
         payload = response_payload.fb_payload('ask_product_category','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-        product_list=self.core_engine_obj.get_specific_products(self.user_response)
+        sub_product='Computer Accessories'
+        product_list=self.core_engine_obj.get_specific_products(self.user_response,sub_product)
         #payload['message']['quick_replies']
         if len(product_list)>0:
             payload['message']['quick_replies']=[]
