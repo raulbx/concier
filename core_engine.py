@@ -169,7 +169,7 @@ class Members(object):
 				elif product_category in product_dict:
 					product_values = product_dict.get(product_category)
 					print('Product is one level down. Product is {}'.format(product_values))
-					product_list.append([*product_values])
+					product_list.append(*product_values)
 					break
 				else:
 					print('Else side. This is the end.')
