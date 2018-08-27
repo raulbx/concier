@@ -129,8 +129,7 @@ class Exchange(object):
                 }
                 payload['message']['quick_replies'].append(option)
         else:
-            payload['message']['quick_replies']=reply_options
-            print('Nothing in the product list. Original Options are {}'.format(reply_options))
+            print('Nothing in the product list. Original Options are ')
         return payload
 
     def record_need(self,payload,conversation_ref):
