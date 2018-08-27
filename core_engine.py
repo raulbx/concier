@@ -161,16 +161,15 @@ class Members(object):
 				#product_name = product
 				print('Product is {} and Product is of type {}'.format(products.id,products.to_dict()))
 				product_dict = products.to_dict()
-				print(product_dict)
 				if products.id == product_category:
 					# This is the level one product match. Iterate the fields and send them as product list
-					
 					for product_name_key, product_name_value in product_dict.items():
 						product_list.append(product_name_key)
 					break
 				elif product_category in product_dict:
-					print('Product is one level down. Product is {}'.format(len(product_dict)))
-
+					product_values = product_dict.get(product_category)
+					print('Product is one level down. Product is {}'.format(product_values))
+				else:
 
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
