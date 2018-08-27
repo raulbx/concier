@@ -162,7 +162,7 @@ class Members(object):
 				print('Product is {} and Product contains {}'.format(products.id,products.to_dict()))
 				if products.id == product_category:
 					# This is the level one product match. Iterate the fields and send them as product list
-					for product_name_key, product_name_value in products.to_dict():
+					for product_name_key, product_name_value in products.items():
 						product_list.append(product_name_key)
 					break
 				elif product_category in product.to_dict():
