@@ -116,8 +116,9 @@ class Exchange(object):
         return payload
 
     def get_specific_products(self,payload,conversation_ref):
-        product_list=self.core_engine_obj.get_specific_products(self.user_response)
+        
         payload = response_payload.fb_payload('ask_product_category','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+        product_list=self.core_engine_obj.get_specific_products(self.user_response)
         #payload['message']['quick_replies']
         if len(product_list)>0:
             payload['message']['quick_replies']=[]
@@ -129,7 +130,7 @@ class Exchange(object):
                 }
                 payload['message']['quick_replies'].append(option)
         else:
-            print('Nothing in the product list. Original Options are ')
+            print('Nothing in the product list. Original product choosen was {}'.format(self.user_response))
         return payload
 
     def record_need(self,payload,conversation_ref):
