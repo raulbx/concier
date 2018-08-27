@@ -164,7 +164,7 @@ class Members(object):
 				if products.id == product_category:
 					# This is the level one product match. Iterate the fields and send them as product list
 					
-					for product_name_key, product_name_value in product_dict:
+					for product_name_key, product_name_value in product_dict.items():
 						product_list.append(product_name_key)
 					break
 				elif product_category in product_dict:
