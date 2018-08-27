@@ -146,7 +146,8 @@ class Members(object):
 		'''
 		#expertise_hierarchy = db.collection("expertise").document(product_category)
 		expertise_hierarchy = db.collection("expertise").get()
-		print(expertise_hierarchy)
+
+		#print(expertise_hierarchy)
 
 		try:
 			'''
@@ -159,6 +160,7 @@ class Members(object):
 			for product in expertise_hierarchy:
 				#product_name = product
 				print(product.to_dict())
+				print(product.id)
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
 		except Exception as e:
