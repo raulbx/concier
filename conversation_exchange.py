@@ -155,21 +155,18 @@ class Exchange(object):
         payloads = []
         payloads.append(payload)
 
-        ####conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('future_state')})
+        conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('helpee_next_state')})
+
+        '''
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
+        '''
         
-        #print("Broadcasting message")
-        #print (payload)
         specific_product = conversation_ref.get().to_dict().get('specific_product')
-        #print(product_category)
         experts_list = self.core_engine_obj.get_experts(specific_product)
-        #print()
-        #Need to refine this code
-        #payloads.append(payload) #This creates the response payload for the person needing help
-        #print(payloads)
+       
         response_template = 'A community member is interested in making a decision.  Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
         response = Template(response_template).safe_substitute(arg1=specific_product,arg2=conversation_ref.get().to_dict().get('user_need'),arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
@@ -182,7 +179,6 @@ class Exchange(object):
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
             payload['message']['text'] = 'We don\'t have a member, who knows about {}. We are regularly on boarding new members. We will get in touch once we have a member, who knows about {}'.format(specific_product,specific_product)
-
         del payload['platform']
         
         print('Number of experts is {}'.format(len(experts_list)))
