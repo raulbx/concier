@@ -33,9 +33,6 @@ class Exchange(object):
             # Flush the payload
             payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)
 
-           
-
-
             print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
             if 'platform' in payload:
                 platform_action = payload['platform'].get('action')
@@ -244,22 +241,28 @@ class Exchange(object):
             partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
             #send message to helper
 
-        if '#end' in self.user_response.lower():
-            print('User has asked to end the conversation: ')
-            
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
         if self.user_response and partyName:
             payload['message']['text'] = partyName+': '+self.user_response
         else:
             payload['message']['text'] = '...'
-        #TEST CODE
-        #recipient_id = helper_id
-        #END TEST CODE. Remove once done
-
+        
         payload['recipient']['id'] = recipient_id
-        print(payload)
 
-        return payload
+        #If one of the party ends the conversation, it will go here.
+
+        if '#end' in self.user_response.lower():
+            print('User has asked to end the conversation:')
+            payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            payload = self.request_review(payload,conversation_ref)
+            counterPartyPayload= {}
+            counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
+            counterPartyPayload['message']['attachment']['payload']['text']='The other user has decided to end the conversation. Was this experience helpful?'
+            payloads.append(counterPartyPayload)
+
+        payloads.append(payload)
+
+        return payloads
 
     def request_review(self,payload,conversation_ref):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
