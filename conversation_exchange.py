@@ -290,7 +290,7 @@ class Exchange(object):
             else:
                 review = self.user_response
             conversation_ref.update({'helper_review':review})
-            print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
+            print('After Update: Helper Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
         else:
             #print('Before Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
