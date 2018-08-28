@@ -21,9 +21,6 @@ class Exchange(object):
         payloads = []
         payload = {}
 
-        if '#end' in self.user_response.lower():
-            print('User has asked to end the conversation: ')
-
         try:
             conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
@@ -221,7 +218,7 @@ class Exchange(object):
         why_bought_product = conversation_ref.get().to_dict().get('expert_why_product_bought')
 
         helpeePayload= {}
-        helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct Bought: {}\nProduct Looked at:{}\nPrice Range:{}\nDifference in product:{}\nWhy bought {}:{}\nWe will now connect you to {}. Please say hi!\n\nAt any time, if you want to end the conversation, type #End and enter.'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
+        helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct Bought: {}\nProduct Looked at:{}\nPrice Range:{}\nDifference in product:{}\nWhy bought {}:{}\n\nWe will now connect you to {}. Please say hi!\nAt any time, if you want to end the conversation, type #End and enter.'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
@@ -246,7 +243,10 @@ class Exchange(object):
             recipient_id = helper_id
             partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
             #send message to helper
-        #response =partyName+': '+message['message'].get('text')
+
+        if '#end' in self.user_response.lower():
+            print('User has asked to end the conversation: ')
+            
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
         if self.user_response and partyName:
             payload['message']['text'] = partyName+': '+self.user_response
