@@ -234,11 +234,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     "type":"postback",
                     "title":"Computer Related",
                     "payload":"register_expert:"+conversation_id
-                    },
-                    {
-                    "type":"postback",
-                    "title":"Other",
-                    "payload":"register_expert:"+conversation_id
                     }
                     ]
                 }
