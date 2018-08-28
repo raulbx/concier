@@ -277,6 +277,7 @@ class Exchange(object):
         return payload
 
     def record_review(self,payload,conversation_ref):
+        payloads = []
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
         #Deternine if this helper or helpee
@@ -301,9 +302,14 @@ class Exchange(object):
             conversation_ref.update({'helpee_review':review})
             print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
+        
         conversation_ref.update({'lastactivedate':datetime.now()})
+        payloads.append(payload)
 
-        return payload
+        if payload['platform'].get('next_state')='conversation_closed':
+            new_conversation_payload = self.start_new_conversation(payload,conversation_ref)
+            payloads.append(new_conversation_payload)
+        return payloads
 
     def start_new_conversation(self,payload,conversation_ref):
         new_conversation_ref = self.core_engine_obj.add_conversation(self.core_engine_obj.get_member())
