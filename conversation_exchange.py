@@ -132,7 +132,7 @@ class Exchange(object):
                 }
                 payload['message']['quick_replies'].append(option)
         else:
-            print('Nothing in the product list. This is the last product. Move to next state.')
+            print('Nothing in the product list. This is the last product. Save it and move to next state.')
         return payload
 
     def record_need(self,payload,conversation_ref):
