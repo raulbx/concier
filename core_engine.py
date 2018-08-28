@@ -159,7 +159,7 @@ class Members(object):
 			'''
 			for products in expertise_hierarchy:
 				#product_name = product
-				print('Product is {} and Product is of type {}'.format(products.id,products.to_dict()))
+				print('Product is {} and Products in this category are {}'.format(products.id,products.to_dict()))
 				product_dict = products.to_dict()
 				if products.id == product_category:
 					# This is the level one product match. Iterate the fields and send them as product list
@@ -171,8 +171,6 @@ class Members(object):
 					print('Product is one level down. Product is {}'.format(product_values))
 					product_list = [*product_values]
 					break
-				else:
-					print('Else side. This is the end.')
 		except google.cloud.exceptions.NotFound:
 			print ('Nothing found')
 		except Exception as e:
