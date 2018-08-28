@@ -318,6 +318,7 @@ class Exchange(object):
         payload = {}
         #This call is again made to populate the conversation ref in the payload.
         first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
+        print('First Name is {}'.format(first_name))
         payload = response_payload.fb_payload('welcome_user','...',self.user_id_on_platform ,new_conversation_ref.get().id,payload)
         payload['message']['attachment']['payload']['text'] = Template(payload['message']['attachment']['payload'].get('text')).safe_substitute(arg1=first_name)
         return payload
