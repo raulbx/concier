@@ -116,8 +116,6 @@ class Exchange(object):
         return payload
 
     def get_specific_products(self,payload,conversation_ref):
-
-        #payload = response_payload.fb_payload('ask_product_category','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         
         product_list=self.core_engine_obj.get_specific_products(self.user_response)
         print(product_list)
@@ -133,7 +131,11 @@ class Exchange(object):
                 }
                 payload['message']['quick_replies'].append(option)
         else:
-            print('Nothing in the product list. This is the last product. Save it and move to next state.')
+            if payload['platform'].get('helper_next_state'):
+                next_state = 'helper_next_state'
+            elif payload['platform'].get('helpee_next_state'):
+                next_state = 'helpee_next_state'
+            payload = response_payload.fb_payload(payload['platform'][next_state],'...',self.user_id_on_platform,conversation_ref.get().id,payload)
             self.record_value_set_future_state(payload, conversation_ref)
         return payload
 
