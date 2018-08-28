@@ -207,10 +207,10 @@ class Members(object):
 			else: 
 				member_array.append(member_ref)
 				expertise_ref.update({'member':member_array}, firestore.CreateIfMissingOption(True))	
-				
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
 			expertise_ref = db.collection(u'product_expertise_mapping').document(member_expertise).set(expertise_data)
+			print("Added expertise")
 		member_ref.update({'is_helper':True})
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		return platform_response
