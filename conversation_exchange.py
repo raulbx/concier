@@ -306,10 +306,10 @@ class Exchange(object):
         conversation_ref.update({'lastactivedate':datetime.now()})
         payloads.append(payload)
 
-        if payload['platform'].get('next_state')='conversation_closed':
+        if payload['platform'].get('next_state')=='conversation_closed':
             new_conversation_payload = self.start_new_conversation(payload,conversation_ref)
             payloads.append(new_conversation_payload)
-            
+
         return payloads
 
     def start_new_conversation(self,payload,conversation_ref):
