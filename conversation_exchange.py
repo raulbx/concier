@@ -163,7 +163,7 @@ class Exchange(object):
         
         #print("Broadcasting message")
         #print (payload)
-        specific_product = conversation_ref.get().to_dict().get('product_category')
+        specific_product = conversation_ref.get().to_dict().get('specific_product')
         #print(product_category)
         experts_list = self.core_engine_obj.get_experts(specific_product)
         #print()
@@ -181,7 +181,7 @@ class Exchange(object):
                 payloads.append(expertPayload)
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We are regularly on boarding new members. We will get in touch once we have a member, who knows about {}'.format(product_category,product_category)
+            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We are regularly on boarding new members. We will get in touch once we have a member, who knows about {}'.format(specific_product,specific_product)
 
         del payload['platform']
         
