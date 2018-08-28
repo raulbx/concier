@@ -197,7 +197,7 @@ class Members(object):
 		expertise_ref = None
 		db = firestore.client()
 		#expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
-		expertise_ref=db.collection("expertise_mapping").document(member_expertise)
+		expertise_ref=db.collection("product_expertise_mapping").document(member_expertise)
 		try:
 			expertise_obj = expertise_ref.get() #This will throw error if the expertise doesn't exist.
 			member_array = expertise_obj.to_dict().get('member')
