@@ -163,15 +163,15 @@ class Exchange(object):
         
         #print("Broadcasting message")
         #print (payload)
-        product_category = conversation_ref.get().to_dict().get('product_category')
+        specific_product = conversation_ref.get().to_dict().get('product_category')
         #print(product_category)
-        experts_list = self.core_engine_obj.get_experts(product_category)
+        experts_list = self.core_engine_obj.get_experts(specific_product)
         #print()
         #Need to refine this code
         #payloads.append(payload) #This creates the response payload for the person needing help
         #print(payloads)
-        response_template = 'A community member is interested in making a decision.  Can you help? \nNeed: $arg1\nProduct Category: $arg2\nSpecific Product: $arg3\nPrice Range: $arg4\nTimeline: $arg5'
-        response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=product_category,arg3=conversation_ref.get().to_dict().get('specific_product'),arg4=conversation_ref.get().to_dict().get('max_price'),arg5=conversation_ref.get().to_dict().get('time_frame'))
+        response_template = 'A community member is interested in making a decision.  Can you help? \nNeed: $arg1\nProduct: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
+        response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=specific_product,arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
         if len(experts_list)>0:
             for expert in experts_list:
