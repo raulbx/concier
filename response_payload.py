@@ -74,12 +74,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'action':'remove_helper_ref_from_current_conversation'
         }
     elif conversation_state == 'record_category_ask_specfic_product':
-        payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Which specific product under $arg1, are you shopping for?'
+        'text' : 'What specific product under $arg1, are you shopping for?'
         }
         payload['platform'] = {
         #'action':'record_value_set_future_state',
+        'current_conversation_state':'record_category_ask_specfic_product',
         'action':'get_specific_products',
         'field':'product_category',
         'helpee_next_state':'record_specific_product_understand_need'
@@ -87,7 +87,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Can you describe why you need the product?'
+        'text' : 'Can you describe why you need this product?'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',

@@ -116,23 +116,25 @@ class Exchange(object):
         return payload
 
     def get_specific_products(self,payload,conversation_ref):
+
+        #payload = response_payload.fb_payload('ask_product_category','...',self.user_id_on_platform,conversation_ref.get().id,payload)
         
-        payload = response_payload.fb_payload('ask_product_category','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-        sub_product='Computer Accessories'
         product_list=self.core_engine_obj.get_specific_products(self.user_response)
         print(product_list)
         #payload['message']['quick_replies']
         if len(product_list)>0:
+            payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=self.user_response)
             payload['message']['quick_replies']=[]
             for product in product_list:
                 option ={
                 "content_type":"text",
                 "title":product,
-                "payload":"record_category_ask_specfic_product:"+conversation_ref.get().id
+                "payload":payload['platform']['current_conversation_state']+conversation_ref.get().id
                 }
                 payload['message']['quick_replies'].append(option)
         else:
             print('Nothing in the product list. This is the last product. Save it and move to next state.')
+            self.record_value_set_future_state(payload, conversation_ref)
         return payload
 
     def record_need(self,payload,conversation_ref):
