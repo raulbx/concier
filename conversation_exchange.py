@@ -1,6 +1,7 @@
 import core_engine
 import message_payloads
 import response_payload
+import traceback
 
 import copy
 from firebase_admin import firestore
@@ -51,8 +52,9 @@ class Exchange(object):
                 payloads = payload
             else:
                 payloads.append(payload)
-        except Exception as e:
-            print('Exception Occured. {}'.format(str(e)))
+        except Exception as err:
+            print('Exception Occured. {}'.format(str(err)))
+            traceback.print_tb(err.__traceback__)
             payload = response_payload.fb_payload('default_state','Houston, we have a problem.',self.user_id_on_platform,'',payload)
             payloads.append(payload)
         return payloads
