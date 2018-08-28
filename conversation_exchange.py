@@ -136,8 +136,9 @@ class Exchange(object):
                 next_state = 'helper_next_state'
             elif payload['platform'].get('helpee_next_state'):
                 next_state = 'helpee_next_state'
+
             payload = response_payload.fb_payload(payload['platform'][next_state],'...',self.user_id_on_platform,conversation_ref.get().id,payload)
-            self.record_value_set_future_state(payload, conversation_ref)
+            payload = self.record_value_set_future_state(payload, conversation_ref)
         return payload
 
     def record_need(self,payload,conversation_ref):

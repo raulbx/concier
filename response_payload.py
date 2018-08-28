@@ -275,7 +275,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'current_conversation_state':'register_expert',
         'action':'get_specific_products',
-        'field':'helper_product_category',
         'helper_next_state':'add_expertise'
         }
     elif conversation_state == 'add_expertise':
@@ -284,7 +283,8 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'text' : 'Great!! I have added you as an expert for $arg1.'
         }
         payload['platform'] = {
-        'action':'add_expertise'
+        'action':'add_expertise',
+        'field':'helper_product_category'
         }
     elif conversation_state == 'manage_account':
         payload['notification_type'] = 'REGULAR'
