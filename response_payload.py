@@ -214,6 +214,32 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
     elif conversation_state =='choose_expertise_category':
         payload['message'] = {
+        'text' : 'Which product did you buy recently and want to share your experience on?',
+        "quick_replies":[
+            {
+            "content_type":"text",
+            "title":"Mobile",
+            "payload":"register_expert:"+conversation_id
+            },
+            {
+            "content_type":"text",
+            "title":"Home",
+            "payload":"register_expert:"+conversation_id
+            },
+            {
+            "content_type":"text",
+            "title":"Computer Related",
+            "payload":"register_expert:"+conversation_id
+            },
+            {
+            "content_type":"text",
+            "title":"Other",
+            "payload":"register_expert:"+conversation_id
+            }
+            ]
+        }
+        '''
+        payload['message'] = {
             "attachment":{
                 "type":"template",
                 "payload":{
@@ -238,7 +264,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     ]
                 }
             }
-        }
+        }'''
         payload['platform'] = {
         'action':'remove_helpee_ref_from_current_conversation'
         }
