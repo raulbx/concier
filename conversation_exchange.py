@@ -170,8 +170,8 @@ class Exchange(object):
         #Need to refine this code
         #payloads.append(payload) #This creates the response payload for the person needing help
         #print(payloads)
-        response_template = 'A community member is interested in making a decision.  Can you help? \nNeed: $arg1\nProduct: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
-        response = Template(response_template).safe_substitute(arg1=conversation_ref.get().to_dict().get('user_need'),arg2=specific_product,arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
+        response_template = 'A community member is interested in making a decision.  Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
+        response = Template(response_template).safe_substitute(arg1=specific_product,arg2=conversation_ref.get().to_dict().get('user_need'),arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
         if len(experts_list)>0:
             for expert in experts_list:
