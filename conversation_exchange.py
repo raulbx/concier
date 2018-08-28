@@ -227,6 +227,7 @@ class Exchange(object):
         return payloads
 
     def exchange_conversations(self,payload,conversation_ref):
+        payloads =[]
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
