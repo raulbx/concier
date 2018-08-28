@@ -138,7 +138,7 @@ class Members(object):
 		return flow_state_ref
 
 	def get_specific_products(self, product_category):
-		#The list to be shown is always document. So we return the list of document ID's
+		
 		db = firestore.client()
 		product_list = []
 		'''
@@ -146,8 +146,6 @@ class Members(object):
 		'''
 		#expertise_hierarchy = db.collection("expertise").document(product_category)
 		expertise_hierarchy = db.collection("expertise").get()
-
-		#print(expertise_hierarchy)
 
 		try:
 			'''
@@ -192,14 +190,14 @@ class Members(object):
 			print('No Experts found')
 		return expert_list
 
-	def add_expert(self,member_ref,member_expertise,platform_response):
+	def add_expertise(self,member_ref,member_expertise,platform_response):
 		expertise_data = {
 		'member':[member_ref]
 		}
 		expertise_ref = None
 		db = firestore.client()
 		#expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
-		expertise_ref=db.collection("expertise").document(member_expertise)
+		expertise_ref=db.collection("expertise_mapping").document(member_expertise)
 		try:
 			expertise_obj = expertise_ref.get() #This will throw error if the expertise doesn't exist.
 			member_array = expertise_obj.to_dict().get('member')
