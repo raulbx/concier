@@ -50,7 +50,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         "quick_replies":[
             {
             "content_type":"text",
-            "title":"Mobile",
+            "title":"Mobiles",
             "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
@@ -218,7 +218,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         "quick_replies":[
             {
             "content_type":"text",
-            "title":"Mobile",
+            "title":"Mobiles",
             "payload":"register_expert:"+conversation_id
             },
             {
