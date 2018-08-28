@@ -221,7 +221,7 @@ class Exchange(object):
         why_bought_product = conversation_ref.get().to_dict().get('expert_why_product_bought')
 
         helpeePayload= {}
-        helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\nProduct Bought: {}\n Product Looked at:{}\nPrice Range:{}\nDifference in product:{}\nWhy bought {}:{}\nWe will now connect you to {}. Please say hi!\n At any time, if you want to end the conversation, type #End and enter.'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
+        helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct Bought: {}\nProduct Looked at:{}\nPrice Range:{}\nDifference in product:{}\nWhy bought {}:{}\nWe will now connect you to {}. Please say hi!\n\nAt any time, if you want to end the conversation, type #End and enter.'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
