@@ -129,7 +129,7 @@ class Exchange(object):
                 option ={
                 "content_type":"text",
                 "title":product,
-                "payload":payload['platform']['current_conversation_state']+conversation_ref.get().id
+                "payload":payload['platform']['current_conversation_state']+':'+conversation_ref.get().id
                 }
                 payload['message']['quick_replies'].append(option)
         else:
