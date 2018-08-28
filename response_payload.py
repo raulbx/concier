@@ -78,7 +78,6 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'text' : 'What kind of $arg1 product are you shopping for?'
         }
         payload['platform'] = {
-        #'action':'record_value_set_future_state',
         'current_conversation_state':'record_category_ask_specfic_product',
         'action':'get_specific_products',
         'field':'product_category',
@@ -249,6 +248,16 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'action':'remove_helpee_ref_from_current_conversation'
         }
     elif conversation_state == 'register_expert':
+        payload['message'] = {
+        'text' : 'What kind of $arg1 product you know about?'
+        }
+        payload['platform'] = {
+        'current_conversation_state':'register_expert',
+        'action':'get_specific_products',
+        'field':'helper_product_category',
+        'helper_next_state':'add_expertise'
+        }
+    elif conversation_state == 'add_expertise':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Great!! I have added you as an expert for $arg1.'

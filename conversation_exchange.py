@@ -116,7 +116,6 @@ class Exchange(object):
         return payload
 
     def get_specific_products(self,payload,conversation_ref):
-        
         product_list=self.core_engine_obj.get_specific_products(self.user_response)
         print(product_list)
         #payload['message']['quick_replies']
