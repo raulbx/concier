@@ -321,7 +321,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='agree_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you for agreeing to help a community member.  Before we connect you to the member, please answer some basic questions about your shopping experience on $arg1.\n What are the major products in the market that you are aware of?'
+        'text' : 'Thank you for agreeing to help a community member.\n\nBefore we connect you to the member, please answer some basic questions about your shopping experience on $arg1.\n What are the major products in the market that you are aware of?'
         }
         payload['platform'] = {
         'action':'assign_helper',
