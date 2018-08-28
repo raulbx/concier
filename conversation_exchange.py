@@ -86,7 +86,7 @@ class Exchange(object):
         return payload
 
     def set_future_state(self,payload,conversation_ref):
-        ####conversation_ref.update({'conversation_state':payload['platform'].get('future_state')})
+        
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
@@ -155,7 +155,7 @@ class Exchange(object):
         payloads = []
         payloads.append(payload)
 
-        conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'conversation_state':payload['platform'].get('helpee_next_state')})
+        conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':payload['platform'].get('helpee_next_state')})
 
         '''
         if payload['platform'].get('helper_next_state'):
@@ -193,7 +193,6 @@ class Exchange(object):
         conversation_ref.update({'helper_ref':member_ref})
         product_Name = conversation_ref.get().to_dict().get('specific_product')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_Name)
-        #####conversation_ref.update({'helper_ref':member_ref,'conversation_state':payload['platform'].get('future_state')})
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
