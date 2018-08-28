@@ -44,6 +44,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 }
             }
         }
+        payload['platform'] = {
+        'action':'append_member_name'
+        }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
         'text' : 'What are you shopping for?',
