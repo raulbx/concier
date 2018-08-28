@@ -198,6 +198,7 @@ class Members(object):
 		db = firestore.client()
 		#expertise_query_ref=db.collection("expertise").where("expertise_category", "==", member_expertise).get()
 		expertise_ref=db.collection("product_expertise_mapping").document(member_expertise)
+		print('Inside add expertise. Ref is {}'.format(expertise_ref))
 		try:
 			expertise_obj = expertise_ref.get() #This will throw error if the expertise doesn't exist.
 			member_array = expertise_obj.to_dict().get('member')
