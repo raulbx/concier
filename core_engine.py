@@ -210,7 +210,7 @@ class Members(object):
 				
 		except google.cloud.exceptions.NotFound:
 			#Don't hate me. Apparently this is the EAFP way in Python - https://docs.python.org/3.6/glossary.html#term-eafp 
-			expertise_ref = db.collection(u'expertise').document(member_expertise).set(expertise_data)
+			expertise_ref = db.collection(u'product_expertise_mapping').document(member_expertise).set(expertise_data)
 		member_ref.update({'is_helper':True})
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		return platform_response
