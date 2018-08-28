@@ -179,7 +179,7 @@ class Members(object):
 	def get_experts(self,expertise):
 		db = firestore.client()
 		#return db.collection("expertise").where("expertise_category", "==", expertise)
-		expertise_ref = db.collection("expertise").document(expertise)
+		expertise_ref = db.collection("product_expertise_mapping").document(expertise)
 		print('Getting the expertise ref: '.format(expertise_ref))
 		try:
 			expertise_obj = expertise_ref.get() #This will throw error if the expertise doesn't exist.
