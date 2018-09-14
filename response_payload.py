@@ -89,7 +89,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Can you describe why you need this product?'
+        'text' : 'Can you describe why you need this product? Please share your product need in more than 20 characters'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
@@ -273,7 +273,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
     elif conversation_state == 'register_expert':
         payload['message'] = {
-        'text' : 'What kind of $arg1 product you know about?'
+        'text' : 'What $arg1 product?'
         }
         payload['platform'] = {
         'current_conversation_state':'register_expert',
@@ -283,7 +283,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'add_expertise':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Great!! I have added you as an expert for $arg1.'
+        'text' : 'Great!! I have added you as an expert for $arg1. When a community user needs help with $arg1, we will contact you.'
         }
         payload['platform'] = {
         'action':'add_expertise',
