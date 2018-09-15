@@ -167,7 +167,7 @@ class Exchange(object):
         specific_product = conversation_ref.get().to_dict().get('specific_product')
         experts_list = self.core_engine_obj.get_experts(specific_product)
        
-        response_template = 'A community member is interested in making a decision.  Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
+        response_template = 'A community member wants to talk to you about a product you purchased.  Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
         response = Template(response_template).safe_substitute(arg1=specific_product,arg2=conversation_ref.get().to_dict().get('user_need'),arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
         helpee_state =''
@@ -180,7 +180,7 @@ class Exchange(object):
                 payloads.append(expertPayload)
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We are regularly on boarding new members. We will get in touch once we have a member, who knows about {}'.format(specific_product,specific_product)
+            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(specific_product,specific_product)
             helpee_state='conversation_closed'
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
 
