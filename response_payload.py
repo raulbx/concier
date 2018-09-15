@@ -400,7 +400,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'text' : 'Thanks for the quick response.'
         }
         payload['platform'] = {
-        'action':'declined_to_help'
+        'action':'decline_to_help'
         }
     elif conversation_state =='helper_helpee_matched':
         #payload['notification_type'] = 'REGULAR'
