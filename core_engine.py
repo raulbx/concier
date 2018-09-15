@@ -107,6 +107,7 @@ class Members(object):
 		return conversation_ref
 
 	def append_conversation_ref(self,member_ref,conversation_ref):
+		print('About to append the conversation ID {} to member ID'.format(conversation_ref.get().id,member_ref.get().id))
 		conversations_array = member_ref.get().get('conversations')
 		if conversation_ref in conversations_array:
 			#Don't do anything.Member is already added to the conversation
@@ -114,7 +115,7 @@ class Members(object):
 		else:
 			conversations_array.append(conversation_ref)
 			member_ref.update({'conversations':conversations_array,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
-			print('Assigned member to the conversation ID: {}'.format(conversation_ref.id))
+			print('Assigned member to the conversation ID: {}'.format(conversation_ref.get().id))
 		return True
 
 	def log_message(self,member,conversation_ref,message):
