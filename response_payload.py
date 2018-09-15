@@ -89,7 +89,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Can you describe why you need this product?\nPlease share your product need in more than 20 characters'
+        'text' : 'Can you describe why you need this product?\nPlease share your product need in more than 20 characters.'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
@@ -126,7 +126,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'action':'record_value_set_future_state',
         'field':'user_need',
         'validate':'input_length_more_than_20',
-        'validation__failure_message':'Please share your product need in more than 20 characters',
+        'validation__failure_message':'Please share your product need in more than 20 characters.',
         'helpee_next_state':'record_time_frame_ask_price'
         }
     elif conversation_state =='record_time_frame_ask_price':
