@@ -114,7 +114,7 @@ class Members(object):
 		else:
 			conversations_array.append(conversation_ref)
 			member_ref.update({'conversations':conversations_array,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
-			print('Assigned expert to the conversation')
+			print('Assigned member to the conversation ID: {}'.format(conversation_ref.id))
 		return True
 
 	def log_message(self,member,conversation_ref,message):
