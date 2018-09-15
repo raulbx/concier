@@ -167,7 +167,7 @@ class Exchange(object):
         specific_product = conversation_ref.get().to_dict().get('specific_product')
         experts_list = self.core_engine_obj.get_experts(specific_product)
        
-        response_template = 'A community member wants to talk to you about a product you purchased.  Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
+        response_template = 'A community member wants to talk to you about a product you purchased. Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
         response = Template(response_template).safe_substitute(arg1=specific_product,arg2=conversation_ref.get().to_dict().get('user_need'),arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
         helpee_state =''
@@ -190,6 +190,14 @@ class Exchange(object):
 
         #print(payloads)
         return payloads
+        
+    def declined_to_help(self,payload,conversation_ref):
+        payloads = []
+        payloads.append(payload)
+        new_conversation_payload = self.start_new_conversation(payload,conversation_ref)
+        payloads.append(new_conversation_payload)
+        
+        return payload
 
     def assign_helper(self,payload,conversation_ref):
         #Assign this conversation to this expert.

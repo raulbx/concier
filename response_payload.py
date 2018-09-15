@@ -399,6 +399,9 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['message'] = {
         'text' : 'Thanks for the quick response.'
         }
+        payload['platform'] = {
+        'action':'declined_to_help'
+        }
     elif conversation_state =='helper_helpee_matched':
         #payload['notification_type'] = 'REGULAR'
         payload['message'] = {
@@ -418,12 +421,12 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                     {
                     "type":"postback",
                     "title":"Need more time (30 more minutes)",
-                    "payload":"NEWSS:"+conversation_id
+                    "payload":"extend_conversation:"+conversation_id
                     },
                     {
                     "type":"postback",
                     "title":"End conversation",
-                    "payload":"NEWSS:"+conversation_id
+                    "payload":"end_conversation:"+conversation_id
                     }
                     ]
                 }
