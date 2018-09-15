@@ -197,7 +197,7 @@ class Exchange(object):
         new_conversation_payload = self.start_new_conversation(payload,conversation_ref)
         payloads.append(new_conversation_payload)
         
-        return payload
+        return payloads
 
     def assign_helper(self,payload,conversation_ref):
         #Assign this conversation to this expert.
