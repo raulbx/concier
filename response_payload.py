@@ -53,7 +53,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         "quick_replies":[
             {
             "content_type":"text",
-            "title":"Mobiles",
+            "title":"Mobile",
             "payload":"record_category_ask_specfic_product:"+conversation_id
             },
             {
