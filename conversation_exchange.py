@@ -103,7 +103,7 @@ class Exchange(object):
         #run validation first
         validation_passed = True
         if payload['platform'].get('validate'):
-            if payload['platform'].get('validate')=='input_length_more_than_20' and len(self.user_response)<20:
+            if payload['platform'].get('validate')=='input_length_more_than_10' and len(self.user_response)<10:
                 payload = response_payload.fb_payload('validation_failure_response',payload['platform'].get('validation__failure_message'),self.user_id_on_platform,conversation_ref.get().id,payload)
                 validation_passed=False
 
@@ -313,7 +313,7 @@ class Exchange(object):
 
         if conversation_ref.get().to_dict().get('helper_ref') is not None:
             helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
-            
+
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             # This is helper save the review for helper
