@@ -294,7 +294,7 @@ class Exchange(object):
         if conversation_ref.get().to_dict().get('helpee_ref') is not None:
             helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
 
-        if conversation_ref.get().to_dict().get('helpee_ref') is not None:
+        if conversation_ref.get().to_dict().get('helper_ref') is not None:
             helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
 
         if self.user_id_on_platform == helper_id:
