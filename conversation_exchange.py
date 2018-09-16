@@ -173,7 +173,7 @@ class Exchange(object):
         helpee_state =''
         if len(experts_list)>0:
             for expert in experts_list:
-                if expert.value.get().id != self.user_id_on_platform:
+                if expert.get().id != self.user_id_on_platform:
                     expertPayload = {}
                     expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
                     helpee_state = payload['platform'].get('helpee_next_state')
