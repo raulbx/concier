@@ -295,7 +295,7 @@ class Exchange(object):
             helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
 
         if conversation_ref.get().to_dict().get('helpee_ref') is not None:
-            helper_id = conversation_ref.get().to_dicthelper_refget('helper_ref').get().to_dict().get('fb_id')
+            helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
 
         if self.user_id_on_platform == helper_id:
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
