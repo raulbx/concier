@@ -374,7 +374,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\n\nAt any time, if you want to end the conversation, type #end and enter.'
+        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\n\nCommunity member will have 12 hours to interact with you before you are released back to the community.\n\nAt any time, if you want to end the conversation, type #end and enter.'
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
