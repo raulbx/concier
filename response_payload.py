@@ -23,7 +23,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?',
+                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?\n\nAt any time, if you want to end the conversation, type #end and enter.',
                     "buttons":[
                     {
                     "type":"postback",
@@ -374,7 +374,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\nAt any time, if you want to end the conversation, type #end and enter'
+        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\n\nAt any time, if you want to end the conversation, type #end and enter.'
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
