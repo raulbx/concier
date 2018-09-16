@@ -179,6 +179,7 @@ class Exchange(object):
                     helpee_state = payload['platform'].get('helpee_next_state')
                     #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
                     payloads.append(expertPayload)
+                    print('Expert is {} and request came from {}'.format(expert.get().id,self.user_id_on_platform))
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
             payload['message']['text'] = 'We don\'t have a member, who knows about {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(specific_product,specific_product)
