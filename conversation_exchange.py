@@ -31,7 +31,10 @@ class Exchange(object):
                 conversation_state = 'conversation_ended_request_review'
 
             # Flush the payload
-            payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            if '#end' in self.user_response.lower() and conversation_state !='helper_helpee_matched':
+                payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            else:
+                payload = response_payload.fb_payload(conversation_state,'...',self.user_id_on_platform,conversation_ref.get().id,payload)
 
             print("----------------------------Pay------------------------ \n{}\n----------------Load-----------------\n".format(payload))
             if 'platform' in payload:
@@ -49,7 +52,7 @@ class Exchange(object):
         except Exception as err:
             print('Exception Occured. {}'.format(str(err)))
             traceback.print_tb(err.__traceback__)
-            payload = response_payload.fb_payload('default_state','Houston, we have a problem.',self.user_id_on_platform,'',payload)
+            payload = response_payload.fb_payload('default_state','Houston, we have a problem. Error happened.',self.user_id_on_platform,'',payload)
             payloads.append(payload)
         return payloads
 
@@ -278,7 +281,7 @@ class Exchange(object):
             payload = self.request_review(payload,conversation_ref)
             counterPartyPayload= {}
             counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
-            counterPartyPayload['message']['attachment']['payload']['text']='The other user has decided to end the conversation. Was this experience helpful?'
+            counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
 
         payloads.append(payload)

@@ -169,7 +169,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. Let me find a community member, who can help you make a decision.'
+        'text' : 'Thank you. Let me find a community member, who can help you make a decision. At any time, if you want to cancel this request, type #end and enter.'
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
@@ -178,7 +178,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Our search is on. We will be back soon with an community member to help you.'
+        'text' : 'Our search is on. We will be back soon with an community member to help you. If you want to cancel this request, type #end and enter.'
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -187,7 +187,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'We are still looking. We will be back soon with an community member to help you out.'
+        'text' : 'We are still looking. We will be back soon with an community member to help you out. If you want to cancel this request, type #end and enter.'
         }
         payload['platform'] = {
         'action':'set_future_state',
