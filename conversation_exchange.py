@@ -306,8 +306,14 @@ class Exchange(object):
 
     def record_review(self,payload,conversation_ref):
         payloads = []
-        helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-        helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
+        helpee_id = None
+        helper_id = None
+        if conversation_ref.get().to_dict().get('helpee_ref') is not None:
+            helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+
+        if conversation_ref.get().to_dict().get('helper_ref') is not None:
+            helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
+            
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             # This is helper save the review for helper
