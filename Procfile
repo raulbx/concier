@@ -1,2 +1,2 @@
 web: gunicorn app:app --log-file=-
-scheduler: python scheduler.py
+#scheduler: python scheduler.py

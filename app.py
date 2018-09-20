@@ -24,6 +24,11 @@ def check_active_conversations():
     #    send_message(payload)
     #Send it only once and disable if the user doesn't respond.
     return "Message Processed"
+
+@app.route("/sixty_minute_reminder", methods=['GET'])
+def remind_experts():
+
+    return "remind expert to respond"
     
 #We will receive messages that Facebook sends our bot at this endpoint 
 @app.route("/webhook", methods=['GET', 'POST'])
