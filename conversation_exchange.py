@@ -26,9 +26,11 @@ class Exchange(object):
 
             print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
 
-            if conversation_duration_hours > 24 and conversation_state!='welcome_user':
+            '''
+            if conversation_duration_hours > 24:
                 print('this conversation has been active for more than 24 hours')
                 conversation_state = 'conversation_ended_request_review'
+            '''
 
             # Flush the payload
             if '#end' in self.user_response.lower() and conversation_state !='helper_helpee_matched':
@@ -274,8 +276,9 @@ class Exchange(object):
         payload['recipient']['id'] = recipient_id
 
         #If one of the party ends the conversation, it will go here.
+        conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
-        if '#end' in self.user_response.lower():
+        if '#end' in self.user_response.lower() or conversation_duration_hours > 24:
             print('User has asked to end the conversation:')
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payload = self.request_review(payload,conversation_ref)
