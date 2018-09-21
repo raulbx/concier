@@ -26,7 +26,7 @@ class Exchange(object):
 
             print("Member Identifier: {}\nconversation_ref: {} \nConversation_state: {} \nConversation Duration: {}".format(self.user_id_on_platform,conversation_ref.get().id, conversation_state,conversation_duration_hours))
 
-            if conversation_duration_hours > 24:
+            if conversation_duration_hours > 24 and conversation_state!='welcome_user':
                 print('this conversation has been active for more than 24 hours')
                 conversation_state = 'conversation_ended_request_review'
 
