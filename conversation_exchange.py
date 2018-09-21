@@ -279,7 +279,7 @@ class Exchange(object):
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
         if '#end' in self.user_response.lower() or conversation_duration_hours > 24:
-            print('User has asked to end the conversation:')
+            print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payload = self.request_review(payload,conversation_ref)
             counterPartyPayload= {}
