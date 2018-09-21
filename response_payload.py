@@ -297,7 +297,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'How can I help you?'
+        'text' : 'Thank you for your message. Our concier admin will get back to you.'
         }
     elif conversation_state =='broadcast_message':
         payload['message'] = {
