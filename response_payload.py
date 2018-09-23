@@ -54,34 +54,44 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
             {
             "content_type":"text",
             "title":"Mobile",
-            "payload":"record_category_ask_specfic_product:"+conversation_id
+            "payload":"record_category_ask_product:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Home",
-            "payload":"record_category_ask_specfic_product:"+conversation_id
+            "payload":"record_category_ask_product:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Computer Related",
-            "payload":"record_category_ask_specfic_product:"+conversation_id
+            "payload":"record_category_ask_product:"+conversation_id
             },
             {
             "content_type":"text",
             "title":"Other",
-            "payload":"record_category_ask_specfic_product:"+conversation_id
+            "payload":"record_category_ask_product:"+conversation_id
             }
             ]
         }
         payload['platform'] = {
         'action':'remove_helper_ref_from_current_conversation'
         }
-    elif conversation_state == 'record_category_ask_specfic_product':
+    elif conversation_state == 'record_category_ask_product':
         payload['message'] = {
         'text' : 'What kind of $arg1 product are you shopping for?'
         }
         payload['platform'] = {
-        'current_conversation_state':'record_category_ask_specfic_product',
+        'current_conversation_state':'record_category_ask_product',
+        'action':'get_specific_products',
+        'field':'product_category',
+        'helpee_next_state':'record_product_ask_specfic_product_brand'
+        }
+    elif conversation_state == 'record_product_ask_specfic_product_brand':
+        payload['message'] = {
+        'text' : 'Any specific product or brand in this category?'
+        }
+        payload['platform'] = {
+        'current_conversation_state':'record_product_ask_specfic_product_brand',
         'action':'get_specific_products',
         'field':'product_category',
         'helpee_next_state':'record_specific_product_understand_need'
@@ -89,7 +99,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Can you describe why you need this product? Please share your product need in more than 10 characters.'
+        'text' : 'Can you describe why you need this product?\n\nPlease share your product need in more than 10 characters.'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
