@@ -169,11 +169,11 @@ class Exchange(object):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
         '''
 
-        specific_product = conversation_ref.get().to_dict().get('specific_product')
-        experts_list = self.core_engine_obj.get_experts(specific_product)
+        product = conversation_ref.get().to_dict().get('product')
+        experts_list = self.core_engine_obj.get_experts(product)
        
         response_template = 'A community member wants to talk to you about a product you purchased. Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
-        response = Template(response_template).safe_substitute(arg1=specific_product,arg2=conversation_ref.get().to_dict().get('user_need'),arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
+        response = Template(response_template).safe_substitute(arg1=product,arg2=conversation_ref.get().to_dict().get('user_need'),arg3=conversation_ref.get().to_dict().get('max_price'),arg4=conversation_ref.get().to_dict().get('time_frame'))
         print('\nPayload before assignement\n')
         helpee_state =''
         if len(experts_list)>0:
@@ -187,7 +187,7 @@ class Exchange(object):
                     print('Expert is {} and request came from {}'.format(expert.get().to_dict().get('fb_id'),self.user_id_on_platform))
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(specific_product,specific_product)
+            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(product,product)
             helpee_state='conversation_closed'
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
 
@@ -211,7 +211,7 @@ class Exchange(object):
         member_ref = self.core_engine_obj.get_member()
         self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         conversation_ref.update({'helper_ref':member_ref})
-        product_Name = conversation_ref.get().to_dict().get('specific_product')
+        product_Name = conversation_ref.get().to_dict().get('product')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_Name)
         if payload['platform'].get('helper_next_state'):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})

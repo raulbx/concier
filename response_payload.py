@@ -83,7 +83,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'current_conversation_state':'record_category_ask_product',
         'action':'get_specific_products',
-        'field':'product_category',
+        'field':'category',
         'helpee_next_state':'record_product_ask_specfic_product_brand'
         }
     elif conversation_state == 'record_product_ask_specfic_product_brand':
@@ -93,7 +93,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'current_conversation_state':'record_product_ask_specfic_product_brand',
         'action':'get_specific_products',
-        'field':'product_category',
+        'field':'product',
         'helpee_next_state':'record_specific_product_understand_need'
         }
     elif conversation_state == 'record_specific_product_understand_need':
