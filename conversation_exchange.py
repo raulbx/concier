@@ -188,7 +188,7 @@ class Exchange(object):
                     print('Expert is {} and request came from {}'.format(expert.get().to_dict().get('fb_id'),self.user_id_on_platform))
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'We don\'t have a member, who knows about {}: {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(product,product,specific_product)
+            payload['message']['text'] = 'Currently, we don\'t have a member who has bought a product you have specified.  We will get back to you, when a member who can you help you joins.')
             helpee_state='conversation_closed'
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
 
