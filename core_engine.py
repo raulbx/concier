@@ -251,7 +251,7 @@ class Platform(object):
 		try:
 			for conversation_snapshot in query_refs_1:
 				print('Conversation from query 1 {}\n'.format(conversation_snapshot))
-				print('Document from query 1 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').reference))
+				print('Document from query 1 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
 				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
 
 			for conversation_snapshot in query_refs_2:
