@@ -251,16 +251,18 @@ class Platform(object):
 		try:
 			for conversation_snapshot in query_refs_1:
 				#print('Conversation from query 1 {}\n'.format(conversation_snapshot))
-				#print('Document from query 1 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
-				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref').get().to_dict().get(fb_id))
+				print('Document from query 1 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
+				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref').to_dict().get(fb_id))
 
 			for conversation_snapshot in query_refs_2:
 				#print('Conversation from query 2 {}\n'.format(conversation_snapshot))
-				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref').get().to_dict().get(fb_id))
+				print('Document from query 1 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
+				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref').to_dict().get(fb_id))
 			
 			for conversation_snapshot in query_refs_3:
 				#print('Conversation from query 3 {}\n'.format(conversation_snapshot))
-				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref').get().to_dict().get(fb_id))
+				print('Document from query 1 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
+				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref').to_dict().get(fb_id))
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
