@@ -170,6 +170,7 @@ class Exchange(object):
         '''
 
         product = conversation_ref.get().to_dict().get('product')
+        specific_product = conversation_ref.get().to_dict().get('specific_product')
         experts_list = self.core_engine_obj.get_experts(product)
        
         response_template = 'A community member wants to talk to you about a product you purchased. Can you help? \nProduct: $arg1\nNeed: $arg2\nPrice Range: $arg3\nTimeline: $arg4'
@@ -187,7 +188,7 @@ class Exchange(object):
                     print('Expert is {} and request came from {}'.format(expert.get().to_dict().get('fb_id'),self.user_id_on_platform))
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'We don\'t have a member, who knows about {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(product,product)
+            payload['message']['text'] = 'We don\'t have a member, who knows about {}: {}. We regularly on board new members. We will get in touch once we have a member, who knows about {}'.format(product,product,specific_product)
             helpee_state='conversation_closed'
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
 
@@ -377,7 +378,7 @@ def close_overdue_conversations():
     payloads = []
     core_engine_obj = core_engine.Platform()
     waiting_helpee_list = core_engine_obj.get_all_waiting_helpees()
-    
+
     if len(waiting_helpee_list)>0:
         for helpee_ref in waiting_helpee_list:
             helpeePayload = {}
