@@ -246,15 +246,18 @@ class Platform(object):
 		query_refs_3 = db.collection("conversations").where(u'helpee_state', u'==', 'onboard_complete_user_followed_up_twice').get()
 		waiting_helpee_list = []
 
-		print('Query results are 1:{}\n2:{}\n3:{}'.format(query_refs_1,query_refs_2,query_refs_3))
+		#print('Query results are 1:{}\n2:{}\n3:{}'.format(query_refs_1,query_refs_2,query_refs_3))
 
 		try:
 			for conversation_snapshot in query_refs_1:
 				print('Conversation from query 1 {}\n'.format(conversation_snapshot))
+				print('Document from query 1 {}\n'.format(onversation_snapshot.get().to_dict()))
 				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+
 			for conversation_snapshot in query_refs_2:
 				print('Conversation from query 2 {}\n'.format(conversation_snapshot))
 				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+			
 			for conversation_snapshot in query_refs_3:
 				print('Conversation from query 3 {}\n'.format(conversation_snapshot))
 				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
