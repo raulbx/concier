@@ -32,13 +32,14 @@ def remind_expert_to_respond():
 
 @app.route('/close_overdue_conversations', methods=['GET'])
 def close_overdue_conversations():
-    status=False
+    status='Done'
     #exchange_obj = conversation_exchange.Exchange('00000000000','FB',core_engine_obj,'No User response')
 
     payloads = conversation_exchange.close_overdue_conversations()
 
     for payload in payloads:
-        send_message(payload)
+        print('The payload from backend is '.format(payload))
+     #   send_message(payload)
     return status
 
 #We will receive messages that Facebook sends our bot at this endpoint 
