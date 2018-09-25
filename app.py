@@ -38,7 +38,7 @@ def close_overdue_conversations():
     payloads = conversation_exchange.close_overdue_conversations()
 
     for payload in payloads:
-        print('The payload from backend is '.format(payload))
+        print('The payload from backend is {}'.format(payload))
      #   send_message(payload)
     return status
 
