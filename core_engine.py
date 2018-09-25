@@ -238,3 +238,26 @@ class Platform(object):
 		except Exception as e:
 			print(str(e))
 		return conversation_refs
+
+	def get_all_waiting_helpees(self):
+		db = firestore.client()
+		query_refs_1 = db.collection("conversations").where(u'helpee_state', u'==', 'onboard_complete_waiting_for_expert').get()
+		query_refs_2 = db.collection("conversations").where(u'helpee_state', u'==', 'onboard_complete_user_followed_up_once').get()
+		query_refs_3 = db.collection("conversations").where(u'helpee_state', u'==', 'onboard_complete_user_followed_up_twice').get()
+		waiting_helpee_list = []
+
+		try:
+			for conversation_snapshot in query_refs_1:
+				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+			for conversation_snapshot in query_refs_2:
+				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+			for conversation_snapshot in query_refs_3:
+				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+		except ValueError:
+			print(u'Value Error.....!')
+		except Exception as e:
+			print(str(e))
+
+		print(waiting_helpee_list)
+
+		return waiting_helpee_list

@@ -372,3 +372,17 @@ def message_active_conversation(conversation_refs):
         payload=response_payload.fb_payload('message_if_conversation_active','...',conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id'),conversation_ref.get().id)
         payloads.append(payload)
     return payloads
+
+def close_overdue_conversations():
+    payloads = []
+    core_engine_obj = core_engine.Platform()
+
+    waiting_helpee_list = core_engine_obj.get_all_waiting_helpees()
+
+    if len(waiting_helpee_list)>0:
+        for helpee in waiting_helpee_list:
+            helpeePayload = {}
+            helpeePayload = response_payload.fb_payload('overdue_conversation',response,helpee.get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
+            payloads.append(expertPayload)
+            
+    return payloads 

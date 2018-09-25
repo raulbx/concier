@@ -420,6 +420,14 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'exchange_conversations'
         }
+    elif conversation_state =='overdue_conversation':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' :'I am sorry. We don\'t have a member who can help you now.  Please check back again in sometime, and ask again.'
+        }
+        payload['platform'] = {
+        'action':'exchange_conversations'
+        }
     elif conversation_state =='message_if_conversation_active':
         payload['message'] = {
             "attachment":{
