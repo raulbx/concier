@@ -250,11 +250,14 @@ class Platform(object):
 
 		try:
 			for conversation_snapshot in query_refs_1:
-				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+				print('Conversation from query 1 {}\n'.format(conversation_snapshot))
+				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
 			for conversation_snapshot in query_refs_2:
-				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+				print('Conversation from query 2 {}\n'.format(conversation_snapshot))
+				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
 			for conversation_snapshot in query_refs_3:
-				waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
+				print('Conversation from query 3 {}\n'.format(conversation_snapshot))
+				#waiting_helpee_list.append(conversation_snapshot.get().to_dict().get('helpee_ref'))
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
