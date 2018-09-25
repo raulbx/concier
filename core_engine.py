@@ -265,6 +265,7 @@ class Platform(object):
 		except ValueError:
 			print(u'Value Error.....!')
 		except Exception as e:
+			print('Exception occured')
 			print(str(e))
 
 		print(waiting_helpee_list)
