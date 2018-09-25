@@ -383,6 +383,6 @@ def close_overdue_conversations():
         for helpee in waiting_helpee_list:
             helpeePayload = {}
             helpeePayload = response_payload.fb_payload('overdue_conversation','response',helpee.get().to_dict().get('fb_id'),'This is',helpeePayload)
-            payloads.append(expertPayload)
+            payloads.append(helpeePayload)
 
     return payloads 
