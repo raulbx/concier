@@ -319,7 +319,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
-        'field':'user_query'
+        'field':'user_query',
         'helpee_next_state':'user_query_recorded'
         }
     elif conversation_state =='broadcast_message':
