@@ -307,6 +307,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
+        'text' : 'Please go ahead and share your query.'
         }
         payload['platform'] = {
         'action':'set_future_state',
