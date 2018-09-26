@@ -310,13 +310,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'set_future_state',
-        'helpee_next_state':'record_user_query',
         'helpee_next_state':'record_user_query'
         }
     elif conversation_state == 'record_user_query':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : 'Thank you for your message. Our concier admin will get back to you.'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'user_query'
+        'helpee_next_state':'user_query_recorded'
         }
     elif conversation_state =='broadcast_message':
         payload['message'] = {
