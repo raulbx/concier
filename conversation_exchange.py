@@ -188,7 +188,7 @@ class Exchange(object):
                     print('Expert is {} and request came from {}'.format(expert.get().to_dict().get('fb_id'),self.user_id_on_platform))
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
-            payload['message']['text'] = 'Currently, we don\'t have a member who has bought a product you have specified.  We will get back to you, when a member who can you help you joins.')
+            payload['message']['text'] = 'Currently, we don\'t have a member who has bought a product you have specified. We will get back to you, when a member who can you help you joins.'
             helpee_state='conversation_closed'
         conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
 
@@ -340,7 +340,6 @@ class Exchange(object):
             conversation_ref.update({'helpee_review':review})
             print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
-        
         conversation_ref.update({'lastactivedate':datetime.now()})
         payloads.append(payload)
 
