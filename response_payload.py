@@ -307,7 +307,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        
+        'text' : 'Thank you for your message. Our concier admin will get back to you.'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
