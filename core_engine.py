@@ -251,7 +251,8 @@ class Platform(object):
 		try:
 			for conversation_snapshot in query_refs_1:
 				#print('Conversation from query 1 {}\n'.format(conversation_snapshot))
-				print('Document from query 1 {}\n'.format(conversation_snapshot))
+				print('Document from query 1 {}\n'.format(conversation_snapshot.id))
+				conversation_snapshot.update({'helpee_state':'conversation_closed'})
 				waiting_helpee_list.append(conversation_snapshot.to_dict().get('helpee_ref'))
 			for conversation_snapshot in query_refs_2:
 				#print('Conversation from query 2 {}\n'.format(conversation_snapshot))
