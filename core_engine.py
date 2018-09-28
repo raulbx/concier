@@ -253,7 +253,7 @@ class Platform(object):
 				#print('Conversation from query 1 {}\n'.format(conversation_snapshot))
 				print('Document from query 1 {}\n'.format(conversation_snapshot.id))
 				waiting_helpee_list.append(conversation_snapshot.to_dict().get('helpee_ref'))
-				conversation_snapshot.reference.update({'helpee_state':'conversation_closed'})
+				#conversation_snapshot.reference.update({'helpee_state':'conversation_closed'})
 			for conversation_snapshot in query_refs_2:
 				#print('Conversation from query 2 {}\n'.format(conversation_snapshot))
 				waiting_helpee_list.append(conversation_snapshot.to_dict().get('helpee_ref'))
