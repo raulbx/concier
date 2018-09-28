@@ -256,10 +256,11 @@ class Platform(object):
 			for conversation_snapshot in query_refs_2:
 				#print('Conversation from query 2 {}\n'.format(conversation_snapshot))
 				waiting_helpee_list.append(conversation_snapshot.to_dict().get('helpee_ref'))
-
+				print('Document from query 2 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
 			for conversation_snapshot in query_refs_3:
 				#print('Conversation from query 3 {}\n'.format(conversation_snapshot))
 				waiting_helpee_list.append(conversation_snapshot.to_dict().get('helpee_ref'))
+				print('Document from query 3 {}\n'.format(conversation_snapshot.to_dict().get('helpee_ref').id))
 
 		except ValueError:
 			print(u'Value Error.....!')
