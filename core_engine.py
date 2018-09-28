@@ -239,7 +239,7 @@ class Platform(object):
 			print(str(e))
 		return conversation_refs
 
-	def get_all_waiting_helpees(self):
+	def close_overdue_conversations(self):
 		db = firestore.client()
 		query_refs_1 = db.collection("conversations").where(u'helpee_state', u'==', 'onboard_complete_waiting_for_expert').get()
 		query_refs_2 = db.collection("conversations").where(u'helpee_state', u'==', 'onboard_complete_user_followed_up_once').get()
