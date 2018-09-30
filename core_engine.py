@@ -271,6 +271,6 @@ class Platform(object):
 			print('Exception occured')
 			print(str(e))
 
-		print('Waiting List is: '.format(waiting_helpee_list))
+		print('Waiting List is: {}'.format(waiting_helpee_list))
 
 		return waiting_helpee_list
