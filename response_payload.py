@@ -506,6 +506,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_review',
+        'helpee_message':'Thank you for your valuable feedback. If at anytime you want to talk to $arg1 again, then click on "How can I help" in the main menu, and ask us.',
         'next_state':'conversation_closed'
         }
     elif conversation_state =='conversation_closed':

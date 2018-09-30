@@ -312,6 +312,9 @@ class Exchange(object):
         payloads = []
         helpee_id = None
         helper_id = None
+        isHelpee = False
+        isHelper = False
+        helper_fName = 'Jane'
         if conversation_ref.get().to_dict().get('helpee_ref') is not None:
             helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
 
@@ -330,6 +333,7 @@ class Exchange(object):
             conversation_ref.update({'helper_review':review})
             print('After Update: Helper Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helper_state':payload['platform'].get('next_state')})
+            isHelper = True
         else:
             #print('Before Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             review = conversation_ref.get().to_dict().get('helpee_review')
@@ -340,10 +344,14 @@ class Exchange(object):
             conversation_ref.update({'helpee_review':review})
             print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
+            helper_fName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')
+            isHelpee = True
         conversation_ref.update({'lastactivedate':datetime.now()})
         payloads.append(payload)
 
         if payload['platform'].get('next_state')=='conversation_closed':
+            if isHelpee:
+                payload['message']['text']= Template(payload['platform'].get('helpee_message')).safe_substitute(arg1=helper_name)
             new_conversation_payload = self.start_new_conversation(payload,conversation_ref)
             payloads.append(new_conversation_payload)
 
