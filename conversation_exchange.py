@@ -381,7 +381,7 @@ def close_overdue_conversations():
     if len(waiting_helpee_list)>0:
         for helpee_ref in waiting_helpee_list:
             helpeePayload = {}
-            #helpeePayload = response_payload.fb_payload('overdue_conversation','response',helpee_ref.get().to_dict().get('fb_id'),'This is',helpeePayload)
+            helpeePayload = response_payload.fb_payload('overdue_conversation','response',helpee_ref.get().to_dict().get('fb_id'),'This is',helpeePayload)
             #helpee_ref.update({'helpee_state':'conversation_closed'})
             print('Helpee Ref: {}'.format(helpee_ref))
             payloads.append(helpeePayload)

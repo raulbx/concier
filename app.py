@@ -41,7 +41,7 @@ def close_overdue_conversations():
 
     for payload in payloads:
         print('The payload from backend is {}'.format(payload))
-        send_message(payload)
+        #send_message(payload)
     return status
 
 #We will receive messages that Facebook sends our bot at this endpoint 
