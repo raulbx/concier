@@ -71,10 +71,16 @@ class Exchange(object):
         return payload
 
     def append_member_name(self, payload, conversation_ref):
+        payloads = []
+        infoPayload = {}
         first_name = self.core_engine_obj.get_member().get().to_dict().get('first_name')
         payload['message']['attachment']['payload']['text'] = Template(payload['message']['attachment']['payload'].get('text')).safe_substitute(arg1=first_name)
+        payloads.append(payload)
+        
+        infoPayload = response_payload.fb_payload('end_conversation_info','...',self.user_id_on_platform,conversation_ref.get().id,infoPayload)
+        payloads.append(infoPayload)
 
-        return payload
+        return payloads
 
     def remove_helper_ref_from_current_conversation(self, payload, conversation_ref):
         conversation_ref.update({'helper_ref':firestore.DELETE_FIELD})

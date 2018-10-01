@@ -23,18 +23,18 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?\n\nAt any time, if you want to end the conversation, type #end and enter.',
+                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?\n\n',
                     "buttons":[
                     {
                     "type":"postback",
                     "title":"Get shopping help?",
                     "payload":"ask_product_category:"+conversation_id
                     },
-                    {
-                    "type":"postback",
-                    "title":"Give shopping help?",
-                    "payload":"choose_expertise_category:"+conversation_id
-                    },
+                    #{
+                    #"type":"postback",
+                    #"title":"Give shopping help?",
+                    #"payload":"choose_expertise_category:"+conversation_id
+                    #},
                     {
                     "type":"postback",
                     "title":"Something else?",
@@ -46,6 +46,11 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'append_member_name'
+        }
+    elif conversation_state == 'end_conversation_info':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'At any time, if you want to end the conversation, type #end and enter.'
         }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
