@@ -285,8 +285,6 @@ class Exchange(object):
         #If one of the party ends the conversation, it will go here.
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
-        if '#end' in self.user_response.lower():
-            #Ask how 
 
         if conversation_duration_hours > 24:
             print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
