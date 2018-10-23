@@ -167,7 +167,7 @@ class Exchange(object):
         payloads.append(payload)
         product = conversation_ref.get().to_dict().get('product')
         user_need = self.user_response
-        conversation_ref.update({'active':True,'user_need':user_need,'helper_ref':None,'helpee_state':helpee_state})
+        
         print("User need is {}".format(user_need))
 
         experts_list = self.core_engine_obj.get_super_experts()# Super experts will get messages for everything. They can choose to decline or accept the request.
@@ -176,19 +176,20 @@ class Exchange(object):
         response = Template(response_template).safe_substitute(arg1=product,arg2=user_need)
         print('\nSending message to super experts\n')
         
-        helpee_state =''
+        helpee_state =payload['platform'].get('helpee_next_state')
         if len(experts_list)>0:
             for expert in experts_list:
                 if expert.get().to_dict().get('fb_id') != self.user_id_on_platform:
                     expertPayload = {}
                     expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
-                    helpee_state = payload['platform'].get('helpee_next_state')
                     payloads.append(expertPayload)
                     print('Expert is {} and request came from {}'.format(expert.get().to_dict().get('fb_id'),self.user_id_on_platform))
         else:
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
             payload['message']['text'] = 'Currently, we don\'t have a member who has bought a product you have specified. We will get back to you, when a member who can you help you joins.'
             helpee_state='conversation_closed'
+        
+        conversation_ref.update({'active':True,'user_need':user_need,'helper_ref':None,'helpee_state':helpee_state})
 
         del payload['platform']
         return payloads
