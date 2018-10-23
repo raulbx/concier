@@ -270,7 +270,7 @@ class Exchange(object):
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         helper_Name = member_ref.get().to_dict().get('first_name')
 
-        assign_helper(payload,conversation_ref)
+        self.assign_helper(payload,conversation_ref)
 
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
