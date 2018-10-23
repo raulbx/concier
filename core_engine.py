@@ -191,6 +191,27 @@ class Members(object):
 			print('No Experts found')
 		return expert_list
 
+	def get_super_experts(self):
+		expert_ref_list = []
+
+		db = firestore.client()
+		expertise_refs = db.collection("members").where("super_expert", "==", True).get()
+		print('Getting the expertise ref for super expertise: '.format(expertise_refs))
+
+		try:
+			for expertise_snapshot in expertise_refs:
+				expert_ref_list.append(expertise_snapshot.reference)
+		except ValueError:
+			print(u'Value Error.....!')
+		except google.cloud.exceptions.NotFound:
+			expert_ref_list = []
+			print('No Experts found')
+		except Exception as e:
+			print(str(e))
+
+		print(expert_ref_list)
+		return expert_ref_list
+
 	def add_expertise(self,member_ref,member_expertise,platform_response):
 		expertise_data = {
 		'member':[member_ref]

@@ -59,8 +59,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         'text' : 'What product you need help on?'
         }
         payload['platform'] = {
-        'action':'record_value_set_future_state',
-        'field':'product',
+        'action':'set_future_state',
         'helpee_next_state':'record_product_understand_need'
         }
     elif conversation_state =='ask_product_category':
@@ -208,7 +207,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
-        'field':'specific_product',
+        'field':'product',
         'helpee_next_state':'thank_user_broadcast_request'
         }
     elif conversation_state == 'thank_user_broadcast_request':
