@@ -264,10 +264,13 @@ class Exchange(object):
         ''' Get the correct conversation ref. 
         Send two messages. One to the expert and the other to the helpee
         '''
+
         conversation_ref.update({'expert_why_product_bought':self.user_response})
         member_ref = self.core_engine_obj.get_member()
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         helper_Name = member_ref.get().to_dict().get('first_name')
+
+        assign_helper(payload,conversation_ref)
 
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
         payloads.append(payload)
@@ -282,7 +285,7 @@ class Exchange(object):
         helpeePayload= {}
         #This response is commented to accomodate Super Experts. If both kind of experts are present, tweak the helpee response below.
         #helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct bought: {}\nProduct looked at:{}\nPrice range:{}\nDifference in product:{}\nWhy member bought {}:{}\n\nYou have 12 hours to talk to community member before you release member to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
-        helpeeResponse = '{} is an expert in {}. You have 12 hours to talk {} before you release him to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name, product, helper_Name, helper_Name)
+        helpeeResponse = '{} is an expert in {}. You have 12 hours chat with {} before we release him to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name, product, helper_Name, helper_Name)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
@@ -290,8 +293,7 @@ class Exchange(object):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
-        conversation_ref.update({'helper_ref':member_ref})
-
+    
         return payloads
 
     def exchange_conversations(self,payload,conversation_ref):
@@ -329,7 +331,7 @@ class Exchange(object):
             counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
-            
+
         payloads.append(payload)
 
         return payloads
