@@ -285,7 +285,6 @@ class Exchange(object):
         #If one of the party ends the conversation, it will go here.
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
-
         if conversation_duration_hours > 24:
             print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
@@ -359,7 +358,8 @@ class Exchange(object):
         payloads.append(payload)
 
         if payload['platform'].get('next_state')=='conversation_closed':
-            if isHelpee:
+            if isHelpee and conversation_ref.get().to_dict().get('helper_ref') is not None:
+                helper_name = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')
                 payload['message']['text']= Template(payload['platform'].get('helpee_message')).safe_substitute(arg1=helper_name)
             new_conversation_payload = self.start_new_conversation(payload,conversation_ref)
             payloads.append(new_conversation_payload)
