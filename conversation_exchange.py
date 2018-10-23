@@ -181,7 +181,7 @@ class Exchange(object):
             for expert in experts_list:
                 if expert.get().to_dict().get('fb_id') != self.user_id_on_platform:
                     expertPayload = {}
-                    expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
+                    expertPayload = response_payload.fb_payload('broadcast_request_to_super_experts',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
                     payloads.append(expertPayload)
                     print('Expert is {} and request came from {}'.format(expert.get().to_dict().get('fb_id'),self.user_id_on_platform))
         else:
