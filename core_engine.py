@@ -61,7 +61,7 @@ class Members(object):
     	#'helper_ref':member_ref, # No need to save the helper ref
     	#'helpee_id':helpee_id,
     	'active':False,
-    	'helper_state':'welcome_user',
+    	#'helper_state':'welcome_user',
     	'helpee_state':'welcome_user',
     	'current_chat_seq':0,
     	'startdate':datetime.datetime.now(),

@@ -170,7 +170,7 @@ class Exchange(object):
         experts_list = self.core_engine_obj.get_super_experts()# Super experts will get messages for everything. They can choose to decline or accept the request.
 
         response_template = 'A user is researching for the Product: $arg1.\nUser needs it because: $arg2. Do you want to help?'
-        response = Template(response_template).safe_substitute(arg1=product,arg2=conversation_ref.get().to_dict().get('user_need'))
+        response = Template(response_template).safe_substitute(arg1=product,arg2=self.user_response)
         print('\nSending message to super experts\n')
         
         helpee_state =''
