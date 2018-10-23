@@ -290,7 +290,8 @@ class Exchange(object):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
-
+        conversation_ref.update({'helper_ref':member_ref})
+        
         return payloads
 
     def exchange_conversations(self,payload,conversation_ref):
