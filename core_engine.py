@@ -195,7 +195,7 @@ class Members(object):
 		expert_ref_list = []
 
 		db = firestore.client()
-		expertise_refs = db.collection("members").where("super_expert", "==", True).get()
+		expertise_refs = db.collection("members").where("is_super_expert", "==", True).get()
 		print('Getting the expertise ref for super expertise: '.format(expertise_refs))
 
 		try:
