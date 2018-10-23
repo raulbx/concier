@@ -28,7 +28,7 @@ def check_active_conversations():
 @app.route('/sixty_minute_reminder', methods=['GET'])
 def remind_expert_to_respond():
 
-    print('Remind experts')
+    print('Remind experts---')
 
     return "remind expert to respond"
 

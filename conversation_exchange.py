@@ -285,7 +285,10 @@ class Exchange(object):
         #If one of the party ends the conversation, it will go here.
         conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
 
-        if '#end' in self.user_response.lower() or conversation_duration_hours > 24:
+        if '#end' in self.user_response.lower():
+            #Ask how 
+
+        if conversation_duration_hours > 24:
             print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payload = self.request_review(payload,conversation_ref)
@@ -293,6 +296,8 @@ class Exchange(object):
             counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
+
+        
 
         payloads.append(payload)
 
@@ -320,7 +325,7 @@ class Exchange(object):
         helper_id = None
         isHelpee = False
         isHelper = False
-        helper_fName = 'Jane'
+        #helper_fName = 'Jane'
         if conversation_ref.get().to_dict().get('helpee_ref') is not None:
             helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
 
@@ -350,7 +355,7 @@ class Exchange(object):
             conversation_ref.update({'helpee_review':review})
             print('After Update: Helpee Review Stored in the DB is: {} and user response is {}'.format(review, self.user_response))
             conversation_ref.update({'helpee_state':payload['platform'].get('next_state')})
-            helper_fName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')
+            #helper_fName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')
             isHelpee = True
         conversation_ref.update({'lastactivedate':datetime.now()})
         payloads.append(payload)
