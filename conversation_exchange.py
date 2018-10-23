@@ -256,7 +256,7 @@ class Exchange(object):
             conversation_ref.update({'helper_state':payload['platform'].get('helper_next_state')})
         if payload['platform'].get('helpee_next_state'):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
-        del payload['platform']
+        #del payload['platform']
         return payload
 
     def connect_expert_to_user(self,payload,conversation_ref):
