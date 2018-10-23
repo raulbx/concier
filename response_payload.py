@@ -201,8 +201,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
         'helpee_next_state':'onboard_complete_waiting_for_expert'
-        }
-    '''
+        }'''
     elif conversation_state == 'record_specific_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
