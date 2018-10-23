@@ -23,12 +23,13 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 "type":"template",
                 "payload":{
                     "template_type":"button",
-                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?\n\n',
+                    "text":'Hi $arg1, I am your personal shopping Concier. How can I help you?',
                     "buttons":[
                     {
                     "type":"postback",
                     "title":"Get shopping help?",
-                    "payload":"ask_product_category:"+conversation_id
+                    #"payload":"ask_product_category:"+conversation_id
+                    "payload":"ask_product_need:"+conversation_id
                     },
                     #{
                     #"type":"postback",
@@ -50,7 +51,17 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'end_conversation_info':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'At any time, if you want to end the conversation, type #end and enter.'
+        'text' : 'At any time, if you want to end the conversation, type #end.'
+        }
+    elif conversation_state == 'ask_product_need':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'What product you need help on'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'product',
+        'helpee_next_state':'record_specific_product_understand_need'
         }
     elif conversation_state =='ask_product_category':
         payload['message'] = {
@@ -184,7 +195,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_price_thank_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. Let me find a community member, who can help you make a decision. At any time, if you want to cancel this request, type #end and enter.'
+        'text' : 'Thank you. Let me find a community member, who can help you make a decision. At any time, if you want to cancel this request, type #end.'
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
@@ -193,7 +204,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'onboard_complete_waiting_for_expert':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Our search is on. We will be back soon with an community member to help you. If you want to cancel this request, type #end and enter.'
+        'text' : 'Our search is on. We will be back soon with an community member to help you. If you want to cancel this request, type #end.'
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -202,7 +213,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'onboard_complete_user_followed_up_once':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'We are still looking. We will be back soon with an community member to help you out. If you want to cancel this request, type #end and enter.'
+        'text' : 'We are still looking. We will be back soon with an community member to help you out. If you want to cancel this request, type #end.'
         }
         payload['platform'] = {
         'action':'set_future_state',
@@ -403,7 +414,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='record_why_product_bought_connect_expert_to_user':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\n\nCommunity member will have 12 hours to interact with you before you are released back to the community.\n\nAt any time, if you want to end the conversation, type #end and enter.'
+        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\n\nCommunity member will have 12 hours to interact with you before you are released back to the community.\n\nAt any time, if you want to end the conversation, type #end.'
         }
         payload['platform'] = {
         'action':'connect_expert_to_user',
