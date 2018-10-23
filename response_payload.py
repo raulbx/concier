@@ -379,6 +379,40 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
                 }
             }
         }
+    ###Special code for Super Experts
+    elif conversation_state =='broadcast_request_to_super_experts':
+        payload['message'] = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":response,
+                    "buttons":[
+                    {
+                    "type":"postback",
+                    "title":"YES",
+                    "payload":"super_expert_agrees_to_help:"+conversation_id
+                    },
+                    {
+                    "type":"postback",
+                    "title":"NO",
+                    "payload":"decline_to_help:"+conversation_id
+                    }
+                    ]
+                }
+            }
+        }
+    elif conversation_state =='super_expert_agrees_to_help':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Thank you. I am going to connect you to our community member, $arg1.\n\nCommunity member will have 12 hours to interact with you before you are released back to the community.\n\nAt any time, if you want to end the conversation, type #end.'
+        }
+        payload['platform'] = {
+        'action':'connect_expert_to_user',
+        'helper_next_state':'helper_helpee_matched',
+        'helpee_next_state':'helper_helpee_matched'
+        }
+    ###end of special code for Super Experts
     elif conversation_state =='agree_to_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {

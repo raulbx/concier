@@ -172,7 +172,7 @@ class Exchange(object):
 
         experts_list = self.core_engine_obj.get_super_experts()# Super experts will get messages for everything. They can choose to decline or accept the request.
 
-        response_template = 'A user is researching for the Product: $arg1.\nUser needs it because: $arg2. Do you want to help?'
+        response_template = 'A user is researching for the Product: $arg1.\nUser need: $arg2.\nDo you want to help?'
         response = Template(response_template).safe_substitute(arg1=product,arg2=user_need)
         print('\nSending message to super experts\n')
         
@@ -219,7 +219,7 @@ class Exchange(object):
             for expert in experts_list:
                 if expert.get().to_dict().get('fb_id') != self.user_id_on_platform:
                     expertPayload = {}
-                    expertPayload = response_payload.fb_payload('broadcast_message',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
+                    expertPayload = response_payload.fb_payload('broadcast_request_to_super_experts',response,expert.get().to_dict().get('fb_id'),conversation_ref.get().id,expertPayload)
                     helpee_state = payload['platform'].get('helpee_next_state')
                     #payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_category,arg2=conversation_ref.get().to_dict().get('max_price'),arg3=conversation_ref.get().to_dict().get('user_need'))
                     payloads.append(expertPayload)
@@ -277,9 +277,12 @@ class Exchange(object):
         product_price_ranges = conversation_ref.get().to_dict().get('expert_product_price_ranges')
         product_differences = conversation_ref.get().to_dict().get('expert_product_differences')
         why_bought_product = conversation_ref.get().to_dict().get('expert_why_product_bought')
+        product = conversation_ref.get().to_dict().get('product')
 
         helpeePayload= {}
-        helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct bought: {}\nProduct looked at:{}\nPrice range:{}\nDifference in product:{}\nWhy member bought {}:{}\n\nYou have 12 hours to talk to community member before you release member to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
+        #This response is commented to accomodate Super Experts. If both kind of experts are present, tweak the helpee response below.
+        #helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct bought: {}\nProduct looked at:{}\nPrice range:{}\nDifference in product:{}\nWhy member bought {}:{}\n\nYou have 12 hours to talk to community member before you release member to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
+        helpeeResponse = '{} is an expert in {}. You have 12 hours to talk {} before you release him to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name, product, helper_Name, helper_Name)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
