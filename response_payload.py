@@ -56,13 +56,14 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'ask_product_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'What product you need help on'
+        'text' : 'What product you need help on?'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
         'field':'product',
         'helpee_next_state':'record_specific_product_understand_need'
         }
+    '''
     elif conversation_state =='ask_product_category':
         payload['message'] = {
         'text' : 'What are you shopping for?',
@@ -199,6 +200,26 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         }
         payload['platform'] = {
         'action':'record_price_and_broadcast_request',
+        'helpee_next_state':'onboard_complete_waiting_for_expert'
+        }
+    '''
+    elif conversation_state == 'record_specific_product_understand_need':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Can you describe why you need this product?\n\nPlease share your product need in more than 10 characters.'
+        }
+        payload['platform'] = {
+        'action':'record_value_set_future_state',
+        'field':'specific_product',
+        'helpee_next_state':'thank_user_broadcast_request'
+        }
+    elif conversation_state == 'thank_user_broadcast_request':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Thank you. Let me find a community member, who can help you make a decision. At any time, if you want to cancel this request, type #end.'
+        }
+        payload['platform'] = {
+        'action':'record_need_and_broadcast_request',
         'helpee_next_state':'onboard_complete_waiting_for_expert'
         }
     elif conversation_state == 'onboard_complete_waiting_for_expert':

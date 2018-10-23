@@ -58,7 +58,7 @@ class Members(object):
 	def add_conversation(self,member_ref):
 		conversation_data = {
     	'helpee_ref':member_ref, # this is reference to the member obj
-    	'helper_ref':member_ref,
+    	#'helper_ref':member_ref, # No need to save the helper ref
     	#'helpee_id':helpee_id,
     	'active':False,
     	'helper_state':'welcome_user',
