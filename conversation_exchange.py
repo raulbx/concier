@@ -169,7 +169,7 @@ class Exchange(object):
 
         experts_list = self.core_engine_obj.get_super_experts()# Super experts will get messages for everything. They can choose to decline or accept the request.
 
-        response_template = 'A user is researching for the Product: $arg1\n. User needs it because: $arg2'
+        response_template = 'A user is researching for the Product: $arg1.\nUser needs it because: $arg2. Do you want to help?'
         response = Template(response_template).safe_substitute(arg1=product,arg2=conversation_ref.get().to_dict().get('user_need'))
         print('\nSending message to super experts\n')
         
@@ -187,7 +187,7 @@ class Exchange(object):
             # we didn't find any expert. Let the helpee know that we don't have a expert. We will be in touch once we find one.
             payload['message']['text'] = 'Currently, we don\'t have a member who has bought a product you have specified. We will get back to you, when a member who can you help you joins.'
             helpee_state='conversation_closed'
-        conversation_ref.update({'active':True,'max_price':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
+        conversation_ref.update({'active':True,'user_need':self.user_response,'helper_ref':None,'helpee_state':helpee_state})
 
         del payload['platform']
         return payloads
