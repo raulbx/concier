@@ -301,6 +301,7 @@ class Exchange(object):
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
+        user_response = self.user_response
         
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
@@ -317,7 +318,11 @@ class Exchange(object):
             payload['message']['text'] = partyName+': '+self.user_response
         else:
             payload['message']['text'] = '...'
-        
+
+        for platform_cmd in user_response.split():
+            if platform_cmd.startswith('#'):
+                print(platform_cmd)
+
         payload['recipient']['id'] = recipient_id
 
         #If one of the party ends the conversation, it will go here.
