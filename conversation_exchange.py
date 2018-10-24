@@ -272,7 +272,7 @@ class Exchange(object):
 
         self.assign_helper(payload,conversation_ref)
 
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=helpee_Name)
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(helpee_arg1=helpee_Name)
         payloads.append(payload)
 
         product_bought = conversation_ref.get().to_dict().get('expert_what_product_bought')
