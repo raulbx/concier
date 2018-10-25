@@ -313,6 +313,7 @@ class Exchange(object):
                 else:
                     # this is scenario to send message to other members
                     helpee_aka = platform_cmd.replace("#","")
+                    user_response = user_response.replace(platform_cmd,'')
                     print(helpee_aka)
                     #helpee_id = self.core_engine_obj.get_helpee_jd_by_name(helpee_aka)
         
