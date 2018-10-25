@@ -302,6 +302,7 @@ class Exchange(object):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
         alt_response = self.user_response
+        user_needs_help = False
 
         end_conversation = False
         helpee_aka = ''
@@ -311,12 +312,15 @@ class Exchange(object):
                 #this is the place to identify platform commands.
                 if platform_cmd == '#end':
                     end_conversation = True
+                elif platform_cmd =='#help':
+                    user_needs_help = True
                 else:
                     # this is scenario to send message to other members
                     helpee_aka = platform_cmd.replace("#","")
                     alt_response = self.user_response.replace(platform_cmd,'')
                     print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
-                    #helpee_id = self.core_engine_obj.get_helpee_jd_by_name(helpee_aka)
+                    helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
+                    print(helpee_id)
         
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
