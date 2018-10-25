@@ -333,6 +333,7 @@ class Exchange(object):
             else:
                 #Helper is not sending this to right helpee
                 recipient_id = helper_id
+                partyName = '--None--'
         else:
             recipient_id = helper_id
             partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
