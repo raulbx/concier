@@ -320,7 +320,7 @@ class Exchange(object):
                     alt_response = self.user_response.replace(platform_cmd,'')
                     print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
                     helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
-                    print(helpee_id)
+                    print('This is the helpee ID from backend {}',helpee_id)
         
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:

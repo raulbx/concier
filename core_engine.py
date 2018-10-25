@@ -244,9 +244,9 @@ class Members(object):
 		query_refs = db.collection("conversations").where(u'aka', u'==',member_aka).get()
 
 		for member_snapshot in query_refs:
-			print(member_snapshot)
+			print('This is the member_snapshot {}',member_snapshot)
 			member_fb_id=member_snapshot.to_dict.get('fb_id')
-			
+
 		return member_fb_id
 
 class Platform(object):
