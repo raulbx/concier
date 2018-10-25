@@ -321,7 +321,7 @@ class Exchange(object):
                     print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
                     helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
                     print('This is the helpee ID from backend {}',helpee_id)
-                    if helpee_id = 'None':
+                    if helpee_id == 'None':
                         alt_response = 'Unable to deliver this message\n Incorrect #<User Name>\n'+alt_response
 
         
