@@ -310,7 +310,7 @@ class Exchange(object):
                 #this is the place to identify platform commands.
                 if platform_cmd == '#end':
                     end_conversation = True
-                elif:
+                else:
                     # this is scenario to send message to other members
                     helpee_aka = platform_cmd.replace("#"," ")
                     print(helpee_aka)
