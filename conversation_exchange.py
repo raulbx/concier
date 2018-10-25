@@ -306,7 +306,7 @@ class Exchange(object):
         end_conversation = False
         helpee_aka = ''
 
-        for platform_cmd in user_response.split():
+        for platform_cmd in self.user_response.split():
             if platform_cmd.startswith('#'):
                 #this is the place to identify platform commands.
                 if platform_cmd == '#end':
