@@ -330,7 +330,7 @@ class Exchange(object):
 
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
         if self.user_response and partyName:
-            payload['message']['text'] = partyName+': '+self.user_response
+            payload['message']['text'] = partyName+': '+alt_response
         else:
             payload['message']['text'] = '...'
 
