@@ -337,7 +337,9 @@ class Exchange(object):
         payload['recipient']['id'] = recipient_id
 
         #If one of the party ends the conversation, it will go here.
+        conversation_duration_hours = 0
         if (abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24):
+            conversation_duration_hours=abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
             end_conversation = True         
 
         if end_conversation:
