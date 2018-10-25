@@ -242,7 +242,7 @@ class Members(object):
 		member_fb_id = 'None'
 		db = firestore.client()
 		print(member_aka)
-		query_refs = db.collection("conversations").where(u'aka', u'==',member_aka).get()
+		query_refs = db.collection("members").where(u'aka', u'==',member_aka).get()
 
 		for member_snapshot in query_refs:
 			print('This is the member_snapshot {}',member_snapshot)
