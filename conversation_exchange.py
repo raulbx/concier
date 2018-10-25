@@ -303,6 +303,7 @@ class Exchange(object):
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
         alt_response = self.user_response
         user_needs_help = False
+        helpee_id_based_on_aka = 0
 
         end_conversation = False
         helpee_aka = ''
@@ -319,29 +320,30 @@ class Exchange(object):
                     helpee_aka = platform_cmd.replace("#","")
                     alt_response = self.user_response.replace(platform_cmd,'')
                     #print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
-                    helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
-                    print('This is the helpee ID from backend',helpee_id)
+                    helpee_id_based_on_aka = self.core_engine_obj.get_member_by_aka(helpee_aka)
+                    #print('This is the helpee ID from backend',helpee_id)
 
         
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
-            recipient_id = helpee_id
-            partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')#This should be the first_name of the sender so it will be the counter party first_name
             #send message to helpee
+            if helpee_id_based_on_aka != -1:
+                recipient_id = helpee_id
+                partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')#This should be the first_name of the sender so it will be the counter party first_name
+            else:
+                #Helper is not sending this to right helpee
+                recipient_id = helper_id
         else:
             recipient_id = helper_id
             partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
             #send message to helper
 
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
-        if self.user_response and partyName and helpee_id != -1:
+        if self.user_response and partyName and helpee_id_based_on_aka != -1:
             payload['message']['text'] = partyName+':'+alt_response
         else:
-            payload['message']['text'] = '...'
-
-        if helpee_id == -1:
-            payload['message']['text'] = 'Unable to deliver last message\n'+helpee_aka+' is not in this conversation.'
-            recipient_id = helper_id
+            #payload['message']['text'] = '...'
+            payload['message']['text'] = 'Unable to deliver the last message.\n\n'+helpee_aka+' is not in this conversation.'
     
         payload['recipient']['id'] = recipient_id
 
