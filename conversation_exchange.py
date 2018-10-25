@@ -322,8 +322,9 @@ class Exchange(object):
                     helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
                     print('This is the helpee ID from backend',helpee_id)
                     if helpee_id == -1:
-                        alt_response = 'Unable to deliver this message\n Incorrect #<User Name>\n'+alt_response
+                        alt_response = 'Unable to deliver this message\n'+platform_cmd+'is not in this conversation\n'+alt_response
                         print ('This is the response: ',alt_response)
+                        helper_id = helpee_id
 
         
         #Deternine if this helper or helpee
