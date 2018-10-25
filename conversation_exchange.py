@@ -302,6 +302,19 @@ class Exchange(object):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
         user_response = self.user_response
+        end_conversation = False
+        helpee_aka = ''
+
+        for platform_cmd in user_response.split():
+            if platform_cmd.startswith('#'):
+                #this is the place to identify platform commands.
+                if platform_cmd == '#end':
+                    end_conversation = True
+                elif:
+                    # this is scenario to send message to other members
+                    helpee_aka = platform_cmd.replace("#","")
+                    print(helpee_aka)
+                    #helpee_id = self.core_engine_obj.get_helpee_jd_by_name(helpee_aka)
         
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
@@ -319,16 +332,14 @@ class Exchange(object):
         else:
             payload['message']['text'] = '...'
 
-        for platform_cmd in user_response.split():
-            if platform_cmd.startswith('#'):
-                print(platform_cmd)
-
+    
         payload['recipient']['id'] = recipient_id
 
         #If one of the party ends the conversation, it will go here.
-        conversation_duration_hours = abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
+        if (abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24):
+            end_conversation = True         
 
-        if conversation_duration_hours > 24 or '#end' in self.user_response.lower():
+        if end_conversation:
             print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payload = self.request_review(payload,conversation_ref)
