@@ -325,6 +325,7 @@ class Exchange(object):
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             recipient_id = helpee_id
+            print ('Recipient is {}',recipient_id)
             partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')#This should be the first_name of the sender so it will be the counter party first_name
             #send message to helpee
         else:
