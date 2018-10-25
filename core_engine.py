@@ -246,7 +246,7 @@ class Members(object):
 
 		for member_snapshot in query_refs:
 			print('This is the member_snapshot {}',member_snapshot)
-			member_fb_id=member_snapshot.to_dict.get('fb_id')
+			member_fb_id=member_snapshot.to_dict().get('fb_id')
 
 		return member_fb_id
 
