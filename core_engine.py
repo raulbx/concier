@@ -238,7 +238,7 @@ class Members(object):
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		return platform_response
 
-	def get_member_by_aka(member_aka):
+	def get_member_by_aka(self,member_aka):
 		db = firestore.client()
 		member_fb_id = db.collection("conversations").where(u'aka', u'==',member_aka).get().to_dict().get('fb_id')
 		return member_fb_id
