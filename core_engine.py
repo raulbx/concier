@@ -239,7 +239,7 @@ class Members(object):
 		return platform_response
 
 	def get_member_by_aka(self,member_aka):
-		member_fb_id = 'None'
+		member_fb_id = -1
 		db = firestore.client()
 		query_refs = db.collection("members").where(u'aka', u'==',member_aka).get()
 

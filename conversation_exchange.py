@@ -318,17 +318,17 @@ class Exchange(object):
                     # this is scenario to send message to other members
                     helpee_aka = platform_cmd.replace("#","")
                     alt_response = self.user_response.replace(platform_cmd,'')
-                    print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
+                    #print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
                     helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
-                    print('This is the helpee ID from backend {}',helpee_id)
-                    if helpee_id == 'None':
+                    print('This is the helpee ID from backend',helpee_id)
+                    if helpee_id == -1:
                         alt_response = 'Unable to deliver this message\n Incorrect #<User Name>\n'+alt_response
+                        print ('This is the response: ',alt_response)
 
         
         #Deternine if this helper or helpee
         if self.user_id_on_platform == helper_id:
             recipient_id = helpee_id
-            print ('Recipient ID is {}',recipient_id)
             partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')#This should be the first_name of the sender so it will be the counter party first_name
             #send message to helpee
         else:
