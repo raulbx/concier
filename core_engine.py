@@ -240,7 +240,7 @@ class Members(object):
 
 	def get_member_by_aka(self,member_aka):
 		db = firestore.client()
-		member_fb_id = db.collection("conversations").where(u'aka', u'==',member_aka).get()
+		member_fb_id = db.collection("conversations").where(u'aka', u'==',member_aka).get().reference
 		return member_fb_id
 
 class Platform(object):
