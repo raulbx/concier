@@ -335,14 +335,12 @@ class Exchange(object):
 
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
         if self.user_response and partyName and helpee_id != -1:
-            payload['message']['text'] = '_Text_'+partyName+'_Text_:'+alt_response
+            payload['message']['text'] = partyName+':'+alt_response
         else:
             payload['message']['text'] = '...'
 
         if helpee_id == -1:
-            alt_response = 'Unable to deliver last message\n'+platform_cmd+' is not in this conversation.'
-            payload['message']['text'] = '_Text_'+alt_response+'_Text_'
-            print ('This is the response: ',alt_response)
+            payload['message']['text'] = 'Unable to deliver last message\n'+helpee_aka+' is not in this conversation.'
             recipient_id = helper_id
     
         payload['recipient']['id'] = recipient_id
