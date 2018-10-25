@@ -321,10 +321,6 @@ class Exchange(object):
                     #print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
                     helpee_id = self.core_engine_obj.get_member_by_aka(helpee_aka)
                     print('This is the helpee ID from backend',helpee_id)
-                    if helpee_id == -1:
-                        alt_response = 'Unable to deliver this message\n'+platform_cmd+' is not in this conversation\n'+alt_response
-                        print ('This is the response: ',alt_response)
-                        helpee_id = helper_id
 
         
         #Deternine if this helper or helpee
@@ -338,11 +334,16 @@ class Exchange(object):
             #send message to helper
 
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
-        if self.user_response and partyName:
-            payload['message']['text'] = partyName+':'+alt_response
+        if self.user_response and partyName and helpee_id != -1:
+            payload['message']['text'] = '_Text_'+partyName+'_Text_:'+alt_response
         else:
             payload['message']['text'] = '...'
 
+        if helpee_id == -1:
+            alt_response = 'Unable to deliver last message\n'+platform_cmd+' is not in this conversation.'
+            payload['message']['text'] = '_Text_'+alt_response+'_Text_'
+            print ('This is the response: ',alt_response)
+            recipient_id = helper_id
     
         payload['recipient']['id'] = recipient_id
 
