@@ -314,7 +314,7 @@ class Exchange(object):
                     # this is scenario to send message to other members
                     helpee_aka = platform_cmd.replace("#","")
                     user_response = user_response.replace(platform_cmd,'')
-                    print(helpee_aka)
+                    print('The token is {} and response is {}',helpee_aka,user_response)
                     #helpee_id = self.core_engine_obj.get_helpee_jd_by_name(helpee_aka)
         
         #Deternine if this helper or helpee
