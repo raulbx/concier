@@ -333,18 +333,19 @@ class Exchange(object):
             else:
                 #Helper is not sending this to right helpee
                 recipient_id = helper_id
-                partyName = '--None--'
+                alt_response='Unable to deliver the last message.\n\n'+helpee_aka+' is not in this conversation.'
+                partyName = ''
         else:
             recipient_id = helper_id
             partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
             #send message to helper
 
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
-        if self.user_response and partyName and helpee_id_based_on_aka != -1:
+        if self.user_response and partyName:
             payload['message']['text'] = partyName+':'+alt_response
         else:
-            #payload['message']['text'] = '...'
-            payload['message']['text'] = 'Unable to deliver the last message.\n\n'+helpee_aka+' is not in this conversation.'
+            payload['message']['text'] = '...'
+            #payload['message']['text'] = 'Unable to deliver the last message.\n\n'+helpee_aka+' is not in this conversation.'
     
         payload['recipient']['id'] = recipient_id
 
