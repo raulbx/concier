@@ -301,7 +301,8 @@ class Exchange(object):
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
-        user_response = self.user_response
+        alt_response = self.user_response
+
         end_conversation = False
         helpee_aka = ''
 
@@ -313,8 +314,8 @@ class Exchange(object):
                 else:
                     # this is scenario to send message to other members
                     helpee_aka = platform_cmd.replace("#","")
-                    #user_response = user_response.replace(platform_cmd,'')
-                    print('The token is {}, {} and response is {}',helpee_aka,platform_cmd, user_response.replace(platform_cmd,''))
+                    alt_response = self.user_response.replace(platform_cmd,'')
+                    print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
                     #helpee_id = self.core_engine_obj.get_helpee_jd_by_name(helpee_aka)
         
         #Deternine if this helper or helpee
