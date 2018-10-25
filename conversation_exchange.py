@@ -312,7 +312,7 @@ class Exchange(object):
                     end_conversation = True
                 else:
                     # this is scenario to send message to other members
-                    helpee_aka = platform_cmd.replace("#"," ")
+                    helpee_aka = platform_cmd.replace("#","")
                     print(helpee_aka)
                     #helpee_id = self.core_engine_obj.get_helpee_jd_by_name(helpee_aka)
         
