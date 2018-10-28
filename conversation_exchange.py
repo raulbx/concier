@@ -322,6 +322,7 @@ class Exchange(object):
                     if self.user_id_on_platform == helper_id:
                         if platform_cmd =='helpees':
                             #Show the List of people, I am helping
+                            print("List of helpees")
                         else:
                             member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#",""))
                             if member_id_based_on_aka!=-1:
