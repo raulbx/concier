@@ -388,8 +388,7 @@ class Exchange(object):
 
         if user_needs_help:
             print('User has asked for help from the platform')
-            
-            customer_support_list = self.core_engine_obj.get_users_by_type('active_customer_support_users')
+            customer_support_list = self.core_engine_obj.get_users_by_type('active_customer_support')
             for customer_support in customer_support_list:
                 if customer_support.get().to_dict().get('fb_id') != self.user_id_on_platform:
                     requestForHelpPayload = {}
@@ -398,7 +397,7 @@ class Exchange(object):
             #send a message to user acknowledging the help request
             payload = response_payload.fb_payload('need_help','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payloads.append(payload)
-            print('Hitting here {}'.format(payloads))
+            print('Hitting here {}'.format(customer_support_list))
 
         return payloads
 
