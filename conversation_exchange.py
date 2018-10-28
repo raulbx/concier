@@ -319,12 +319,6 @@ class Exchange(object):
                     #respond back to the person, who sent this message. Don't alter the payload['recipient']['id'] 
                     #Create two payloads. Send one to the admins and other to the sender.
                 else:
-                    # this is scenario to send message to other members
-                    #member_aka = platform_cmd.replace("#","")
-                    #alt_response = self.user_response.replace(platform_cmd,'')
-                    #print('The token is {}, {} and response is {}',member_aka,platform_cmd,alt_response)
-                    
-                    #print('This is the helpee ID from backend',helpee_id)
                     if self.user_id_on_platform == helper_id:
                         if platform_cmd =='helpees':
                             #Show the List of people, I am helping
