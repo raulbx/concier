@@ -302,7 +302,7 @@ class Exchange(object):
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
         msg_frm_other_party = self.user_response
-        user_needs_help = False
+        member_needs_help = False
         member_id_based_on_aka = 0
 
         end_conversation = False
@@ -314,7 +314,7 @@ class Exchange(object):
                     end_conversation = True
                     break
                 elif platform_cmd =='#help':
-                    user_needs_help = True
+                    member_needs_help = True
                     break
                     #respond back to the person, who sent this message. Don't alter the payload['recipient']['id'] 
                     #Create two payloads. Send one to the admins and other to the sender.
@@ -386,9 +386,9 @@ class Exchange(object):
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
 
-        if user_needs_help:
+        if member_needs_help:
             print('User has asked for help from the platform')
-            customer_support_list = self.core_engine_obj.get_users_by_type('active_customer_support')
+            customer_support_list = self.core_engine_obj.get_members_by_type('active_customer_support')
             for customer_support in customer_support_list:
                 if customer_support.get().to_dict().get('fb_id') != self.user_id_on_platform:
                     requestForHelpPayload = {}
@@ -397,8 +397,7 @@ class Exchange(object):
             #send a message to user acknowledging the help request
             payload = response_payload.fb_payload('need_help','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payloads.append(payload)
-            print('Hitting here {}'.format(customer_support_list))
-
+            #print('Hitting here {}'.format(customer_support_list))
         return payloads
 
     def request_review(self,payload,conversation_ref):

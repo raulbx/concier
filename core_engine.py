@@ -212,26 +212,25 @@ class Members(object):
 		print(expert_ref_list)
 		return expert_ref_list
 
-	def get_users_by_type(self,user_type):
-		expert_ref_list = []
+	def get_members_by_type(self,member_type):
+		member_ref_list = []
 
 		db = firestore.client()
-		expertise_refs = db.collection("members").where("user_type", "==", user_type).get()
-		print('Getting the expertise ref for super expertise: '.format(expertise_refs))
+		member_refs = db.collection("members").where("member_type", "==", member_type).get()
 
 		try:
-			for expertise_snapshot in expertise_refs:
-				expert_ref_list.append(expertise_snapshot.reference)
+			for member_snapshot in member_refs:
+				member_ref_list.append(member_snapshot.reference)
 		except ValueError:
 			print(u'Value Error.....!')
 		except google.cloud.exceptions.NotFound:
-			expert_ref_list = []
+			member_ref_list = []
 			print('No Experts found')
 		except Exception as e:
 			print(str(e))
 
-		print(expert_ref_list)
-		return expert_ref_list
+		print('This is the member List by type {} and list is {}'.format(member_type, member_ref_list))
+		return member_ref_list
 
 	def add_expertise(self,member_ref,member_expertise,platform_response):
 		expertise_data = {
