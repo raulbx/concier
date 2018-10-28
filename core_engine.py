@@ -212,6 +212,27 @@ class Members(object):
 		print(expert_ref_list)
 		return expert_ref_list
 
+	def get_users_by_type(self,user_type):
+		expert_ref_list = []
+
+		db = firestore.client()
+		expertise_refs = db.collection("members").where("user_type", "==", user_type).get()
+		print('Getting the expertise ref for super expertise: '.format(expertise_refs))
+
+		try:
+			for expertise_snapshot in expertise_refs:
+				expert_ref_list.append(expertise_snapshot.reference)
+		except ValueError:
+			print(u'Value Error.....!')
+		except google.cloud.exceptions.NotFound:
+			expert_ref_list = []
+			print('No Experts found')
+		except Exception as e:
+			print(str(e))
+
+		print(expert_ref_list)
+		return expert_ref_list
+
 	def add_expertise(self,member_ref,member_expertise,platform_response):
 		expertise_data = {
 		'member':[member_ref]
@@ -239,7 +260,7 @@ class Members(object):
 		return platform_response
 
 	def get_member_by_aka(self,member_aka):
-		member_fb_id = -1
+		member_fb_id = -1 #Handle the condition if there is no one with this aka
 		db = firestore.client()
 		query_refs = db.collection("members").where(u'aka', u'==',member_aka).get()
 

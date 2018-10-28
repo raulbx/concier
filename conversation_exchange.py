@@ -285,7 +285,7 @@ class Exchange(object):
         helpeePayload= {}
         #This response is commented to accomodate Super Experts. If both kind of experts are present, tweak the helpee response below.
         #helpeeResponse = '{} made a similar purchase recently. Below is some information about {}\'s purchase.\n\nProduct bought: {}\nProduct looked at:{}\nPrice range:{}\nDifference in product:{}\nWhy member bought {}:{}\n\nYou have 12 hours to talk to community member before you release member to talk to other members. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name,helper_Name,product_bought,products_in_the_market,product_price_ranges,product_differences,product_bought,why_bought_product,helper_Name)
-        helpeeResponse = '{} is an expert in {}. You have 12 hours chat to with {}. At any time, if you want to end the conversation, type #end and enter.\nWe will now connect you to {}. Please say hi!'.format(helper_Name, product, helper_Name, helper_Name)
+        helpeeResponse = '{} is an expert in {}. You have 12 hours chat to with {}. At any time, if you want to end the conversation, type #end.\nWe will now connect you to {}. Please say hi!'.format(helper_Name, product, helper_Name, helper_Name)
         helpeePayload = response_payload.fb_payload('default_state',helpeeResponse,conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id'),conversation_ref.get().id,helpeePayload)
         payloads.append(helpeePayload)
         print('Helper is {} and Helpee is {}'.format(helper_Name,helpee_Name))
@@ -301,55 +301,82 @@ class Exchange(object):
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
-        alt_response = self.user_response
+        msg_frm_other_party = self.user_response
         user_needs_help = False
-        helpee_id_based_on_aka = 0
+        member_id_based_on_aka = 0
 
         end_conversation = False
-        helpee_aka = ''
 
         for platform_cmd in self.user_response.split():
-            if platform_cmd.startswith('#'):
+            if platform_cmd.startswith('#'):#find every character that starts with #
                 #this is the place to identify platform commands.
                 if platform_cmd == '#end':
                     end_conversation = True
+                    break
                 elif platform_cmd =='#help':
                     user_needs_help = True
+                    break
+                    #respond back to the person, who sent this message. Don't alter the payload['recipient']['id'] 
+                    #Create two payloads. Send one to the admins and other to the sender.
                 else:
                     # this is scenario to send message to other members
-                    helpee_aka = platform_cmd.replace("#","")
-                    alt_response = self.user_response.replace(platform_cmd,'')
-                    #print('The token is {}, {} and response is {}',helpee_aka,platform_cmd,alt_response)
-                    helpee_id_based_on_aka = self.core_engine_obj.get_member_by_aka(helpee_aka)
+                    #member_aka = platform_cmd.replace("#","")
+                    #alt_response = self.user_response.replace(platform_cmd,'')
+                    #print('The token is {}, {} and response is {}',member_aka,platform_cmd,alt_response)
+                    
                     #print('This is the helpee ID from backend',helpee_id)
+                    if self.user_id_on_platform == helper_id:
+                        if platform_cmd =='helpees':
+                            #Show the List of people, I am helping
+                        else:
+                            member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#",""))
+                            if member_id_based_on_aka!=-1:
+                                # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
+                                payload['recipient']['id']  = member_id_based_on_aka
+                                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+msg_frm_other_party.replace(platform_cmd,'')
+                            else:
+                                #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
+                                alt_response='Unable to deliver the last message.\n\n'+member_aka+' is not in this conversation.'
+            else:
+                #there are no Platform commands.
+                if self.user_id_on_platform == helper_id:
+                    # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username. 
+                    payload['recipient']['id'] = helpee_id
+                    payload['message']['text'] = 'Unable to deliver the last message.\n\n Please include a #<Helpee Name>'
+                else:
+                    payload['recipient']['id'] = helper_id
+                    payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+':'+msg_frm_other_party
+                    # this is helpee. Send the message to helper, with helpee's name
 
-        
-        #Deternine if this helper or helpee
+        '''
+        #Deternine if this is helper or helpee
         if self.user_id_on_platform == helper_id:
             #send message to helpee
-            if helpee_id_based_on_aka != -1:
+            if member_id_based_on_aka != -1:
                 recipient_id = helpee_id
                 partyName = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')#This should be the first_name of the sender so it will be the counter party first_name
             else:
-                #Helper is not sending this to right helpee
+                #Helper has typed incorrect #<user>
                 recipient_id = helper_id
-                alt_response='Unable to deliver the last message.\n\n'+helpee_aka+' is not in this conversation.'
+                alt_response='Unable to deliver the last message.\n\n'+member_aka+' is not in this conversation.'
                 partyName = ''
         else:
             recipient_id = helper_id
             partyName = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name') # this should be the first_name of the sender
             #send message to helper
+       
 
         print("Party first_name is {} and response is {}".format(partyName, self.user_response))
         if self.user_response and partyName:
             payload['message']['text'] = partyName+':'+alt_response
         else:
             payload['message']['text'] = '...'
-            #payload['message']['text'] = 'Unable to deliver the last message.\n\n'+helpee_aka+' is not in this conversation.'
+            #payload['message']['text'] = 'Unable to deliver the last message.\n\n'+member_aka+' is not in this conversation.'
     
         payload['recipient']['id'] = recipient_id
-
+        '''
         #If one of the party ends the conversation, it will go here.
+
         conversation_duration_hours = 0
         if (abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24):
             conversation_duration_hours=abs(datetime.now(timezone.utc)-conversation_ref.get().to_dict().get('lastactivedate')).days * 24
@@ -364,7 +391,19 @@ class Exchange(object):
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
 
-        payloads.append(payload)
+        if user_needs_help:
+            print('User has asked for help from the platform')
+            
+            customer_support_list = self.core_engine_obj.get_users_by_type('active_customer_support_users')
+            for customer_support in customer_support_list:
+                if customer_support.get().to_dict().get('fb_id') != self.user_id_on_platform:
+                    requestForHelpPayload = {}
+                    requestForHelpPayload = response_payload.fb_payload('help_request_from_user',msg_frm_other_party,customer_support.get().to_dict().get('fb_id'),conversation_ref.get().id,requestForHelpPayload)
+                    payloads.append(requestForHelpPayload)
+            #send a message to user acknowledging the help request
+            payload = response_payload.fb_payload('need_help','...',self.user_id_on_platform,conversation_ref.get().id,payload)
+            payloads.append(payload)
+            print('Hitting here {}'.format(payloads))
 
         return payloads
 

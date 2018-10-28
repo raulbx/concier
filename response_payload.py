@@ -350,7 +350,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_user_query':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you for your message. Our concier admin will get back to you.'
+        'text' : 'Thank you for your message. One of our concier will respond soon.'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
@@ -585,5 +585,15 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
         'text' : response
+        }
+    elif conversation_state =='need_help':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'Thanks for reaching out. One of our concier will be with you shortly.'
+        }
+    elif conversation_state =='help_request_from_user':
+        payload['notification_type'] = 'REGULAR'
+        payload['message'] = {
+        'text' : 'A helpee in the middle of conversation has following query.\n\n'+response
         }
     return payload
