@@ -327,6 +327,7 @@ class Exchange(object):
                     else:
                         member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#",""))
                         hash_tag_cmd = platform_cmd.replace("#","")
+                        print('Member Id is',member_id_based_on_aka)
                         break
         
         if self.user_id_on_platform == helper_id:
