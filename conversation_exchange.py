@@ -325,7 +325,7 @@ class Exchange(object):
                         #Show the List of people, I am helping
                         print("List of helpees")
                     else:
-                        member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#",""))
+                        member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
                         hash_tag_cmd = platform_cmd.replace("#","")
                         print('Member Id is',member_id_based_on_aka)
                         break

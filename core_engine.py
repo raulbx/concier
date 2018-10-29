@@ -53,7 +53,7 @@ class Members(object):
 
 	def update_member_details(self,member_ref,user_details):
 		aka = user_details['first_name']+user_details['last_name'][0]
-		member_ref.update({'first_name':user_details['first_name'],'last_name':user_details['last_name'],'aka':aka})
+		member_ref.update({'first_name':user_details['first_name'],'last_name':user_details['last_name'],'aka':aka.lower()})
 		return True
 	
 	def add_conversation(self,member_ref):
