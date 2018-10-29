@@ -304,6 +304,7 @@ class Exchange(object):
         msg_frm_other_party = self.user_response
         member_needs_help = False
         member_id_based_on_aka = 0
+        hash_tag_cmd = '' 
 
         end_conversation = False
 
@@ -318,29 +319,30 @@ class Exchange(object):
                     break
                     #respond back to the person, who sent this message. Don't alter the payload['recipient']['id'] 
                     #Create two payloads. Send one to the admins and other to the sender.
-                else:
-                    if self.user_id_on_platform == helper_id:
-                        if platform_cmd =='helpees':
-                            #Show the List of people, I am helping
-                            print("List of helpees")
-                        else:
-                            member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#",""))
-                            if member_id_based_on_aka!=-1:
-                                # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
-                                payload['recipient']['id']  = member_id_based_on_aka
-                                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+msg_frm_other_party.replace(platform_cmd,'')
-                            else:
-                                #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
-                                alt_response='Unable to deliver the last message.\n\n'+platform_cmd+' is not in this conversation.'
-            else:
-                #there are no Platform commands.
-                if self.user_id_on_platform == helper_id:
-                    # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username. 
-                    payload['recipient']['id'] = helpee_id
-                    payload['message']['text'] = 'Unable to deliver the last message.\n\n Please include a #<Helpee Name>'
-                else:
-                    payload['recipient']['id'] = helper_id
-                    payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+':'+msg_frm_other_party
+                elif self.user_id_on_platform == helper_id:
+                    #All the other hash tag commands for helpers
+                    if platform_cmd =='#helpees':
+                        #Show the List of people, I am helping
+                        print("List of helpees")
+                    else:
+                        member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#",""))
+                        hash_tag_cmd = platform_cmd.replace("#","")
+                        break
+        
+        if self.user_id_on_platform == helper_id:
+            if member_id_based_on_aka!=-1:
+                # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
+                payload['recipient']['id']  = member_id_based_on_aka
+                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+self.user_response.replace(platform_cmd,'')
+            elif member_id_based_on_aka =-1:
+                #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
+                payload['message']['text']='Unable to deliver the last message.\n\n'+hash_tag_cmd+' is not in this conversation.'
+            elif member_id_based_on_aka =0:
+                payload['message']['text'] = 'Unable to deliver the last message.\n\n Please include a #<Helpee Name>'
+                # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
+        else:
+            payload['recipient']['id'] = helper_id
+            payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+':'+self.user_response
                     # this is helpee. Send the message to helper, with helpee's name
 
         '''
