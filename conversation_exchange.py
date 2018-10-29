@@ -345,7 +345,7 @@ class Exchange(object):
                 print("State 0")
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
             elif member_id_based_on_aka ==1:
-                payload['message']['text'] = "\n".join(active_aka_list)
+                payload['message']['text'] = 'You are in conversation with:\n'+"\n".join(active_aka_list)
                 payload['recipient']['id'] = helper_id
                 print("State 0")
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
