@@ -398,7 +398,7 @@ class Exchange(object):
             for customer_support in customer_support_list:
                 if customer_support.get().to_dict().get('fb_id') != self.user_id_on_platform:
                     requestForHelpPayload = {}
-                    requestForHelpPayload = response_payload.fb_payload('help_request_from_user',msg_frm_other_party,customer_support.get().to_dict().get('fb_id'),conversation_ref.get().id,requestForHelpPayload)
+                    requestForHelpPayload = response_payload.fb_payload('help_request_from_user',self.user_response,customer_support.get().to_dict().get('fb_id'),conversation_ref.get().id,requestForHelpPayload)
                     payloads.append(requestForHelpPayload)
             #send a message to user acknowledging the help request
             payload = response_payload.fb_payload('need_help','...',self.user_id_on_platform,conversation_ref.get().id,payload)
