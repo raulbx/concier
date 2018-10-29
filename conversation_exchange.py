@@ -358,7 +358,7 @@ class Exchange(object):
         else:
             payload['recipient']['id'] = helper_id
             #Helper needs to know, who is sending the message.
-            active_conv_partners_dict= conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('active_conv_partners').
+            active_conv_partners_dict= conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('active_conv_partners')
             member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
             print(member_short_id)
             payload['message']['text'] = member_short_id+':'+self.user_response
