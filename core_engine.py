@@ -229,7 +229,7 @@ class Members(object):
 		except Exception as e:
 			print(str(e))
 
-		print('This is the member List by type {} and list is {}'.format(member_type, member_ref_list))
+		print('This is the member List by type {} and list has {}'.format(member_type, member_ref_list))
 		return member_ref_list
 
 	def add_expertise(self,member_ref,member_expertise,platform_response):

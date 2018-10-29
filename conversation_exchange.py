@@ -331,7 +331,7 @@ class Exchange(object):
                                 payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+msg_frm_other_party.replace(platform_cmd,'')
                             else:
                                 #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
-                                alt_response='Unable to deliver the last message.\n\n'+member_aka+' is not in this conversation.'
+                                alt_response='Unable to deliver the last message.\n\n'+platform_cmd+' is not in this conversation.'
             else:
                 #there are no Platform commands.
                 if self.user_id_on_platform == helper_id:
