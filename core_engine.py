@@ -122,7 +122,7 @@ class Members(object):
 			#Check if a member with same aka is matched 
 			#aka_suffix= len(active_helpees_map)+1
 			dict_key = member_short_id +''+str(len(active_helpees_map)+1)
-			active_helpees_map[dict_key]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+			active_helpees_map[dict_key.lower()]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
 			member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
 			print('Assigned member to the conversation ID: {}'.format(conversation_ref.get().id))
 
