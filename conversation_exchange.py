@@ -323,7 +323,9 @@ class Exchange(object):
                     #All the other hash tag commands for helpers
                     if platform_cmd =='#helpees':
                         #Show the List of people, I am helping
-                        print("List of helpees")
+                        
+                        active_aka_list = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('member_aka_for_active_conv')
+                        print("List of helpees",active_aka_list)
                     else:
                         member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
                         hash_tag_cmd = platform_cmd

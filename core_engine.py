@@ -43,6 +43,7 @@ class Members(object):
 		'is_helpee':False,
 		'reward_balance':0,
 		'conversations':[], # Good idea is to store references in this array
+		'member_aka_for_active_conv':[],
 		#'expertise':['electronics','health'], # This is now stored in a different collection
 		'signupdate':datetime.datetime.now(),
 		'lastactivedate':datetime.datetime.now()
@@ -117,6 +118,10 @@ class Members(object):
 			conversations_array.append(conversation_ref)
 			member_ref.update({'conversations':conversations_array,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
 			print('Assigned member to the conversation ID: {}'.format(conversation_ref.get().id))
+
+		active_helpees_array = member_ref.get().get('member_aka_for_active_conv')
+		active_helpees_array.append(conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka'))
+		
 		return True
 
 	def log_message(self,member,conversation_ref,message):
