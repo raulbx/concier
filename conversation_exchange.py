@@ -388,10 +388,15 @@ class Exchange(object):
             end_conversation = True         
 
         if end_conversation:
+
             print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payload = self.request_review(payload,conversation_ref)
             counterPartyPayload= {}
+            if self.user_id_on_platform == helper_id:
+                recipient_id = helpee_id
+            else:
+                recipient_id = helper_id
             counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
