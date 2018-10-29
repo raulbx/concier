@@ -338,8 +338,10 @@ class Exchange(object):
             elif member_id_based_on_aka ==-1:
                 #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
                 payload['message']['text']='Unable to deliver the last message.\n\n'+hash_tag_cmd+' is not in this conversation.'
+                payload['recipient']['id'] = helper_id
             elif member_id_based_on_aka ==0:
                 payload['message']['text'] = 'Unable to deliver the last message.\n\n Please include a #<Helpee Name>'
+                payload['recipient']['id'] = helper_id
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
         else:
             payload['recipient']['id'] = helper_id
