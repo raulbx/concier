@@ -301,7 +301,7 @@ class Exchange(object):
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
-        msg_frm_other_party = self.user_response
+        #msg_frm_other_party = self.user_response
         member_needs_help = False
         member_id_based_on_aka = 0
         hash_tag_cmd = '' 
@@ -346,6 +346,7 @@ class Exchange(object):
             payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka')+':'+self.user_response
                     # this is helpee. Send the message to helper, with helpee's name
 
+        print("User payload is {}: ".format(payload))
         '''
         #Deternine if this is helper or helpee
         if self.user_id_on_platform == helper_id:
