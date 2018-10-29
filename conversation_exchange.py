@@ -343,7 +343,7 @@ class Exchange(object):
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
         else:
             payload['recipient']['id'] = helper_id
-            payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+':'+self.user_response
+            payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka')+':'+self.user_response
                     # this is helpee. Send the message to helper, with helpee's name
 
         '''
