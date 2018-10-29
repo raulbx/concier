@@ -405,9 +405,9 @@ class Exchange(object):
                     payloads.append(requestForHelpPayload)
             #send a message to user acknowledging the help request
             payload = response_payload.fb_payload('need_help','...',self.user_id_on_platform,conversation_ref.get().id,payload)
-            payloads.append(payload)
-            #print('Hitting here {}'.format(customer_support_list))
+            
         del payload['platform']
+        payloads.append(payload)
         print("User payload is {}: ".format(payloads))
         return payloads
 
