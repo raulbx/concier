@@ -331,18 +331,21 @@ class Exchange(object):
                         break
         
         if self.user_id_on_platform == helper_id:
-            if member_id_based_on_aka!=-1:
-                # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
-                payload['recipient']['id']  = member_id_based_on_aka
-                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+self.user_response.replace(platform_cmd,'')
-            elif member_id_based_on_aka ==-1:
+            if member_id_based_on_aka ==-1:
                 #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
                 payload['message']['text']='Unable to deliver the last message.\n\n'+hash_tag_cmd+' is not in this conversation.'
                 payload['recipient']['id'] = helper_id
+                print("State not equal to -1")
             elif member_id_based_on_aka ==0:
                 payload['message']['text'] = 'Unable to deliver the last message.\n\n Please include a #<Helpee Name>'
                 payload['recipient']['id'] = helper_id
+                print("State 0")
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
+            else:
+                # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
+                payload['recipient']['id']  = member_id_based_on_aka
+                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+self.user_response
+                print("State -1")
         else:
             payload['recipient']['id'] = helper_id
             payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka')+':'+self.user_response
