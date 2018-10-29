@@ -117,6 +117,7 @@ class Members(object):
 		else:
 			conversations_array.append(conversation_ref)
 			active_helpees_map = member_ref.get().get('active_conv_partners')
+			print("Active Helpees Map",active_helpees_map)
 			#active_helpees_map.append(conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka'))
 			member_short_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]
 			#Check if a member with same aka is matched 
