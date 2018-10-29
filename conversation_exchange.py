@@ -337,7 +337,7 @@ class Exchange(object):
         if self.user_id_on_platform == helper_id:
             if member_id_based_on_aka ==-1:
                 #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
-                payload['message']['text']='Unable to deliver the last message.\n\n You are not in conversation with ' +hash_tag_cmd.replace("#","")
+                payload['message']['text']='Unable to deliver the last message.\n\nYou are not in conversation with '+hash_tag_cmd.replace("#","")
                 payload['recipient']['id'] = helper_id
                 print("State not equal to -1")
             elif member_id_based_on_aka ==0:
@@ -354,11 +354,11 @@ class Exchange(object):
                 # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
                 payload['recipient']['id']  = member_id_based_on_aka
                 payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+self.user_response.replace(hash_tag_cmd,"")
-                print("State -1")
+                print("Sending it to right person")
         else:
             payload['recipient']['id'] = helper_id
             #Helper needs to know, who is sending the message.
-            active_conv_partners_dict= conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('active_conv_partners')
+            active_conv_partners_dict= conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners')
             member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
             print(member_short_id)
             payload['message']['text'] = member_short_id+':'+self.user_response
