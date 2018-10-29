@@ -351,7 +351,7 @@ class Exchange(object):
             payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka')+':'+self.user_response
                     # this is helpee. Send the message to helper, with helpee's name
 
-        print("User payload is {}: ".format(payload))
+        
         '''
         #Deternine if this is helper or helpee
         if self.user_id_on_platform == helper_id:
@@ -408,6 +408,7 @@ class Exchange(object):
             payloads.append(payload)
             #print('Hitting here {}'.format(customer_support_list))
         del payload['platform']
+        print("User payload is {}: ".format(payloads))
         return payloads
 
     def request_review(self,payload,conversation_ref):
