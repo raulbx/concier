@@ -301,7 +301,7 @@ class Exchange(object):
         # set the recipient ID for the counter party
         helpee_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
         helper_id = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('fb_id')
-        #msg_frm_other_party = self.user_response
+        msg_frm_other_party = self.user_response
         member_needs_help = False
         member_id_based_on_aka = 0
         hash_tag_cmd = '' 
@@ -327,13 +327,14 @@ class Exchange(object):
                     else:
                         member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
                         hash_tag_cmd = platform_cmd.replace("#","")
+                        msg_frm_other_party = platform_cmd.replace("#","")
                         print('Member Id is',member_id_based_on_aka)
                         break
         
         if self.user_id_on_platform == helper_id:
             if member_id_based_on_aka ==-1:
                 #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
-                payload['message']['text']='Unable to deliver the last message.\n\n'+hash_tag_cmd+' is not in this conversation.'
+                payload['message']['text']='Unable to deliver the last message.\n\n You are not in conversation with ' +hash_tag_cmd
                 payload['recipient']['id'] = helper_id
                 print("State not equal to -1")
             elif member_id_based_on_aka ==0:
@@ -344,7 +345,7 @@ class Exchange(object):
             else:
                 # Helper has sent a #tag command and we have found the user. Send this message to the person with the id
                 payload['recipient']['id']  = member_id_based_on_aka
-                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+self.user_response
+                payload['message']['text'] = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('first_name')+':'+msg_frm_other_party
                 print("State -1")
         else:
             payload['recipient']['id'] = helper_id
