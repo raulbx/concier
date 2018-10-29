@@ -323,8 +323,8 @@ class Exchange(object):
                     #All the other hash tag commands for helpers
                     if platform_cmd =='#helpees':
                         #Show the List of people, I am helping
-                        
                         active_aka_list = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('member_aka_for_active_conv')
+                        member_id_based_on_aka = 1
                         print("List of helpees",active_aka_list)
                     else:
                         member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
@@ -341,6 +341,11 @@ class Exchange(object):
                 print("State not equal to -1")
             elif member_id_based_on_aka ==0:
                 payload['message']['text'] = 'Unable to deliver the last message.\n\n Please include a #<Helpee Name>'
+                payload['recipient']['id'] = helper_id
+                print("State 0")
+                # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
+            elif member_id_based_on_aka ==1:
+                payload['message']['text'] = "\n".join(active_aka_list)
                 payload['recipient']['id'] = helper_id
                 print("State 0")
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
