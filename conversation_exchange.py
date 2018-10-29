@@ -323,11 +323,12 @@ class Exchange(object):
                     #All the other hash tag commands for helpers
                     if platform_cmd =='#helpees':
                         #Show the List of people, I am helping
-                        active_aka_list = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('member_aka_for_active_conv')
+                        active_conv_partners = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners')
                         member_id_based_on_aka = 1
-                        print("List of helpees",active_aka_list)
+                        print("List of helpees",active_conv_partners)
                     else:
-                        member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
+                        #member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
+                        member_id_based_on_aka = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners').get(platform_cmd.replace("#","").lower(),-1)
                         hash_tag_cmd = platform_cmd
                         #msg_frm_other_party= platform_cmd.replace("#","")
                         print('Member Id is',member_id_based_on_aka)
@@ -345,7 +346,7 @@ class Exchange(object):
                 print("State 0")
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
             elif member_id_based_on_aka ==1:
-                payload['message']['text'] = 'You are in conversation with:\n'+"\n".join(active_aka_list)
+                payload['message']['text'] = 'You are in conversation with:\n'+"\n".join(active_conv_partners.keys())
                 payload['recipient']['id'] = helper_id
                 print("State 0")
                 # this is Helper. Helper needs to define a #tag username. Ask helper to send the #tag username.
@@ -356,7 +357,11 @@ class Exchange(object):
                 print("State -1")
         else:
             payload['recipient']['id'] = helper_id
-            payload['message']['text'] = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka')+':'+self.user_response
+            #Helper needs to know, who is sending the message.
+            active_conv_partners_dict= conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('active_conv_partners').
+            member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
+            print(member_short_id)
+            payload['message']['text'] = member_short_id+':'+self.user_response
                     # this is helpee. Send the message to helper, with helpee's name
 
         

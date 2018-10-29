@@ -203,7 +203,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'record_product_understand_need':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Can you describe why you need this product?\n\nPlease share your product need in more than 10 characters.'
+        'text' : 'Can you describe why you need this product?'
         }
         payload['platform'] = {
         'action':'record_value_set_future_state',
@@ -213,7 +213,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'thank_user_broadcast_request':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thank you. Let me find a community member, who can help you make a decision. At any time, if you want to cancel this request, type #end.'
+        'text' : 'Thank you. Let me find an expert, who can help you make a decision. At any time, if you want to cancel this request, type #end.'
         }
         payload['platform'] = {
         'action':'record_need_and_broadcast_request',
@@ -341,7 +341,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state == 'something_else':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Please go ahead and share your query.'
+        'text' : 'Please go ahead and share your question or comment.'
         }
         payload['platform'] = {
         'action':'set_future_state',

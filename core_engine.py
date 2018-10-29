@@ -43,7 +43,7 @@ class Members(object):
 		'is_helpee':False,
 		'reward_balance':0,
 		'conversations':[], # Good idea is to store references in this array
-		'member_aka_for_active_conv':[],
+		'active_conv_partners':{},
 		#'expertise':['electronics','health'], # This is now stored in a different collection
 		'signupdate':datetime.datetime.now(),
 		'lastactivedate':datetime.datetime.now()
@@ -53,8 +53,8 @@ class Members(object):
 		return db.collection(u'members').add(member_data)
 
 	def update_member_details(self,member_ref,user_details):
-		aka = user_details['first_name']+user_details['last_name'][0]
-		member_ref.update({'first_name':user_details['first_name'],'last_name':user_details['last_name'],'aka':aka.lower()})
+		#aka = user_details['first_name']+user_details['last_name'][0]
+		member_ref.update({'first_name':user_details['first_name'],'last_name':user_details['last_name']})
 		return True
 	
 	def add_conversation(self,member_ref):
@@ -116,12 +116,17 @@ class Members(object):
 			print('Member already added to the conversation')
 		else:
 			conversations_array.append(conversation_ref)
-			active_helpees_array = member_ref.get().get('member_aka_for_active_conv')
-			active_helpees_array.append(conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka'))
-			member_ref.update({'conversations':conversations_array,'member_aka_for_active_conv':active_helpees_array,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
+			active_helpees_map = member_ref.get().get('active_conv_partners')
+			#active_helpees_map.append(conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka'))
+			member_short_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]
+			#Check if a member with same aka is matched 
+			#aka_suffix= len(active_helpees_map)+1
+			dict_key = member_short_id +''+(len(active_helpees_map)+1)
+			active_helpees_map[dict_key]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+			member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
 			print('Assigned member to the conversation ID: {}'.format(conversation_ref.get().id))
 
-		#member_ref.update({'member_aka_for_active_conv':active_helpees_array})
+		#member_ref.update({'active_conv_partners':active_helpees_array})
 		return True
 
 	def log_message(self,member,conversation_ref,message):
