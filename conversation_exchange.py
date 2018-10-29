@@ -404,6 +404,7 @@ class Exchange(object):
             payload = response_payload.fb_payload('need_help','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payloads.append(payload)
             #print('Hitting here {}'.format(customer_support_list))
+        del payload['platform']
         return payloads
 
     def request_review(self,payload,conversation_ref):
