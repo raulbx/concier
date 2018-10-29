@@ -248,7 +248,21 @@ class Exchange(object):
     def assign_helper(self,payload,conversation_ref):
         #Assign this conversation to this expert.
         member_ref = self.core_engine_obj.get_member()
-        self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
+        #self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
+        ### Add to active conversation partner Map
+        conversations_array = member_ref.get().get('conversations')
+        if conversation_ref in conversations_array:
+            #Don't do anything.Member is already added to the conversation
+            print('Member already added to the conversation')
+        else:
+            conversations_array.append(conversation_ref)
+            active_helpees_map = member_ref.get().get('active_conv_partners')
+            print("Active Helpees Map",active_helpees_map)
+            member_short_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]
+            dict_key = member_short_id +''+str(len(active_helpees_map)+1)
+            active_helpees_map[dict_key.lower()]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+            member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
+        ####
         conversation_ref.update({'helper_ref':member_ref})
         product_Name = conversation_ref.get().to_dict().get('product')
         payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(arg1=product_Name)

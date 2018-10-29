@@ -116,15 +116,7 @@ class Members(object):
 			print('Member already added to the conversation')
 		else:
 			conversations_array.append(conversation_ref)
-			active_helpees_map = member_ref.get().get('active_conv_partners')
-			print("Active Helpees Map",active_helpees_map)
-			#active_helpees_map.append(conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('aka'))
-			member_short_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]
-			#Check if a member with same aka is matched 
-			#aka_suffix= len(active_helpees_map)+1
-			dict_key = member_short_id +''+str(len(active_helpees_map)+1)
-			active_helpees_map[dict_key.lower()]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-			member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
+			member_ref.update({'conversations':conversations_array,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
 			print('Assigned member to the conversation ID: {}'.format(conversation_ref.get().id))
 
 		#member_ref.update({'active_conv_partners':active_helpees_array})
