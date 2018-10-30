@@ -200,7 +200,7 @@ class Members(object):
 
 		db = firestore.client()
 		expertise_refs = db.collection("members").where("is_super_expert", "==", True).get()
-		print('Getting the expertise ref for super expertise: '.format(expertise_refs))
+		#print('Getting the expertise ref for super expertise: '.format(expertise_refs))
 
 		try:
 			for expertise_snapshot in expertise_refs:
@@ -261,16 +261,6 @@ class Members(object):
 		member_ref.update({'is_helper':True})
 		platform_response = Template(platform_response).safe_substitute(arg1=member_expertise)
 		return platform_response
-
-	def get_member_by_aka(self,member_aka):
-		member_fb_id = -1 #Handle the condition if there is no one with this aka
-		db = firestore.client()
-		query_refs = db.collection("members").where(u'aka', u'==',member_aka).get()
-
-		for member_snapshot in query_refs:
-			member_fb_id=member_snapshot.to_dict().get('fb_id')
-
-		return member_fb_id
 
 class Platform(object):
 	#cred = credentials.Certificate(ast.literal_eval(os.environ["FIREBASE_CONFIG"]))

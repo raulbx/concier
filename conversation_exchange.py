@@ -342,7 +342,6 @@ class Exchange(object):
                         member_id_based_on_aka = 1
                         print("List of helpees",active_conv_partners)
                     else:
-                        #member_id_based_on_aka = self.core_engine_obj.get_member_by_aka(platform_cmd.replace("#","").lower())
                         member_id_based_on_aka = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners').get(platform_cmd.replace("#","").lower(),-1)
                         hash_tag_cmd = platform_cmd
                         #msg_frm_other_party= platform_cmd.replace("#","")
@@ -352,7 +351,7 @@ class Exchange(object):
         if self.user_id_on_platform == helper_id:
             if member_id_based_on_aka ==-1:
                 #Let the helper know that the user with this #tag doesn't exist. Don't alter the payload['recipient']['id'] 
-                payload['message']['text']='Unable to deliver the last message.\n\nYou are not in conversation with '+hash_tag_cmd.replace("#","")
+                payload['message']['text']='Unable to deliver the last message.\n\nYou are not in conversation with '+hash_tag_cmd.replace("#","")+'.'
                 payload['recipient']['id'] = helper_id
                 print("State not equal to -1")
             elif member_id_based_on_aka ==0:
@@ -416,7 +415,7 @@ class Exchange(object):
 
         if end_conversation:
 
-            print('User has asked to end the conversation or the it has run out of time {}'.format(conversation_duration_hours))
+            print('User has asked to end the conversation or it has been been more 12 hours for this conversation{}'.format(conversation_duration_hours))
             payload = response_payload.fb_payload('conversation_ended_request_review','...',self.user_id_on_platform,conversation_ref.get().id,payload)
             payload = self.request_review(payload,conversation_ref)
             counterPartyPayload= {}
@@ -424,6 +423,12 @@ class Exchange(object):
                 recipient_id = helpee_id
             else:
                 recipient_id = helper_id
+            #we need to remove the entry for this helpee member from the active conversation list with helper
+            active_conv_partners_dict= conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners')
+            member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
+
+            popCheck = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners').pop(member_short_id, None)
+            print ('Popped the key {}'.format(popCheck))
             counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)

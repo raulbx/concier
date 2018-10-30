@@ -589,7 +589,7 @@ def fb_payload(conversation_state,response,recipient_id,conversation_id,payload)
     elif conversation_state =='need_help':
         payload['notification_type'] = 'REGULAR'
         payload['message'] = {
-        'text' : 'Thanks for reaching out. One of our concier will be with you shortly.\n\nYour conversation with the helper is active. #help messsages are not shared with the helper. You can end the conversation anytime with #end. '
+        'text' : 'Thank you for reaching out. One of our concier will be with you shortly.\n\nYour conversation with the expert is active. #help messsages are not shared with the helper. \n\nYou can continue to interact with the expert. You can end the conversation anytime with #end. '
         }
     elif conversation_state =='help_request_from_user':
         payload['notification_type'] = 'REGULAR'
