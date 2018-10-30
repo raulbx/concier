@@ -427,8 +427,10 @@ class Exchange(object):
             active_conv_partners_dict= conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners')
             member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
 
-            popCheck = conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners').pop(member_short_id, None)
-            print ('Popped the key {}'.format(popCheck))
+            popCheck = active_conv_partners_dict.pop(member_short_id, None)
+            conversation_ref.get().to_dict().get('helper_ref').update({'active_conv_partners':active_conv_partners_dict})
+
+            print ('Popped the value {}'.format(popCheck))
             counterPartyPayload = response_payload.fb_payload('conversation_ended_request_review','...',recipient_id,conversation_ref.get().id,counterPartyPayload)
             counterPartyPayload['message']['attachment']['payload']['text']='The other user has ended the conversation. Was this experience helpful?'
             payloads.append(counterPartyPayload)
