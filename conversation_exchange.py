@@ -261,7 +261,7 @@ class Exchange(object):
             member_short_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]
             dict_key = member_short_id +''+str(len(active_helpees_map)+1)
             active_helpees_map[dict_key.lower()]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
-            member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.datetime.now()}, firestore.CreateIfMissingOption(True))
+            member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.now()}, firestore.CreateIfMissingOption(True))
         ####
         conversation_ref.update({'helper_ref':member_ref})
         product_Name = conversation_ref.get().to_dict().get('product')
