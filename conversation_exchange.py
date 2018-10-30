@@ -251,6 +251,7 @@ class Exchange(object):
         #self.core_engine_obj.append_conversation_ref(member_ref,conversation_ref)
         ### Add to active conversation partner Map
         conversations_array = member_ref.get().get('conversations')
+        member_short_id = ''
         if conversation_ref in conversations_array:
             #Don't do anything.Member is already added to the conversation
             print('Member already added to the conversation')
