@@ -373,7 +373,7 @@ class Exchange(object):
             payload['recipient']['id'] = helper_id
             #Helper needs to know, who is sending the message.
             active_conv_partners_dict= conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners')
-            member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
+            member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(helpee_id)]
             print(member_short_id)
             payload['message']['text'] = member_short_id+':'+self.user_response
                     # this is helpee. Send the message to helper, with helpee's name
@@ -425,7 +425,7 @@ class Exchange(object):
                 recipient_id = helper_id
             #we need to remove the entry for this helpee member from the active conversation list with helper
             active_conv_partners_dict= conversation_ref.get().to_dict().get('helper_ref').get().to_dict().get('active_conv_partners')
-            member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(self.user_id_on_platform)]
+            member_short_id = list(active_conv_partners_dict.keys())[list(active_conv_partners_dict.values()).index(helpee_id)]
 
             popCheck = active_conv_partners_dict.pop(member_short_id, None)
             conversation_ref.get().to_dict().get('helper_ref').update({'active_conv_partners':active_conv_partners_dict})
