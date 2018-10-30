@@ -259,9 +259,9 @@ class Exchange(object):
             conversations_array.append(conversation_ref)
             active_helpees_map = member_ref.get().get('active_conv_partners')
             print("Active Helpees Map",active_helpees_map)
-            member_short_id = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]
-            dict_key = member_short_id +''+str(len(active_helpees_map)+1)
-            active_helpees_map[dict_key.lower()]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
+            member_short_id = (conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')+conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('last_name')[0]+''+str(len(active_helpees_map)+1)).lower()
+            #dict_key = member_short_id 
+            active_helpees_map[member_short_id]=conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('fb_id')
             member_ref.update({'conversations':conversations_array,'active_conv_partners':active_helpees_map,'lastactivedate':datetime.now()}, firestore.CreateIfMissingOption(True))
         ####
         conversation_ref.update({'helper_ref':member_ref})
