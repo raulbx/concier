@@ -271,7 +271,7 @@ class Exchange(object):
         if payload['platform'].get('helpee_next_state'):
             conversation_ref.update({'helpee_state':payload['platform'].get('helpee_next_state')})
         #del payload['platform']
-        return payload
+        return member_short_id
 
     def connect_expert_to_user(self,payload,conversation_ref):
         payloads = []
@@ -284,9 +284,9 @@ class Exchange(object):
         helpee_Name = conversation_ref.get().to_dict().get('helpee_ref').get().to_dict().get('first_name')
         helper_Name = member_ref.get().to_dict().get('first_name')
 
-        self.assign_helper(payload,conversation_ref)
+        member_short_id = self.assign_helper(payload,conversation_ref)
 
-        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(helpee_arg1=helpee_Name)
+        payload['message']['text'] = Template(payload['message'].get('text')).safe_substitute(helpee_arg1=helpee_Name+' ('+member_short_id+')')
         payloads.append(payload)
 
         product_bought = conversation_ref.get().to_dict().get('expert_what_product_bought')
