@@ -1,3 +1,8 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
 bin
 include
 lib
@@ -5,3 +10,4 @@ pip-selfcheck.json
 pyvenv.cfg
 .DS_Store
 Concier-dcb1fb05556d.json
+
